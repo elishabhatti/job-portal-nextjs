@@ -3,20 +3,13 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Eye, EyeOff, Lock, Mail, User, UserCheck } from "lucide-react";
+import { Eye, EyeOff, Lock, Mail, UserCheck } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -57,7 +50,9 @@ const Login: React.FC = () => {
             <UserCheck className="w-8 h-8 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl">Join Our Job Portal</CardTitle>
-          <CardDescription>Login to your account to get started</CardDescription>
+          <CardDescription>
+            Login to your account to get started
+          </CardDescription>
         </CardHeader>
 
         <CardContent>
