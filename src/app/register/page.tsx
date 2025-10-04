@@ -1,5 +1,6 @@
-"use client"
+"use client";
 import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
 
 interface RegistrationFormData {
   name: string;
@@ -22,7 +23,11 @@ const Registration: React.FC = () => {
 
   return (
     <div>
-      <h1>TS</h1>
+      <form>
+        <div>
+          <Input type="text" placeholder="Username" />
+        </div>
+      </form>
     </div>
   );
 };
