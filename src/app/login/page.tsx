@@ -26,7 +26,6 @@ const Login: React.FC = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleInputChange = (name: string, value: string) => {
     setFormData((prev) => ({
