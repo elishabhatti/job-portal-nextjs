@@ -49,9 +49,6 @@ const Registration: React.FC = () => {
       [name]: value,
     }));
   };
-
-  console.log(formData);
-
   const handleSubmit = (e: FormEvent) => {
     try {
     } catch (error) {}
