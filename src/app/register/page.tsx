@@ -50,6 +50,7 @@ const Registration: React.FC = () => {
       [name]: value,
     }));
   };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const registrationData = {
@@ -61,6 +62,17 @@ const Registration: React.FC = () => {
     };
 
     try {
+      if (formData.password !== formData.confirmPassword) {
+        setFormData({
+          name: "",
+          userName: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          role: "applicant",
+        });
+        return alert("Passwords do not match");
+      }
       await registrationAction(registrationData);
       setFormData({
         name: "",
