@@ -50,7 +50,17 @@ const Registration: React.FC = () => {
       [name]: value,
     }));
   };
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const registrationData = {
+      name: formData.name.trim(),
+      userName: formData.userName.trim(),
+      email: formData.email.trim(),
+      password: formData.password,
+      role: formData.role,
+    };
+    await registrationAction(registrationData);
+
     try {
     } catch (error) {}
   };
@@ -132,7 +142,7 @@ const Registration: React.FC = () => {
             <div className="space-y-2 w-full">
               <Label htmlFor="role">I am a *</Label>
               <Select
-              name="role"
+                name="role"
                 value={formData.role}
                 onValueChange={(value: "applicant" | "employer") =>
                   handleInputChange("role", value)
