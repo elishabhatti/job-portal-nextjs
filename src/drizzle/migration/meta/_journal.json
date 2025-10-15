@@ -8,6 +8,13 @@
       "when": 1759673654335,
       "tag": "0000_majestic_marten_broadcloak",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1760515793316,
+      "tag": "0001_pale_mad_thinker",
+      "breakpoints": true
     }
   ]
 }
