@@ -11,5 +11,5 @@ export const registrationAction = async (data: {
   role: "applicant" | "employer";
 }) => {
   const { name, userName, email, password, role } = data;
-  await db.insert(users).values(data)
+  await db.insert(users).values({ name, userName, email, password, role });
 };
