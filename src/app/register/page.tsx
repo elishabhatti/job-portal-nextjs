@@ -59,10 +59,12 @@ const Registration: React.FC = () => {
       password: formData.password,
       role: formData.role,
     };
-    await registrationAction(registrationData);
 
     try {
-    } catch (error) {}
+      await registrationAction(registrationData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -77,7 +79,7 @@ const Registration: React.FC = () => {
         </CardHeader>
 
         <CardContent>
-          <form action={registrationAction} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="name">Full Name *</Label>
