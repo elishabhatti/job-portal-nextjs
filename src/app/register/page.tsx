@@ -62,6 +62,14 @@ const Registration: React.FC = () => {
 
     try {
       await registrationAction(registrationData);
+      setFormData({
+        name: "",
+        userName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "applicant",
+      });
     } catch (error) {
       console.error(error);
     }
