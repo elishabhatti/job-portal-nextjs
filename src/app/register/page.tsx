@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { registrationAction } from "./registrationAction.action";
+import { toast } from "sonner";
 
 interface RegistrationFormData {
   name: string;
@@ -74,6 +75,13 @@ const Registration: React.FC = () => {
         return alert("Passwords do not match");
       }
       await registrationAction(registrationData);
+
+      const result = await registrationAction(registrationData);
+      if (result.status === "SUCCESS") {
+        toast.success(result.message);
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
       setFormData({
         name: "",
         userName: "",
