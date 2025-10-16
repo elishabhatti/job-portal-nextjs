@@ -11,9 +11,22 @@ export const registrationAction = async (data: {
   password: string;
   role: "applicant" | "employer";
 }) => {
-  const { name, userName, email, password, role } = data;
-  const hashPassword = await argon2.hash(password);
-  await db
-    .insert(users)
-    .values({ name, userName, email, password: hashPassword, role });
+  try {
+    const { name, userName, email, password, role } = data;
+    const hashPassword = await argon2.hash(password);
+    await db
+      .insert(users)
+      .values({ name, userName, email, password: hashPassword, role });
+
+    return {
+      status: "SUCCESS",
+      message: "Registration Completed successfully",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "ERROR",
+      message: "Registration Completed successfully",
+    };
+  }
 };
