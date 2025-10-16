@@ -26,7 +26,7 @@ export const registrationAction = async (data: {
     console.error(error);
     return {
       status: "ERROR",
-      message: "Registration Completed successfully",
+      message: "Registration failed. Please try again.",
     };
   }
 };

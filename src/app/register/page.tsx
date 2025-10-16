@@ -74,9 +74,9 @@ const Registration: React.FC = () => {
         });
         return toast.error("Passwords do not match");
       }
-      await registrationAction(registrationData);
 
       const result = await registrationAction(registrationData);
+      
       if (result.status === "SUCCESS") {
         toast.success(result.message);
       } else {
@@ -118,7 +118,6 @@ const Registration: React.FC = () => {
                   name="name"
                   type="text"
                   placeholder="Enter your full name"
-                  required
                   value={formData.name}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange("name", e.target.value)
@@ -138,7 +137,6 @@ const Registration: React.FC = () => {
                   name="userName"
                   type="text"
                   placeholder="Choose a username"
-                  required
                   value={formData.userName}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange("userName", e.target.value)
@@ -158,7 +156,6 @@ const Registration: React.FC = () => {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  required
                   value={formData.email}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange("email", e.target.value)
@@ -198,7 +195,6 @@ const Registration: React.FC = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
-                  required
                   value={formData.password}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange("password", e.target.value)
@@ -232,7 +228,6 @@ const Registration: React.FC = () => {
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
-                  required
                   value={formData.confirmPassword}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     handleInputChange("confirmPassword", e.target.value)
