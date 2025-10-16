@@ -72,7 +72,7 @@ const Registration: React.FC = () => {
           confirmPassword: "",
           role: "applicant",
         });
-        return alert("Passwords do not match");
+        return toast.error("Passwords do not match");
       }
       await registrationAction(registrationData);
 
