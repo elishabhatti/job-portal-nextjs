@@ -38,6 +38,10 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     try {
+      const LoginData = {
+        email: formData.email.toLocaleLowerCase().trim(),
+        password: formData.password,
+      };
     } catch (error) {}
   };
 
