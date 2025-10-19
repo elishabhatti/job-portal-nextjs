@@ -62,7 +62,7 @@ export const loginUserAction = async (data: LoginData) => {
       return { status: "ERROR", message: "Email Already Exists" };
     }
 
-    const isValidPassword = await argon2.verify(password, user.password)
+    const isValidPassword = await argon2.verify(user.password, password)
   } catch (error) {
     console.error(error);
     return {

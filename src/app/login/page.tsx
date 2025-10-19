@@ -13,6 +13,7 @@ import { Eye, EyeOff, Lock, Mail, UserCheck } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { loginUserAction } from "../features/auth/server/auth.action";
 
 interface LoginFormData {
   email: string;
