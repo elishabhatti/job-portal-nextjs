@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { loginUserAction } from "../features/auth/server/auth.action";
+import { toast } from "sonner";
 
 interface LoginFormData {
   email: string;
@@ -37,15 +38,27 @@ const Login: React.FC = () => {
 
   console.log(formData);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     try {
       const LoginData = {
         email: formData.email.toLocaleLowerCase().trim(),
         password: formData.password,
       };
 
-      await loginUserAction(LoginData)
-    } catch (error) {}
+      const result = await loginUserAction(LoginData);
+
+      if (result.status === "SUCCESS") {
+        toast.success(result.message);
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
+      setFormData({
+        email: "",
+        password: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

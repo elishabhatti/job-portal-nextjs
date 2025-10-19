@@ -69,6 +69,11 @@ export const loginUserAction = async (data: LoginData) => {
         message: "Invalid Email or Password.",
       };
     }
+
+    return {
+      status: "SUCCESS",
+      message: "Login Completed successfully",
+    };
   } catch (error) {
     console.error(error);
     return {
