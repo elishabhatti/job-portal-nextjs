@@ -59,10 +59,16 @@ export const loginUserAction = async (data: LoginData) => {
     const [user] = await db.select().from(users).where(eq(users.email, email));
 
     if (!user) {
-      return { status: "ERROR", message: "Email Already Exists" };
+      return { status: "ERROR", message: "Invalid Email or Password." };
     }
 
-    const isValidPassword = await argon2.verify(user.password, password)
+    const isValidPassword = await argon2.verify(user.password, password);
+    if (!isValidPassword) {
+      return {
+        status: "ERROR",
+        message: "Invalid Email or Password.",
+      };
+    }
   } catch (error) {
     console.error(error);
     return {
