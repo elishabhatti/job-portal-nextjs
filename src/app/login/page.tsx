@@ -51,8 +51,9 @@ const Login: React.FC = () => {
       if (result.status === "SUCCESS") {
         toast.success(result.message);
       } else {
-        toast.error("Registration failed. Please try again.");
+        toast.error("Login failed. Please try again.");
       }
+      
       setFormData({
         email: "",
         password: "",
