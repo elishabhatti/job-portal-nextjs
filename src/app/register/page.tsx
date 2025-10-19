@@ -57,7 +57,7 @@ const Registration: React.FC = () => {
     const registrationData = {
       name: formData.name.trim(),
       userName: formData.userName.trim(),
-      email: formData.email.trim(),
+      email: formData.email.toLocaleLowerCase().trim(),
       password: formData.password,
       role: formData.role,
     };
