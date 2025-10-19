@@ -42,6 +42,8 @@ const Login: React.FC = () => {
         email: formData.email.toLocaleLowerCase().trim(),
         password: formData.password,
       };
+
+      await loginUserAction(LoginData)
     } catch (error) {}
   };
 

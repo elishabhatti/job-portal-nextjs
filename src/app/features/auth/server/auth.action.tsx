@@ -47,3 +47,27 @@ export const registrationAction = async (data: {
     };
   }
 };
+
+type LoginData = {
+  email: string;
+  password: string;
+};
+
+export const loginUserAction = async (data: LoginData) => {
+  try {
+    const { email, password } = data;
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+
+    if (!user) {
+      return { status: "ERROR", message: "Email Already Exists" };
+    }
+
+    const isValidPassword = await argon2.verify(password, user.password)
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "ERROR",
+      message: "Login failed. Please try again.",
+    };
+  }
+};
