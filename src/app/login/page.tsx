@@ -39,6 +39,7 @@ const Login: React.FC = () => {
   console.log(formData);
 
   const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       const LoginData = {
         email: formData.email.toLocaleLowerCase().trim(),
