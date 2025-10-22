@@ -4,6 +4,7 @@ import { db } from "@/config/db";
 import { users } from "@/drizzle/schema";
 import argon2 from "argon2";
 import { eq, or } from "drizzle-orm";
+import { registerUserSchema } from "../auth.schema";
 
 export const registrationAction = async (data: {
   name: string;
@@ -13,6 +14,7 @@ export const registrationAction = async (data: {
   role: "applicant" | "employer";
 }) => {
   try {
+    const { data: validatedData, error } = registerUserSchema.safeParse(data);
     const { name, userName, email, password, role } = data;
 
     const [user] = await db
