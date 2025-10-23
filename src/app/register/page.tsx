@@ -116,9 +116,16 @@ const Registration: React.FC = () => {
                   type="email"
                   placeholder="Enter your email"
                   {...register("email")}
-                  className={`pl-10 `}
+                  className={`pl-10 ${
+                    errors.email ? "border-destructive" : ""
+                  }`}
                 />
               </div>
+              {errors.email && (
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Role Selection */}
