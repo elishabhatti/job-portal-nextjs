@@ -74,9 +74,14 @@ const Registration: React.FC = () => {
                   type="text"
                   placeholder="Enter your full name"
                   {...register("name")}
-                  className={`pl-10 `}
+                  className={`pl-10 ${errors.name ? "border-destructive" : ""}`}
                 />
               </div>
+              {errors.name && (
+                <p className="text-sm text-destructive">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
 
             {/* Username Field */}
@@ -89,7 +94,9 @@ const Registration: React.FC = () => {
                   type="text"
                   placeholder="Choose a username"
                   {...register("userName")}
-                  className={`pl-10 `}
+                  className={`pl-10 ${
+                    errors.userName ? "border-destructive" : ""
+                  }`}
                 />
               </div>
               {errors.userName && (
