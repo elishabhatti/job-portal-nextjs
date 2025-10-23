@@ -140,6 +140,11 @@ const Registration: React.FC = () => {
                   <SelectItem value="employer">Employer</SelectItem>
                 </SelectContent>
               </Select>
+               {errors.role && (
+                <p className="text-sm text-destructive">
+                  {errors.role.message}
+                </p>
+              )}
             </div>
 
             {/* Password Field */}
