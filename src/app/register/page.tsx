@@ -23,18 +23,19 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { registrationAction } from "../features/auth/server/auth.action";
 import { useForm } from "react-hook-form";
+import { registerUserWithConfirmSchema } from "../features/auth/auth.schema";
 
 const Registration: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const { register, handleSubmit } = useForm<IFormInput>()
+    const { register, handleSubmit  } = useForm<>({
+      resolver: zodResolver(registerUserWithConfirmSchema)
+    })
 
-  const handleSubmit = async (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    };
-
-
-      const result = await registrationAction(registrationData);
+  
+    const result = await registrationAction(registrationData);
 
       if (result.status === "SUCCESS") {
         toast.success(result.message);
@@ -49,10 +50,11 @@ const Registration: React.FC = () => {
         confirmPassword: "",
         role: "applicant",
       });
+    };
   };
-
-  return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
@@ -63,7 +65,7 @@ const Registration: React.FC = () => {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Name Field */}
             <div className="space-y-2">
               <Label htmlFor="name">Full Name *</Label>
@@ -71,10 +73,9 @@ const Registration: React.FC = () => {
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="name"
-                  name="name"
                   type="text"
                   placeholder="Enter your full name"
-                  {...register("firstName")}
+                  {...register("name")}
                   className={`pl-10 `}
                 />
               </div>
@@ -87,9 +88,9 @@ const Registration: React.FC = () => {
                 <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="userName"
-                  name="userName"
                   type="text"
                   placeholder="Choose a username"
+                  {...register("userName")}
                   className={`pl-10 `}
                 />
               </div>
@@ -102,9 +103,9 @@ const Registration: React.FC = () => {
                 <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="email"
-                  name="email"
                   type="email"
                   placeholder="Enter your email"
+                                    {...register("email")}
                   className={`pl-10 `}
                 />
               </div>
@@ -114,7 +115,7 @@ const Registration: React.FC = () => {
             <div className="space-y-2 w-full">
               <Label htmlFor="role">I am a *</Label>
               <Select
-                name="role"
+                                    {...register("role")}
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select your role" />
@@ -133,7 +134,8 @@ const Registration: React.FC = () => {
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
-                  name="password"
+                                    {...register("password")}
+
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   className={`pl-10 pr-10 `}
@@ -162,7 +164,8 @@ const Registration: React.FC = () => {
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="confirmPassword"
-                  name="confirmPassword"
+                                    {...register("confirmPassword")}
+
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
                   className={`pl-10 pr-10 `}
