@@ -22,61 +22,20 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import { registrationAction } from "../features/auth/server/auth.action";
-
-interface RegistrationFormData {
-  name: string;
-  userName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  role: "applicant" | "employer";
-}
+import { useForm } from "react-hook-form";
 
 const Registration: React.FC = () => {
-  const [formData, setFormData] = useState<RegistrationFormData>({
-    name: "",
-    userName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    role: "applicant",
-  });
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    const { register, handleSubmit } = useForm<IFormInput>()
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const registrationData = {
-      name: formData.name.trim(),
-      userName: formData.userName.trim(),
-      email: formData.email.toLocaleLowerCase().trim(),
-      password: formData.password,
-      role: formData.role,
     };
 
-    try {
-      if (formData.password !== formData.confirmPassword) {
-        setFormData({
-          name: "",
-          userName: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          role: "applicant",
-        });
-        return toast.error("Passwords do not match");
-      }
 
       const result = await registrationAction(registrationData);
-      
+
       if (result.status === "SUCCESS") {
         toast.success(result.message);
       } else {
@@ -90,9 +49,6 @@ const Registration: React.FC = () => {
         confirmPassword: "",
         role: "applicant",
       });
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (
@@ -118,10 +74,7 @@ const Registration: React.FC = () => {
                   name="name"
                   type="text"
                   placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("name", e.target.value)
-                  }
+                  {...register("firstName")}
                   className={`pl-10 `}
                 />
               </div>
@@ -137,10 +90,6 @@ const Registration: React.FC = () => {
                   name="userName"
                   type="text"
                   placeholder="Choose a username"
-                  value={formData.userName}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("userName", e.target.value)
-                  }
                   className={`pl-10 `}
                 />
               </div>
@@ -156,10 +105,6 @@ const Registration: React.FC = () => {
                   name="email"
                   type="email"
                   placeholder="Enter your email"
-                  value={formData.email}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("email", e.target.value)
-                  }
                   className={`pl-10 `}
                 />
               </div>
@@ -170,10 +115,6 @@ const Registration: React.FC = () => {
               <Label htmlFor="role">I am a *</Label>
               <Select
                 name="role"
-                value={formData.role}
-                onValueChange={(value: "applicant" | "employer") =>
-                  handleInputChange("role", value)
-                }
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select your role" />
@@ -195,10 +136,6 @@ const Registration: React.FC = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
-                  value={formData.password}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("password", e.target.value)
-                  }
                   className={`pl-10 pr-10 `}
                 />
 
@@ -228,10 +165,6 @@ const Registration: React.FC = () => {
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
-                  value={formData.confirmPassword}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("confirmPassword", e.target.value)
-                  }
                   className={`pl-10 pr-10 `}
                 />
                 <Button
