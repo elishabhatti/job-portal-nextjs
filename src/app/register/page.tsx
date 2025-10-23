@@ -23,38 +23,32 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { registrationAction } from "../features/auth/server/auth.action";
 import { useForm } from "react-hook-form";
-import { registerUserWithConfirmSchema } from "../features/auth/auth.schema";
+import {
+  RegisterUserWithConfirmData,
+  registerUserWithConfirmSchema,
+} from "../features/auth/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Registration: React.FC = () => {
+  const { register, handleSubmit } = useForm({
+    resolver: zodResolver(registerUserWithConfirmSchema),
+  });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const { register, handleSubmit  } = useForm<>({
-      resolver: zodResolver(registerUserWithConfirmSchema)
-    })
 
-  const onSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-  
-    const result = await registrationAction(registrationData);
+  const onSubmit = async (data: RegisterUserWithConfirmData) => {
+    const result = await registrationAction(data);
 
-      if (result.status === "SUCCESS") {
-        toast.success(result.message);
-      } else {
-        toast.error("Registration failed. Please try again.");
-      }
-      setFormData({
-        name: "",
-        userName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        role: "applicant",
-      });
-    };
+    if (result.status === "SUCCESS") {
+      toast.success(result.message);
+    } else {
+      toast.error("Registration failed. Please try again.");
+    }
   };
-    
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+
+  return (
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
@@ -105,7 +99,7 @@ const Registration: React.FC = () => {
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                                    {...register("email")}
+                  {...register("email")}
                   className={`pl-10 `}
                 />
               </div>
@@ -114,9 +108,7 @@ const Registration: React.FC = () => {
             {/* Role Selection */}
             <div className="space-y-2 w-full">
               <Label htmlFor="role">I am a *</Label>
-              <Select
-                                    {...register("role")}
-              >
+              <Select {...register("role")}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
@@ -134,8 +126,7 @@ const Registration: React.FC = () => {
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="password"
-                                    {...register("password")}
-
+                  {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   className={`pl-10 pr-10 `}
@@ -164,8 +155,7 @@ const Registration: React.FC = () => {
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   id="confirmPassword"
-                                    {...register("confirmPassword")}
-
+                  {...register("confirmPassword")}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
                   className={`pl-10 pr-10 `}
