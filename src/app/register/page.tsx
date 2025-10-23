@@ -140,7 +140,7 @@ const Registration: React.FC = () => {
                   <SelectItem value="employer">Employer</SelectItem>
                 </SelectContent>
               </Select>
-               {errors.role && (
+              {errors.role && (
                 <p className="text-sm text-destructive">
                   {errors.role.message}
                 </p>
@@ -157,7 +157,9 @@ const Registration: React.FC = () => {
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
-                  className={`pl-10 pr-10 `}
+                  className={`pl-10 pr-10 ${
+                    errors.password ? "border-destructive" : ""
+                  }`}
                 />
 
                 <Button
@@ -174,6 +176,11 @@ const Registration: React.FC = () => {
                   )}
                 </Button>
               </div>
+              {errors.password && (
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Confirm Password Field */}
@@ -186,7 +193,9 @@ const Registration: React.FC = () => {
                   {...register("confirmPassword")}
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
-                  className={`pl-10 pr-10 `}
+                  className={`pl-10 ${
+                    errors.confirmPassword ? "border-destructive" : ""
+                  }`}
                 />
                 <Button
                   type="button"
@@ -202,6 +211,11 @@ const Registration: React.FC = () => {
                   )}
                 </Button>
               </div>
+              {errors.confirmPassword && (
+                <p className="text-sm text-destructive">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
