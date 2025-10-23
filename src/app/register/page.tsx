@@ -30,7 +30,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const Registration: React.FC = () => {
-  const { register, handleSubmit } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(registerUserWithConfirmSchema),
   });
 
@@ -88,6 +92,11 @@ const Registration: React.FC = () => {
                   className={`pl-10 `}
                 />
               </div>
+              {errors.userName && (
+                <p className="text-sm text-destructive">
+                  {errors.userName.message}
+                </p>
+              )}
             </div>
 
             {/* Email Field */}
