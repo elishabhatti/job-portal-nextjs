@@ -16,48 +16,19 @@ import Link from "next/link";
 import { loginUserAction } from "../features/auth/server/auth.action";
 import { toast } from "sonner";
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
-
 const Login: React.FC = () => {
-  const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
-    password: "",
-  });
-
   const [showPassword, setShowPassword] = useState(false);
-
-  const handleInputChange = (name: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  console.log(formData);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const LoginData = {
-        email: formData.email.toLocaleLowerCase().trim(),
-        password: formData.password,
-      };
-
-      const result = await loginUserAction(LoginData);
+      const result = await loginUserAction();
 
       if (result.status === "SUCCESS") {
         toast.success(result.message);
       } else {
         toast.error("Login failed. Please try again.");
       }
-      
-      setFormData({
-        email: "",
-        password: "",
-      });
     } catch (error) {
       console.error(error);
     }
