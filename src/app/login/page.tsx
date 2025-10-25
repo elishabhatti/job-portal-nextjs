@@ -59,10 +59,6 @@ const Login: React.FC = () => {
                   type="email"
                   placeholder="Enter your email"
                   required
-                  value={formData.email}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("email", e.target.value)
-                  }
                   className={`pl-10 `}
                 />
               </div>
@@ -78,10 +74,6 @@ const Login: React.FC = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   required
-                  value={formData.password}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    handleInputChange("password", e.target.value)
-                  }
                   className={`pl-10 pr-10 `}
                 />
 
