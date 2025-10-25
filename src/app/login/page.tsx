@@ -15,14 +15,23 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { loginUserAction } from "../features/auth/server/auth.action";
 import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginUserData, loginUserSchema } from "../features/auth/auth.schema";
 
 const Login: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginUserSchema),
+  });
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: LoginUserData) => {
     try {
-      const result = await loginUserAction();
+      const result = await loginUserAction(data);
 
       if (result.status === "SUCCESS") {
         toast.success(result.message);
@@ -48,7 +57,7 @@ const Login: React.FC = () => {
         </CardHeader>
 
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email Field */}
             <div className="space-y-2">
               <Label htmlFor="email">Email Address *</Label>
@@ -59,6 +68,7 @@ const Login: React.FC = () => {
                   type="email"
                   placeholder="Enter your email"
                   required
+                  {...register("email")}
                   className={`pl-10 `}
                 />
               </div>
@@ -74,6 +84,7 @@ const Login: React.FC = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   required
+                  {...register("password")}
                   className={`pl-10 pr-10 `}
                 />
 
