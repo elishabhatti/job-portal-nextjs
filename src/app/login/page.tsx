@@ -69,9 +69,16 @@ const Login: React.FC = () => {
                   placeholder="Enter your email"
                   required
                   {...register("email")}
-                  className={`pl-10 `}
+                  className={`pl-10 ${
+                    errors.password ? "border-destructive" : ""
+                  }`}
                 />
               </div>
+              {errors.email && (
+                <p className="text-sm text-destructive">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Password Field */}
@@ -85,7 +92,9 @@ const Login: React.FC = () => {
                   placeholder="Create a strong password"
                   required
                   {...register("password")}
-                  className={`pl-10 pr-10 `}
+                  className={`pl-10 ${
+                    errors.password ? "border-destructive" : ""
+                  } pr-10 `}
                 />
 
                 <Button
@@ -102,6 +111,11 @@ const Login: React.FC = () => {
                   )}
                 </Button>
               </div>
+              {errors.password && (
+                <p className="text-sm text-destructive">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
