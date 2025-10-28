@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import crypto from "crypto"
-import { getIpAddress } from "./locaiton";
+import { getIpAddress } from "./location";
 
 const generateSessionToken = () => {
     return crypto.randomBytes(32).toString("hex").normalize()
