@@ -37,7 +37,7 @@ export const createUserSession = async ({
 export const createSessionAnSetCookies = async (userId: number) => {
   const token = generateSessionToken();
   const ip = await getIpAddress();
-  const headersList = headers();
+  const headersList = await headers();
 
   await createUserSession({
     token,
