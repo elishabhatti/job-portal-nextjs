@@ -22,7 +22,7 @@ export const createUserSession = async ({
   userAgent,
   ip,
 }: CreateSessionData) => {
-  const hashedToken = crypto.createHash("sha-256").update(token).digest("hex");
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
   const [session] = await db.insert(sessions).values({
     id: hashedToken,
@@ -31,12 +31,13 @@ export const createUserSession = async ({
     ip,
     userAgent,
   });
+  return session;
 };
 
 export const createSessionAnSetCookies = async (userId: number) => {
   const token = generateSessionToken();
-  const ip = getIpAddress();
-  const headersList = await headers();
+  const ip = await getIpAddress();
+  const headersList = headers();
 
   await createUserSession({
     token,
