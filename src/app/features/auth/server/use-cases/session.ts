@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { getIpAddress } from "./location";
 import { db } from "@/config/db";
 import { sessions } from "@/drizzle/schema";
+import { SESSION_LIFETIME } from "@/config/constant";
 
 type CreateSessionData = {
   userAgent: string;
@@ -21,9 +22,10 @@ export const createUserSession = async ({
   userAgent,
   ip,
 }: CreateSessionData) => {
-  const hashesToken = crypto.createHash("sha-256").update(token).digest("hex");
+  const hashedToken = crypto.createHash("sha-256").update(token).digest("hex");
 
-  const [result] = await db.insert(sessions).values({
+  const [session] = await db.insert(sessions).values({
+    id: hashedToken,
     userId,
     expiresAt: new Date(Date.now() + SESSION_LIFETIME * 1000),
     ip,
