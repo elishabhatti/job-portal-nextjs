@@ -7,6 +7,6 @@ const generateSessionToken = () => {
 
 export const createSessionAnSetCookies = (userId: number) => {
     const token = generateSessionToken()
-    // const ip =
+    const ip = getIpAddress();
     // const headersList = await headers()     
 };
