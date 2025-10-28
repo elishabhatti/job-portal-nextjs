@@ -5,6 +5,7 @@ import { users } from "@/drizzle/schema";
 import argon2 from "argon2";
 import { eq, or } from "drizzle-orm";
 import { loginUserSchema, registerUserSchema } from "../auth.schema";
+import { createSessionAnSetCookies } from "./use-cases/session";
 
 export const registrationAction = async (data: {
   name: string;
@@ -75,6 +76,8 @@ export const loginUserAction = async (data: LoginData) => {
       };
     }
 
+    await createSessionAnSetCookies(user.id)
+
     return {
       status: "SUCCESS",
       message: "Login Completed successfully",
@@ -87,3 +90,15 @@ export const loginUserAction = async (data: LoginData) => {
     };
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
