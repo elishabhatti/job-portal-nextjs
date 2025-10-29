@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import crypto from "crypto";
 import { getIpAddress } from "./location";
 import { db } from "@/config/db";
@@ -45,4 +45,7 @@ export const createSessionAnSetCookies = async (userId: number) => {
     userAgent: headersList.get("user-agent") || "",
     ip: ip,
   });
+
+  const cookiesStore = await cookies();
+  cookiesStore.set("session", token);
 };
