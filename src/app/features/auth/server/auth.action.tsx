@@ -39,6 +39,13 @@ export const registrationAction = async (data: {
       .insert(users)
       .values({ name, userName, email, password: hashPassword, role });
 
+    const [createdUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email));
+
+    await createSessionAnSetCookies(createdUser.id);
+
     return {
       status: "SUCCESS",
       message: "Registration Completed successfully",
@@ -76,7 +83,7 @@ export const loginUserAction = async (data: LoginData) => {
       };
     }
 
-    await createSessionAnSetCookies(user.id)
+    await createSessionAnSetCookies(user.id);
 
     return {
       status: "SUCCESS",
