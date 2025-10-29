@@ -35,16 +35,11 @@ export const registrationAction = async (data: {
     }
 
     const hashPassword = await argon2.hash(password);
-    await db
+    const [result] = await db
       .insert(users)
       .values({ name, userName, email, password: hashPassword, role });
 
-    const [createdUser] = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, email));
-
-    await createSessionAnSetCookies(createdUser.id);
+    await createSessionAnSetCookies(result.insertId);
 
     return {
       status: "SUCCESS",
