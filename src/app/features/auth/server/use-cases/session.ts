@@ -47,5 +47,9 @@ export const createSessionAnSetCookies = async (userId: number) => {
   });
 
   const cookiesStore = await cookies();
-  cookiesStore.set("session", token);
+  cookiesStore.set("session", token, {
+    secure: true,
+    httpOnly: true,
+    maxAge: SESSION_LIFETIME,
+  });
 };
