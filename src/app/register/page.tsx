@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { toast } from "sonner";
 import { registrationAction } from "../features/auth/server/auth.action";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   RegisterUserWithConfirmData,
   registerUserWithConfirmSchema,
@@ -33,6 +33,7 @@ const Registration: React.FC = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(registerUserWithConfirmSchema),
@@ -131,6 +132,7 @@ const Registration: React.FC = () => {
             {/* Role Selection */}
             <div className="space-y-2 w-full">
               <Label htmlFor="role">I am a *</Label>
+              <Controller name="role" control={control}>
               <Select {...register("role")}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select your role" />
@@ -140,6 +142,7 @@ const Registration: React.FC = () => {
                   <SelectItem value="employer">Employer</SelectItem>
                 </SelectContent>
               </Select>
+              </Controller>
               {errors.role && (
                 <p className="text-sm text-destructive">
                   {errors.role.message}
