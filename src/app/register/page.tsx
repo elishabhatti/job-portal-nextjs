@@ -50,7 +50,7 @@ const Registration: React.FC = () => {
 
     if (result.status === "SUCCESS") {
       if (data.role === "employer") {
-        router.push("/employer");
+        router.push("/employer-dashboard");
       } else {
         router.push("/");
       }
