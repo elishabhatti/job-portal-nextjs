@@ -52,7 +52,7 @@ const Registration: React.FC = () => {
       if (data.role === "employer") {
         router.push("/employer-dashboard");
       } else {
-        router.push("/");
+        router.push("/dashboard");
       }
     }
 
