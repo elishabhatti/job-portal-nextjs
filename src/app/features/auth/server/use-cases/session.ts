@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { getIpAddress } from "./location";
 import { db } from "@/config/db";
 import { sessions, users } from "@/drizzle/schema";
-import { SESSION_LIFETIME } from "@/config/constant";
+import { SESSION_LIFETIME, SESSION_REFRESH_TIME } from "@/config/constant";
 import { eq } from "drizzle-orm";
 
 type CreateSessionData = {
@@ -91,8 +91,16 @@ export const validateSessionAndGetUser = async (session: string) => {
     return null;
   }
 
-  if(expiresAt && Date.now() >= expiresAt.getTime()) {
-    
+  if (
+    expiresAt &&
+    Date.now() >= expiresAt.getTime() - SESSION_REFRESH_TIME * 1000
+  ) {
+    await db
+      .update(sessions)
+      .set({
+        expiresAt: new Date(Date.now() + SESSION_LIFETIME * 1000),
+      })
+      .where(eq(sessions.id, user.session.id));
   }
 
   return user;
