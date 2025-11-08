@@ -1,5 +1,5 @@
 const EmployerDashboard = () => {
-  return <div>Employer Dashboard</div>;
+  return <div>Welcome,Employer Dashboard</div>;
 };
 
 export default EmployerDashboard;
