@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { getCurrentUser } from "./features/auth/server/auth.quires";
 
 export default async function Home() {
   const user = await getCurrentUser();
@@ -18,9 +19,9 @@ export default async function Home() {
         />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
-            {/* Get started with Next Js JOb Portal App by {user?.name} */}
+            Get started with Next Js JOb Portal App by {user?.name}
             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              {/* {user?.email} */}
+              {user?.email}
             </code>
             .
           </li>
