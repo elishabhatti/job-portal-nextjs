@@ -82,4 +82,5 @@ export const validateSessionAndGetUser = async (session: string) => {
     .innerJoin(users, eq(users.id, sessions.userId));
 
   if (!user) return null;  
+  return user;
 };
