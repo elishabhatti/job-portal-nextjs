@@ -12,6 +12,7 @@ type CreateSessionData = {
   ip: string;
   userId: number;
   token: string;
+  tx?: DbClient;
 };
 
 const generateSessionToken = () => {
@@ -23,10 +24,11 @@ export const createUserSession = async ({
   userId,
   userAgent,
   ip,
+  tx = db,
 }: CreateSessionData) => {
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
-  const [session] = await db.insert(sessions).values({
+  const [session] = await tx.insert(sessions).values({
     id: hashedToken,
     userId,
     expiresAt: new Date(Date.now() + SESSION_LIFETIME * 1000),
@@ -40,7 +42,7 @@ type DbClient = typeof db | Parameters<Parameters<typeof db.transaction>[0]>[0];
 
 export const createSessionAnSetCookies = async (
   userId: number,
-  tx: DbClient
+  tx: DbClient = db
 ) => {
   const token = generateSessionToken();
   const ip = await getIpAddress();
@@ -51,6 +53,7 @@ export const createSessionAnSetCookies = async (
     userId: userId,
     userAgent: headersList.get("user-agent") || "",
     ip: ip,
+    tx,
   });
 
   const cookiesStore = await cookies();
