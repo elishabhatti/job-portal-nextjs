@@ -91,6 +91,10 @@ export const validateSessionAndGetUser = async (session: string) => {
     return null;
   }
 
+  if(expiresAt && Date.now() >= expiresAt.getTime()) {
+    
+  }
+
   return user;
 };
 
