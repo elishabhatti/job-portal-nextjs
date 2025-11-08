@@ -113,3 +113,11 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   // One user can have many sessions
   sessions: many(sessions),
 }));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  // Each session belongs to one user
+  user: one(users, {
+    fields: [sessions.userId],
+    references: [users.id],
+  }),
+}));
