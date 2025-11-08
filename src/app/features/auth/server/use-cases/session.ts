@@ -58,7 +58,7 @@ export const createSessionAnSetCookies = async (userId: number) => {
 export const validateSessionAndGetUser = async (session: string) => {
   const hashedToken = crypto.createHash("sha256").update(session).digest("hex");
 
-   const [user] = await db
+  const [user] = await db
     .select({
       id: users.id,
       session: {
@@ -81,6 +81,19 @@ export const validateSessionAndGetUser = async (session: string) => {
     .where(eq(sessions.id, hashedToken))
     .innerJoin(users, eq(users.id, sessions.userId));
 
-  if (!user) return null;  
+  if (!user) return null;
+
+  // 2.
+  const expiresAt = user.session?.expiresAt;
+
+  if (expiresAt && Date.now() >= expiresAt.getTime()) {
+    await inValidateSession(user.session.id);
+    return null;
+  }
+
   return user;
+};
+
+const inValidateSession = async (id: string) => {
+  await db.delete(sessions).where(eq(sessions.id, id));
 };
