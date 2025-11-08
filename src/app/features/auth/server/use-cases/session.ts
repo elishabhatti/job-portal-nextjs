@@ -36,7 +36,12 @@ export const createUserSession = async ({
   return session;
 };
 
-export const createSessionAnSetCookies = async (userId: number) => {
+type DbClient = typeof db | Parameters<Parameters<typeof db.transaction>[0]>[0];
+
+export const createSessionAnSetCookies = async (
+  userId: number,
+  tx: DbClient
+) => {
   const token = generateSessionToken();
   const ip = await getIpAddress();
   const headersList = await headers();
