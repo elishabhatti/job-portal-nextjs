@@ -99,8 +99,8 @@ export const loginUserAction = async (data: LoginData) => {
 
 // Logout User Action
 export const logoutUserAction = async () => {
-  const cookiesStore = await cookies();
-  const session = cookiesStore.get("session")?.value;
+  const cookieStore = await cookies();
+  const session = cookieStore.get("session")?.value;
 
   if (!session) return redirect("/login");
 
