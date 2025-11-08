@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   datetime,
   int,
@@ -97,3 +98,18 @@ export const applicants = mysqlTable("applicants", {
 // );
 
 //! Both the one() and many() helper functions take arguments to define the relationship details.
+
+export const usersRelations = relations(users, ({ one, many }) => ({
+  // One user can have one employer profile (if role is employer)
+  employer: one(employers, {
+    fields: [users.id],
+    references: [employers.id],
+  }),
+  // One user can have one applicant profile (if role is applicant)
+  applicant: one(applicants, {
+    fields: [users.id],
+    references: [applicants.id],
+  }),
+  // One user can have many sessions
+  sessions: many(sessions),
+}));
