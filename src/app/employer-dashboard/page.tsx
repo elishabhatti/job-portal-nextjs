@@ -1,3 +1,5 @@
+import { logoutUserAction } from "../features/auth/server/use-cases/session";
+
 const EmployerDashboard = () => {
   return (
     <div>

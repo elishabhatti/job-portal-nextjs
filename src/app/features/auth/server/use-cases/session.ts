@@ -5,6 +5,7 @@ import { db } from "@/config/db";
 import { sessions, users } from "@/drizzle/schema";
 import { SESSION_LIFETIME, SESSION_REFRESH_TIME } from "@/config/constant";
 import { eq } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 type CreateSessionData = {
   userAgent: string;
@@ -108,4 +109,19 @@ export const validateSessionAndGetUser = async (session: string) => {
 
 const inValidateSession = async (id: string) => {
   await db.delete(sessions).where(eq(sessions.id, id));
+};
+
+// Logout User Action
+export const logoutUserAction = async () => {
+  const cookiesStore = await cookies();
+  const session = cookiesStore.get("session")?.value;
+
+  if (!session) return redirect("/login");
+
+  const hashedToken = crypto.createHash("sha256").update(session).digest("hex");
+
+  await inValidateSession(hashedToken);
+  cookieStore.delete("session");
+
+  return redirect("/login");
 };
