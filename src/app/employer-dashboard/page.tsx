@@ -1,4 +1,4 @@
-import { logoutUserAction } from "../features/auth/server/use-cases/session";
+import { logoutUserAction } from "../features/auth/server/auth.action";
 
 const EmployerDashboard = () => {
   return (

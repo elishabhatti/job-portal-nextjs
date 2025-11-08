@@ -107,21 +107,6 @@ export const validateSessionAndGetUser = async (session: string) => {
   return user;
 };
 
-const inValidateSession = async (id: string) => {
+export const inValidateSession = async (id: string) => {
   await db.delete(sessions).where(eq(sessions.id, id));
-};
-
-// Logout User Action
-export const logoutUserAction = async () => {
-  const cookiesStore = await cookies();
-  const session = cookiesStore.get("session")?.value;
-
-  if (!session) return redirect("/login");
-
-  const hashedToken = crypto.createHash("sha256").update(session).digest("hex");
-
-  await inValidateSession(hashedToken);
-  cookieStore.delete("session");
-
-  return redirect("/login");
 };

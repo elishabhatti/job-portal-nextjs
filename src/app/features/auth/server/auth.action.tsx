@@ -6,6 +6,10 @@ import argon2 from "argon2";
 import { eq, or } from "drizzle-orm";
 import { loginUserSchema, registerUserSchema } from "../auth.schema";
 import { createSessionAnSetCookies } from "./use-cases/session";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import crypto from "crypto";
+import { inValidateSession } from "./use-cases/session";
 
 export const registrationAction = async (data: {
   name: string;
@@ -91,4 +95,19 @@ export const loginUserAction = async (data: LoginData) => {
       message: "Login failed. Please try again.",
     };
   }
+};
+
+// Logout User Action
+export const logoutUserAction = async () => {
+  const cookiesStore = await cookies();
+  const session = cookiesStore.get("session")?.value;
+
+  if (!session) return redirect("/login");
+
+  const hashedToken = crypto.createHash("sha256").update(session).digest("hex");
+
+  await inValidateSession(hashedToken);
+  cookieStore.delete("session");
+
+  return redirect("/login");
 };
