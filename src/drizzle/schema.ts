@@ -85,3 +85,15 @@ export const applicants = mysqlTable("applicants", {
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
 });
+
+// export const tableNameRelations = relations(
+//   // 1. The main table being defined (e.g., users)
+//   table,
+
+//   // 2. A callback function to define the relationships
+//   ({ one, many }) => ({
+//     // ... relationship definitions
+//   })
+// );
+
+//! Both the one() and many() helper functions take arguments to define the relationship details.
