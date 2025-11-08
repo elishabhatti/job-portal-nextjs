@@ -1,4 +1,5 @@
 import {
+  datetime,
   int,
   mysqlEnum,
   mysqlTable,
@@ -47,6 +48,36 @@ export const employers = mysqlTable("employers", {
   organizationType: varchar("organization_type", { length: 100 }),
   teamSize: varchar("team_size", { length: 50 }),
   yearOfEstablishment: year("year_of_establishment"), // MySQL YEAR type
+  websiteUrl: varchar("website_url", { length: 255 }),
+  location: varchar("location", { length: 255 }),
+
+  deletedAt: timestamp("deleted_at", { mode: "string" }),
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
+});
+
+export const applicants = mysqlTable("applicants", {
+  id: int("id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
+
+  biography: text("biography"),
+  dateOfBirth: datetime("date_of_birth"),
+  nationality: varchar("nationality", { length: 100 }),
+
+  maritalStatus: mysqlEnum("marital_status", ["single", "married", "divorced"]),
+
+  gender: mysqlEnum("gender", ["male", "female", "other"]),
+
+  education: mysqlEnum("education", [
+    "none",
+    "high school",
+    "undergraduate",
+    "masters",
+    "phd",
+  ]),
+
+  experience: text("experience"),
   websiteUrl: varchar("website_url", { length: 255 }),
   location: varchar("location", { length: 255 }),
 
