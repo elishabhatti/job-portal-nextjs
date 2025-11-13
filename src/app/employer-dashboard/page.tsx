@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "../features/auth/server/auth.quires";
+import { StatsCards } from "../features/employers/components/employer-stats";
 
 const EmployerDashboard = async () => {
   const user = await getCurrentUser();
@@ -20,7 +21,7 @@ const EmployerDashboard = async () => {
       </div>
 
       {/* Stats Cards */}
-      {/* <StatsCards /> */}
+      <StatsCards />
     </div>
   );
 };
