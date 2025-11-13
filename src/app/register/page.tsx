@@ -4,8 +4,6 @@ import { getCurrentUser } from "../features/auth/server/auth.quires";
 
 const Registration = async () => {
   const user = await getCurrentUser();
-  console.log("user", user);
-
   if (!user) return redirect("/login");
 
   if (user) {
