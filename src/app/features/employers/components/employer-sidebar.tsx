@@ -9,6 +9,8 @@ import {
   User,
 } from "lucide-react";
 
+const base = "/employer-dashboard";
+
 const navigationItems = [
   { name: "Overview", icon: LayoutDashboard, href: base + "/" },
   { name: "Employer Profile", icon: User, href: base + "/" },
