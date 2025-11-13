@@ -240,10 +240,10 @@ const RegistrationForm = () => {
 
             <div className="text-center">
               <p className="text-sm text-muted-foreground">
-                Already have an account?
+                Already have an account? 
                 <Link
                   href="/login"
-                  className="text-primary hover:text-primary/80 font-medium underline-offset-4 hover:underline"
+                  className="text-primary ml-2 hover:text-primary/80 font-medium underline-offset-4 hover:underline"
                 >
                   Sign in here
                 </Link>
