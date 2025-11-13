@@ -128,7 +128,7 @@ const LoginForm = () => {
                 Already have an account?
                 <Link
                   href="/register"
-                  className="text-primary hover:text-primary/80 font-medium underline-offset-4 hover:underline"
+                  className="text-primary ml-2 hover:text-primary/80 font-medium underline-offset-4 hover:underline"
                 >
                   Create Account
                 </Link>
