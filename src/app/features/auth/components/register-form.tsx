@@ -24,7 +24,8 @@ import { toast } from "sonner";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { registerUserWithConfirmSchema } from "../auth.schema";
+import { RegisterUserWithConfirmData, registerUserWithConfirmSchema } from "../auth.schema";
+import { registrationAction } from "../server/auth.action";
 
 const RegistrationForm = () => {
   const {
@@ -41,7 +42,7 @@ const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const onSubmit = async (data: RegisterUserWithConfirmDat) => {
+  const onSubmit = async (data: RegisterUserWithConfirmData) => {
     const result = await registrationAction(data);
 
     if (result.status === "SUCCESS") {
