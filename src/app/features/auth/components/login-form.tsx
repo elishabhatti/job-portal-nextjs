@@ -13,13 +13,13 @@ import { Eye, EyeOff, Lock, Mail, UserCheck } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { loginUserAction } from "../features/auth/server/auth.action";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginUserData, loginUserSchema } from "../features/auth/auth.schema";
+import { LoginUserData, loginUserSchema } from "../auth.schema";
+import { loginUserAction } from "../server/auth.action";
 
-const Login: React.FC = () => {
+const LoginForm = () => {
   const {
     register,
     handleSubmit,
@@ -141,4 +141,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginForm;
