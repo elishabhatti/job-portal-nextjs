@@ -8,6 +8,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import Link from "next/link";
 
 const base = "/employer-dashboard";
 
@@ -23,7 +24,19 @@ const navigationItems = [
 ];
 
 const EmployerSidebar = () => {
-  return <div>EmployerSidebar</div>;
+  return (
+    <div>
+      {navigationItems.map((currNav) => {
+        const Icon = currNav.icon;
+        return (
+          <Link key={currNav.name} href={currNav.href}>
+            <Icon />
+            {currNav.name}
+          </Link>
+        );
+      })}
+    </div>
+  );
 };
 
 export default EmployerSidebar;
