@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/config/db";
-import { users } from "@/drizzle/schema";
+import { applicants, employers, users } from "@/drizzle/schema";
 import argon2 from "argon2";
 import { eq, or } from "drizzle-orm";
 import { loginUserSchema, registerUserSchema } from "../auth.schema";
@@ -43,6 +43,12 @@ export const registrationAction = async (data: {
       const [result] = await tx
         .insert(users)
         .values({ name, userName, email, password: hashPassword, role });
+
+      if (role === "applicant") {
+        await tx.insert(applicants).values({ id: result.insertId });
+      } else {
+        await tx.insert(employers).values({ id: result.insertId });
+      }
 
       await createSessionAnSetCookies(result.insertId, tx);
     });
