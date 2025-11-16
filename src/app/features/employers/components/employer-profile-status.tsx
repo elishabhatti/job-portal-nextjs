@@ -9,13 +9,16 @@ import {
 } from "@/components/ui/item";
 import { ShieldAlertIcon } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-const EmployerProfileCompletionStatus = () => {
+const EmployerProfileCompletionStatus = async () => {
+  const currentEmployer = await getCurrentEmployerDetails();
+  if (!currentEmployer) return redirect("/login");
   return (
     <div className="flex flex-col gap-6">
       <Item variant="destructive">
         <ItemMedia variant="icon" className="bg-destructive">
-          <ShieldAlertIcon className="text-white" />
+          <ShieldAlertIcon />
         </ItemMedia>
         <ItemContent>
           <ItemTitle className="text-white">Incomplete Profile</ItemTitle>
