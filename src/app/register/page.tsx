@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import RegistrationForm from "../features/auth/components/register-form";
-import { getCurrentUser } from "../features/auth/server/auth.querie";
+import { getCurrentUser } from "../features/auth/server/auth.quires";
 
 const Registration = async () => {
   const user = await getCurrentUser();

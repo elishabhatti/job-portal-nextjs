@@ -32,7 +32,7 @@ export const sessions = mysqlTable("sessions", {
     .references(() => users.id, { onDelete: "cascade" }),
   userAgent: text("user_agent").notNull(),
   ip: varchar("ip", { length: 255 }).notNull(),
-  expiresAt: timestamp("expires_at"),
+  expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
@@ -99,6 +99,7 @@ export const applicants = mysqlTable("applicants", {
 
 //! Both the one() and many() helper functions take arguments to define the relationship details.
 
+// Relations definitions
 export const usersRelations = relations(users, ({ one, many }) => ({
   // One user can have one employer profile (if role is employer)
   employer: one(employers, {

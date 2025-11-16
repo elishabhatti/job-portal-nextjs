@@ -1,7 +1,7 @@
 import { db } from "@/config/db";
 import { employers } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
-import { getCurrentUser } from "../auth/server/auth.querie";
+import { getCurrentUser } from "../auth/server/auth.quires";
 
 export const getCurrentEmployerDetails = async () => {
   const currentUser = await getCurrentUser();
@@ -15,7 +15,7 @@ export const getCurrentEmployerDetails = async () => {
     .from(employers)
     .where(eq(employers.id, currentUser.id));
 
-  console.log("employer: ", employer);
+  console.log("employer:", employer);
 
   const isProfileCompleted =
     employer.name &&

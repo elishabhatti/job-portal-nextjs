@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { getCurrentUser } from "./features/auth/server/auth.querie";
+import { getCurrentUser } from "./features/auth/server/auth.quires";
 
 export default async function Home() {
   const user = await getCurrentUser();

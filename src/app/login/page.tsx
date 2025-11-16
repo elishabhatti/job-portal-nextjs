@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import LoginForm from "../features/auth/components/login-form";
-import { getCurrentUser } from "../features/auth/server/auth.querie";
+import { getCurrentUser } from "../features/auth/server/auth.quires";
 
 const Login = async () => {
   const user = await getCurrentUser();

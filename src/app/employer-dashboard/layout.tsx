@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "../features/auth/server/auth.querie";
+import { getCurrentUser } from "../features/auth/server/auth.quires";
 import EmployerSidebar from "../features/employers/components/employer-sidebar";
 export default async function RootLayout({
   children,

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "../features/auth/server/auth.querie";
+import { getCurrentUser } from "../features/auth/server/auth.quires";
 import { StatsCards } from "../features/employers/components/employer-stats";
 import EmployerProfileCompletionStatus from "../features/employers/components/employer-profile-status";
 
