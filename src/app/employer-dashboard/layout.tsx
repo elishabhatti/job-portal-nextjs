@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCurrentUser } from "../features/auth/server/auth.quires";
+import { getCurrentUser } from "../features/auth/server/auth.querie";
 import EmployerSidebar from "../features/employers/components/employer-sidebar";
 export default async function RootLayout({
   children,
@@ -14,7 +14,7 @@ export default async function RootLayout({
 
   return (
     <div className="flex min-h-screen bg-background">
-      <EmployerSidebar/>
+      <EmployerSidebar />
       <main className="container mx-auto mt-5 ml-70 mr-5">{children}</main>
     </div>
   );
