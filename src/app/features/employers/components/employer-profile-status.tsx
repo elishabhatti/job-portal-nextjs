@@ -10,6 +10,7 @@ import {
 import { ShieldAlertIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getCurrentEmployerDetails } from "../../server/employers.queries";
 
 const EmployerProfileCompletionStatus = async () => {
   const currentEmployer = await getCurrentEmployerDetails();
