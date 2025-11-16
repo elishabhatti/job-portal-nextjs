@@ -1,7 +1,11 @@
 
 const EmployerProfileCompletionStatus = () => {
   return (
-    <div>EmployerProfileCompletionStatus</div>
+    <div className="flex flex-col gap-6">
+        {/* <Item variant="destructive">
+
+        </Item> */}
+    </div>
   )
 }
 
