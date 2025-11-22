@@ -29,14 +29,14 @@ const EmployerSettingsForm = () => {
     <Card className="w-3/4">
       <CardContent>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-          <div className="grid w-full max-w-sm items-center gap-3">
+          {/* <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="username">username</Label>
             <Input id="username" type="text" {...register("username")} />
           </div>
           <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="email">email</Label>
             <Input id="email" type="text" {...register("email")} />
-          </div>
+          </div> */}
 
           {/* Company Name */}
           <div className="space-y-2">
