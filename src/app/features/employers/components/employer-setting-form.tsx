@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Building2, FileText } from "lucide-react";
 import { useForm } from "react-hook-form";
 
@@ -11,6 +12,7 @@ interface IFormInput {
   username: string;
   email: string;
   name: string;
+  description: string;
 }
 
 const EmployerSettingsForm = () => {
@@ -44,6 +46,20 @@ const EmployerSettingsForm = () => {
                 placeholder="Enter company name"
                 className="pl-10"
                 {...register("name")}
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Company Description *</Label>
+            <div className="relative">
+              <FileText className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+              <Textarea
+                id="companyDescription"
+                placeholder="Tell us about your company, what you do, and your mission"
+                className="pl-10 min-h-[120px] resize-none"
+                {...register("description")}
               />
             </div>
           </div>
