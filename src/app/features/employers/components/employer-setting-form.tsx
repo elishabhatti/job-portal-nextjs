@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Building2, FileText } from "lucide-react";
+import { Building2, Calendar, FileText, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface IFormInput {
@@ -13,6 +13,8 @@ interface IFormInput {
   email: string;
   name: string;
   description: string;
+  yearOfEstablishment: string;
+  location: string;
 }
 
 const EmployerSettingsForm = () => {
@@ -61,6 +63,42 @@ const EmployerSettingsForm = () => {
                 className="pl-10 min-h-[120px] resize-none"
                 {...register("description")}
               />
+            </div>
+          </div>
+
+          {/* Year of Establi\shment and Location - Two columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="yearOfEstablishment">
+                Year of Establishment *
+              </Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  id="yearOfEstablishment"
+                  type="text"
+                  placeholder="e.g., 2020"
+                  maxLength={4}
+                  className="pl-10"
+                  {...register("yearOfEstablishment")}
+                />
+              </div>
+            </div>
+
+            {/* Year of Establishment and Location - Two columns */}
+            <div className="space-y-2">
+              <Label htmlFor="location">Location *</Label>
+
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  id="location"
+                  type="text"
+                  placeholder="e.g., Pune, Bangalore"
+                  className="pl-10"
+                  {...register("location")}
+                />
+              </div>
             </div>
           </div>
 
