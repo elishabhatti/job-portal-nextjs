@@ -1,8 +1,11 @@
+import EmployerSettingsForm from "@/app/features/employers/components/employer-setting-form";
 
-const Settings = () => {
+const EmployerSettings = () => {
   return (
-    <div>Settings</div>
-  )
-}
+    <div>
+      <EmployerSettingsForm />
+    </div>
+  );
+};
 
-export default Settings
+export default EmployerSettings;
