@@ -37,7 +37,7 @@ const EmployerSettingsForm = () => {
           <div className="space-y-2">
             <Label htmlFor="companyName">Company Name *</Label>
             <div className="relative">
-              <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted foreground" />
+              <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
               <Input
                 id="companyName"
                 type="text"
