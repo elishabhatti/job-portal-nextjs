@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Building2, Calendar, FileText, MapPin } from "lucide-react";
+import { Building2, Calendar, FileText, Globe, MapPin } from "lucide-react";
 import { useForm } from "react-hook-form";
 
 interface IFormInput {
@@ -15,6 +15,7 @@ interface IFormInput {
   description: string;
   yearOfEstablishment: string;
   location: string;
+  websiteUrl: string;
 }
 
 const EmployerSettingsForm = () => {
@@ -94,11 +95,26 @@ const EmployerSettingsForm = () => {
                 <Input
                   id="location"
                   type="text"
-                  placeholder="e.g., Pune, Bangalore"
+                  placeholder="e.g., Karachi, lahore"
                   className="pl-10"
                   {...register("location")}
                 />
               </div>
+            </div>
+          </div>
+
+          {/* Website URL */}
+          <div className="space-y-2">
+            <Label htmlFor="websiteUrl">Website URL (Optional)</Label>
+            <div className="relative">
+              <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                id="websiteUrl"
+                type="text"
+                placeholder="https://www.yourcompany.com"
+                className="pl-10"
+                {...register("websiteUrl")}
+              />
             </div>
           </div>
 
