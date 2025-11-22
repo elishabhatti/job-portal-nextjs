@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
@@ -18,19 +19,21 @@ const EmployerSettingsForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="grid w-full max-w-sm items-center gap-3">
-          <Label htmlFor="username">Username</Label>
-          <Input id="username" type="text" {...register("username")} />
-        </div>
-        <div className="grid w-full max-w-sm items-center gap-3">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="text" {...register("email")} />
-        </div>
-        <Button type="submit">Save Changes</Button>
-      </form>
-    </div>
+    <Card className="w-3/4">
+      <CardContent>
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <div className="grid w-full max-w-sm items-center gap-3">
+            <Label htmlFor="username">Username</Label>
+            <Input id="username" type="text" {...register("username")} />
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-3">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" type="text" {...register("email")} />
+          </div>
+          <Button type="submit">Save Changes</Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 
