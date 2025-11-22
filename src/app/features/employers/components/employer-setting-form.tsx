@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,11 +22,11 @@ const EmployerSettingsForm = () => {
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <div className="grid w-full max-w-sm items-center gap-3">
           <Label htmlFor="username">Username</Label>
-          <Input id="username" type="file" {...register("username")} />
+          <Input id="username" type="text" {...register("username")} />
         </div>
         <div className="grid w-full max-w-sm items-center gap-3">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="file" {...register("email")} />
+          <Input id="email" type="text" {...register("email")} />
         </div>
         <Button type="submit">Save Changes</Button>
       </form>
