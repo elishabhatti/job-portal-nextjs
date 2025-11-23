@@ -23,6 +23,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 
 const organizationTypeOptions = ["development", "business", "design"] as const;
+type OrganizationType = (typeof organizationTypeOptions)[number];
 
 interface IFormInput {
   username: string;
@@ -32,7 +33,7 @@ interface IFormInput {
   yearOfEstablishment: string;
   location: string;
   websiteUrl: string;
-  organizationType: string;
+  organizationType: OrganizationType;
 }
 
 const EmployerSettingsForm = () => {
