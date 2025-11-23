@@ -24,6 +24,8 @@ import { Controller, useForm } from "react-hook-form";
 
 const organizationTypeOptions = ["development", "business", "design"] as const;
 type OrganizationType = (typeof organizationTypeOptions)[number];
+const teamSizeOptions = ["1-5", "6-20", "21-50"] as const;
+type TeamSize = (typeof teamSizeOptions)[number];
 
 interface IFormInput {
   username: string;
@@ -34,6 +36,7 @@ interface IFormInput {
   location: string;
   websiteUrl: string;
   organizationType: OrganizationType;
+  teamSize: TeamSize;
 }
 
 const EmployerSettingsForm = () => {
@@ -104,6 +107,33 @@ const EmployerSettingsForm = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {organizationTypeOptions.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {/* {capitalizeWords(type)} */}
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              />
+            </div>
+            {/* Team Size Type */}
+            <div className="space-y-2">
+              <Label htmlFor="organizationType">Team Size *</Label>
+
+              <Controller
+                name="teamSize"
+                control={control}
+                render={({ field }) => (
+                  <div className="relative">
+                    <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="pl-10 w-full ">
+                        <SelectValue placeholder="Select organization type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {teamSizeOptions.map((type) => (
                           <SelectItem key={type} value={type}>
                             {/* {capitalizeWords(type)} */}
                             {type}
