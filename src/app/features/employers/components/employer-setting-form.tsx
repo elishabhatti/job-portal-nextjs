@@ -4,9 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Building2, Calendar, FileText, Globe, MapPin } from "lucide-react";
-import { useForm } from "react-hook-form";
+import {
+  Briefcase,
+  Building2,
+  Calendar,
+  FileText,
+  Globe,
+  MapPin,
+} from "lucide-react";
+import { Controller, useForm } from "react-hook-form";
 
 interface IFormInput {
   username: string;
@@ -65,6 +79,40 @@ const EmployerSettingsForm = () => {
                 {...register("description")}
               />
             </div>
+          </div>
+
+          {/* When you run const { control } = useForm(), you create a specific instance of a form. The <Controller /> component is isolated; it doesn't know which form it belongs to. Passing control={control} connects this specific input to that specific useForm hook. */}
+          {/* Organization Type and Team Size - Two columns */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Organization Type */}
+            <div className="space-y-2">
+              <Label htmlFor="organizationType">Organization Type *</Label>
+
+              <Controller
+                name="organizationType"
+                control={control}
+                render={({ field }) => (
+                  <div className="relative">
+                    <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
+                    <Select value={field.value} onValueChange={field.onChange}>
+                      <SelectTrigger className="pl-10 w-full ">
+                        <SelectValue placeholder="Select organization type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {organizationTypeOptions.map((type) => (
+                          <SelectItem key={type} value={type}>
+                            {/* {capitalizeWords(type)} */}
+                            {type}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+              />
+            </div>
+
+            
           </div>
 
           {/* Year of Establi\shment and Location - Two columns */}
