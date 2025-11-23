@@ -22,6 +22,8 @@ import {
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 
+const organizationTypeOptions = ["development", "business", "design"] as const;
+
 interface IFormInput {
   username: string;
   email: string;
@@ -30,10 +32,11 @@ interface IFormInput {
   yearOfEstablishment: string;
   location: string;
   websiteUrl: string;
+  organizationType: string;
 }
 
 const EmployerSettingsForm = () => {
-  const { register, handleSubmit } = useForm<IFormInput>();
+  const { register, handleSubmit, control } = useForm<IFormInput>();
 
   const handleFormSubmit = (data: IFormInput) => {
     console.log(data);
@@ -111,8 +114,6 @@ const EmployerSettingsForm = () => {
                 )}
               />
             </div>
-
-            
           </div>
 
           {/* Year of Establi\shment and Location - Two columns */}
