@@ -21,6 +21,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import { updateEmployerProfileAction } from "../../server/employer.action";
 
 const organizationTypeOptions = ["development", "business", "design"] as const;
 type OrganizationType = (typeof organizationTypeOptions)[number];
