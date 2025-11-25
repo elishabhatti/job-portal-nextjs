@@ -1,6 +1,7 @@
 import { db } from "@/config/db";
 import { getCurrentUser } from "../auth/server/auth.quires";
 import { employers } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
 
 const organizationTypeOptions = ["development", "business", "design"] as const;
 type OrganizationType = (typeof organizationTypeOptions)[number];
@@ -33,16 +34,22 @@ export const updateEmployerProfileAction = async (data: IFormInput) => {
       teamSize,
     } = data;
 
-    await db.update(employers).set({
-      name,
-      description,
-      location,
-      websiteUrl,
-      organizationType,
-      teamSize,
-      yearOfEstablishment: yearOfEstablishment
-        ? parseInt(yearOfEstablishment)
-        : null,
-    });
-  } catch (error) {}
+    const updatedEmployer = await db
+      .update(employers)
+      .set({
+        name,
+        description,
+        location,
+        websiteUrl,
+        organizationType,
+        teamSize,
+        yearOfEstablishment: yearOfEstablishment
+          ? parseInt(yearOfEstablishment)
+          : null,
+      })
+      .where(eq(employers.id, currentUser.id));
+    console.log("employers", updatedEmployer);
+  } catch (error) {
+    return { status: "ERROR", message: "Unauthorized" };
+  }
 };
