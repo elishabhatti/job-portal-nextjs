@@ -50,8 +50,9 @@ interface IFormInput {
 const EmployerSettingsForm = () => {
   const { register, handleSubmit, control } = useForm<IFormInput>();
 
-  const handleFormSubmit = (data: IFormInput) => {
+  const handleFormSubmit = async (data: IFormInput) => {
     console.log(data);
+    const response = await updateEmployerProfileAction(data)
   };
 
   return (
