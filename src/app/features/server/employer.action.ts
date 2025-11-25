@@ -1,3 +1,5 @@
+"use server";
+
 import { db } from "@/config/db";
 import { getCurrentUser } from "../auth/server/auth.quires";
 import { employers } from "@/drizzle/schema";
