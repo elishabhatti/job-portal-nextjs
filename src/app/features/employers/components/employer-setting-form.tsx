@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { updateEmployerProfileAction } from "../../server/employer.action";
+import { toast } from "sonner";
 
 const organizationTypeOptions = ["development", "business", "design"] as const;
 type OrganizationType = (typeof organizationTypeOptions)[number];
@@ -46,6 +47,12 @@ const EmployerSettingsForm = () => {
   const handleFormSubmit = async (data: IFormInput) => {
     console.log(data);
     const response = await updateEmployerProfileAction(data);
+    if (response?.status === "SUCCESS") {
+      toast.success(response.message);
+    } else {
+      toast.error(response?.message);
+    }
+    console.log(response);
   };
 
   return (
