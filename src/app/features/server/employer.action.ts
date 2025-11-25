@@ -51,6 +51,7 @@ export const updateEmployerProfileAction = async (data: IFormInput) => {
       })
       .where(eq(employers.id, currentUser.id));
     console.log("employers", updatedEmployer);
+    return { status: "SUCCESS", message: "Profile updated successfully" };
   } catch (error) {
     return { status: "ERROR", message: "Unauthorized" };
   }
