@@ -23,28 +23,32 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { updateEmployerProfileAction } from "../../server/employer.action";
 import { toast } from "sonner";
+import { EmployerProfileData, employerProfileSchema } from "../employer.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const organizationTypeOptions = ["development", "business", "design"] as const;
-type OrganizationType = (typeof organizationTypeOptions)[number];
-const teamSizeOptions = ["1-5", "6-20", "21-50"] as const;
-type TeamSize = (typeof teamSizeOptions)[number];
+// const organizationTypeOptions = ["development", "business", "design"] as const;
+// type OrganizationType = (typeof organizationTypeOptions)[number];
+// const teamSizeOptions = ["1-5", "6-20", "21-50"] as const;
+// type TeamSize = (typeof teamSizeOptions)[number];
 
-interface IFormInput {
-  username: string;
-  email: string;
-  name: string;
-  description: string;
-  yearOfEstablishment: string;
-  location: string;
-  websiteUrl: string;
-  organizationType: OrganizationType;
-  teamSize: TeamSize;
-}
+// interface IFormInput {
+//   username: string;
+//   email: string;
+//   name: string;
+//   description: string;
+//   yearOfEstablishment: string;
+//   location: string;
+//   websiteUrl: string;
+//   organizationType: OrganizationType;
+//   teamSize: TeamSize;
+// }
 
 const EmployerSettingsForm = () => {
-  const { register, handleSubmit, control } = useForm<IFormInput>();
+  const { register, handleSubmit, control } = useForm<EmployerProfileData>({
+    resolver: zodResolver(employerProfileSchema),
+  });
 
-  const handleFormSubmit = async (data: IFormInput) => {
+  const handleFormSubmit = async (data: EmployerProfileData) => {
     console.log(data);
     const response = await updateEmployerProfileAction(data);
     if (response?.status === "SUCCESS") {
