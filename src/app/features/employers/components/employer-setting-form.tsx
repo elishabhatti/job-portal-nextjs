@@ -23,7 +23,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { updateEmployerProfileAction } from "../../server/employer.action";
 import { toast } from "sonner";
-import { EmployerProfileData, employerProfileSchema } from "../employer.schema";
+import { EmployerProfileData, employerProfileSchema, organizationTypes, teamSizes } from "../employer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // const organizationTypeOptions = ["development", "business", "design"] as const;
@@ -125,7 +125,7 @@ const EmployerSettingsForm = () => {
                         <SelectValue placeholder="Select organization type" />
                       </SelectTrigger>
                       <SelectContent>
-                        {organizationTypeOptions.map((type) => (
+                        {organizationTypes.map((type) => (
                           <SelectItem key={type} value={type}>
                             {/* {capitalizeWords(type)} */}
                             {type}
@@ -152,7 +152,7 @@ const EmployerSettingsForm = () => {
                         <SelectValue placeholder="Select organization type" />
                       </SelectTrigger>
                       <SelectContent>
-                        {teamSizeOptions.map((type) => (
+                        {teamSizes.map((type) => (
                           <SelectItem key={type} value={type}>
                             {/* {capitalizeWords(type)} */}
                             {type}
