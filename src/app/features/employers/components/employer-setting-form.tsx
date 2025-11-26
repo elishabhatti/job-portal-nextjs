@@ -112,6 +112,11 @@ const EmployerSettingsForm = () => {
                 {...register("description")}
               />
             </div>
+            {errors.description && (
+              <p className="text-sm text-destructive">
+                {errors.description.message}
+              </p>
+            )}
           </div>
 
           {/* When you run const { control } = useForm(), you create a specific instance of a form. The <Controller /> component is isolated; it doesn't know which form it belongs to. Passing control={control} connects this specific input to that specific useForm hook. */}
@@ -143,6 +148,11 @@ const EmployerSettingsForm = () => {
                   </div>
                 )}
               />
+              {errors.organizationType && (
+                <p className="text-sm text-destructive">
+                  {errors.organizationType.message}
+                </p>
+              )}
             </div>
             {/* Team Size Type */}
             <div className="space-y-2">
@@ -171,6 +181,9 @@ const EmployerSettingsForm = () => {
                 )}
               />
             </div>
+            {errors.teamSize && (
+              <p className="text-sm text-destructive">{errors.teamSize.message}</p>
+            )}
           </div>
 
           {/* Year of Establi\shment and Location - Two columns */}
@@ -190,6 +203,9 @@ const EmployerSettingsForm = () => {
                   {...register("yearOfEstablishment")}
                 />
               </div>
+                {errors.yearOfEstablishment && (
+              <p className="text-sm text-destructive">{errors.yearOfEstablishment.message}</p>
+            )}
             </div>
 
             {/* Year of Establishment and Location - Two columns */}
@@ -207,6 +223,9 @@ const EmployerSettingsForm = () => {
                 />
               </div>
             </div>
+              {errors.location && (
+              <p className="text-sm text-destructive">{errors.location.message}</p>
+            )}
           </div>
 
           {/* Website URL */}
@@ -222,6 +241,9 @@ const EmployerSettingsForm = () => {
                 {...register("websiteUrl")}
               />
             </div>
+              {errors.websiteUrl && (
+              <p className="text-sm text-destructive">{errors.websiteUrl.message}</p>
+            )}
           </div>
 
           <Button type="submit">Save Changes</Button>
