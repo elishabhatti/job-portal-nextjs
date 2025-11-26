@@ -44,7 +44,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // }
 
 const EmployerSettingsForm = () => {
-  const { register, handleSubmit, control } = useForm<EmployerProfileData>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<EmployerProfileData>({
     resolver: zodResolver(employerProfileSchema),
   });
 
@@ -85,6 +90,7 @@ const EmployerSettingsForm = () => {
                 {...register("name")}
               />
             </div>
+            {errors.name && <p>{errors.name.message}</p>}
           </div>
 
           {/* Description */}
