@@ -108,7 +108,9 @@ const EmployerSettingsForm = () => {
               <Textarea
                 id="companyDescription"
                 placeholder="Tell us about your company, what you do, and your mission"
-                className="pl-10 min-h-[120px] resize-none"
+                className={`pl-10 ${
+                  errors.description ? "border-destructive" : ""
+                } min-h-[120px] resize-none`}
                 {...register("description")}
               />
             </div>
@@ -133,7 +135,11 @@ const EmployerSettingsForm = () => {
                   <div className="relative">
                     <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="pl-10 w-full ">
+                      <SelectTrigger
+                        className={`pl-10 ${
+                          errors.organizationType ? "border-destructive" : ""
+                        } w-full `}
+                      >
                         <SelectValue placeholder="Select organization type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -165,7 +171,11 @@ const EmployerSettingsForm = () => {
                   <div className="relative">
                     <Briefcase className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground z-10" />
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="pl-10 w-full ">
+                      <SelectTrigger
+                        className={`pl-10 ${
+                          errors.organizationType ? "border-destructive" : ""
+                        } w-full `}
+                      >
                         <SelectValue placeholder="Select organization type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -180,10 +190,12 @@ const EmployerSettingsForm = () => {
                   </div>
                 )}
               />
+              {errors.teamSize && (
+                <p className="text-sm text-destructive">
+                  {errors.teamSize.message}
+                </p>
+              )}
             </div>
-            {errors.teamSize && (
-              <p className="text-sm text-destructive">{errors.teamSize.message}</p>
-            )}
           </div>
 
           {/* Year of Establi\shment and Location - Two columns */}
@@ -199,13 +211,17 @@ const EmployerSettingsForm = () => {
                   type="text"
                   placeholder="e.g., 2020"
                   maxLength={4}
-                  className="pl-10"
+                  className={`pl-10 ${
+                    errors.yearOfEstablishment ? "border-destructive" : ""
+                  }`}
                   {...register("yearOfEstablishment")}
                 />
               </div>
-                {errors.yearOfEstablishment && (
-              <p className="text-sm text-destructive">{errors.yearOfEstablishment.message}</p>
-            )}
+              {errors.yearOfEstablishment && (
+                <p className="text-sm text-destructive">
+                  {errors.yearOfEstablishment.message}
+                </p>
+              )}
             </div>
 
             {/* Year of Establishment and Location - Two columns */}
@@ -218,13 +234,17 @@ const EmployerSettingsForm = () => {
                   id="location"
                   type="text"
                   placeholder="e.g., Karachi, lahore"
-                  className="pl-10"
+                  className={`pl-10 ${
+                    errors.location ? "border-destructive" : ""
+                  }`}
                   {...register("location")}
                 />
               </div>
             </div>
-              {errors.location && (
-              <p className="text-sm text-destructive">{errors.location.message}</p>
+            {errors.location && (
+              <p className="text-sm text-destructive">
+                {errors.location.message}
+              </p>
             )}
           </div>
 
@@ -237,12 +257,16 @@ const EmployerSettingsForm = () => {
                 id="websiteUrl"
                 type="text"
                 placeholder="https://www.yourcompany.com"
-                className="pl-10"
+                className={`pl-10 ${
+                  errors.websiteUrl ? "border-destructive" : ""
+                }`}
                 {...register("websiteUrl")}
               />
             </div>
-              {errors.websiteUrl && (
-              <p className="text-sm text-destructive">{errors.websiteUrl.message}</p>
+            {errors.websiteUrl && (
+              <p className="text-sm text-destructive">
+                {errors.websiteUrl.message}
+              </p>
             )}
           </div>
 
