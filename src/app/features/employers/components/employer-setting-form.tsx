@@ -23,7 +23,12 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { updateEmployerProfileAction } from "../../server/employer.action";
 import { toast } from "sonner";
-import { EmployerProfileData, employerProfileSchema, organizationTypes, teamSizes } from "../employer.schema";
+import {
+  EmployerProfileData,
+  employerProfileSchema,
+  organizationTypes,
+  teamSizes,
+} from "../employer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // const organizationTypeOptions = ["development", "business", "design"] as const;
@@ -86,11 +91,13 @@ const EmployerSettingsForm = () => {
                 id="companyName"
                 type="text"
                 placeholder="Enter company name"
-                className="pl-10"
+                className={`pl-10 ${errors.name ? "border-destructive" : ""}`}
                 {...register("name")}
               />
             </div>
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.name && (
+              <p className="text-sm text-destructive">{errors.name.message}</p>
+            )}
           </div>
 
           {/* Description */}
