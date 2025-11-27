@@ -48,7 +48,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 //   teamSize: TeamSize;
 // }
 
-const EmployerSettingsForm = ({}) => {
+interface Props {
+  initialData?: Partial<EmployerProfileData>;
+}
+
+const EmployerSettingsForm = ({ initialData }: Props) => {
   const {
     register,
     handleSubmit,
