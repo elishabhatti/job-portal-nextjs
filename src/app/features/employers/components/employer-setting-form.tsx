@@ -59,6 +59,16 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
     control,
     formState: { errors },
   } = useForm<EmployerProfileData>({
+    defaultValues: {
+      name: initialData?.name || "",
+      description: initialData?.description || "",
+      organizationType: initialData?.organizationType || undefined,
+      teamSize: initialData?.teamSize || undefined,
+      yearOfEstablishment: initialData?.yearOfEstablishment,
+      websiteUrl: initialData?.websiteUrl || "",
+      location: initialData?.location || "",
+      // avatarUrl: initialData?.avatarUrl || "",
+    },
     resolver: zodResolver(employerProfileSchema),
   });
 
