@@ -48,7 +48,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 //   teamSize: TeamSize;
 // }
 
-const EmployerSettingsForm = () => {
+const EmployerSettingsForm = ({}) => {
   const {
     register,
     handleSubmit,
