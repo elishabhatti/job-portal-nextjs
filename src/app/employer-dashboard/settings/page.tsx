@@ -3,22 +3,22 @@ import { getCurrentEmployerDetails } from "@/app/features/server/employers.queri
 import { redirect } from "next/navigation";
 
 const EmployerSettings = async () => {
-  const currentEmployer = await getCurrentEmployerDetails();
-  if (!currentEmployer) return redirect("/login");
-  console.log("current employer:", currentEmployer);
+  const employer = await getCurrentEmployerDetails();
+  if (!employer) return redirect("/login");
+  console.log("current employer:", employer);
 
   return (
     <div>
       <EmployerSettingsForm
         initialData={{
-          name: currentEmployer.employerDetails.name,
-          description: currentEmployer.employerDetails.description,
-          organizationType: currentEmployer.employerDetails.organizationType,
-          teamSize: currentEmployer.employerDetails.teamSize,
-          location: currentEmployer.employerDetails.location,
-          websiteUrl: currentEmployer.employerDetails.websiteUrl,
+          name: employer.employerDetails.name,
+          description: employer.employerDetails.description,
+          organizationType: employer.employerDetails.organizationType,
+          teamSize: employer.employerDetails.teamSize,
+          location: employer.employerDetails.location,
+          websiteUrl: employer.employerDetails.websiteUrl,
           yearOfEstablishment:
-            currentEmployer.employerDetails.yearOfEstablishment?.toString(),
+            employer.employerDetails.yearOfEstablishment?.toString(),
         }}
       />
     </div>
