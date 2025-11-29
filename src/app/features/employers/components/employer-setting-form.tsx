@@ -18,6 +18,7 @@ import {
   Calendar,
   FileText,
   Globe,
+  Loader,
   MapPin,
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
@@ -283,7 +284,10 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
             )}
           </div>
 
-          <Button type="submit">Save Changes</Button>
+          <Button type="submit">
+            {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
+            {isSubmitting ? "Saving Changes..." : "Save Changes"}
+          </Button>
           {!isDirty && (
             <p className="text-sm text-muted-foreground">No Change to Save</p>
           )}
