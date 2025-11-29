@@ -284,13 +284,15 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
             )}
           </div>
 
-          <Button type="submit">
-            {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
-            {isSubmitting ? "Saving Changes..." : "Save Changes"}
-          </Button>
-          {!isDirty && (
-            <p className="text-sm text-muted-foreground">No Change to Save</p>
-          )}
+          <div className="flex items-center  gap-2">
+            <Button type="submit">
+              {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
+              {isSubmitting ? "Saving Changes..." : "Save Changes"}
+            </Button>
+            {!isDirty && (
+              <p className="text-sm text-muted-foreground">No Change to Save</p>
+            )}
+          </div>
         </form>
       </CardContent>
     </Card>
