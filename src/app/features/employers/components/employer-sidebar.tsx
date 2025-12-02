@@ -32,7 +32,6 @@ const navigationItems = [
 
 const EmployerSidebar = () => {
   const pathname = usePathname();
-  console.log("usepathname: ", pathname);
 
   // to check the link of the matching sidebar
   function isLinkActive({
@@ -63,10 +62,6 @@ const EmployerSidebar = () => {
     //   search:   "?search=jobs",
     //   hash:     "#top"
     // }
-
-    console.log("pattern: ", pattern);
-
-    console.log("inside: ", pattern.test({ pathname }));
     return pattern.test({ pathname });
   }
 
