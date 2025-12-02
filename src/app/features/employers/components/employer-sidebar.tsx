@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { URLPattern } from "next/server";
 
 const base = "/employer-dashboard";
 
@@ -62,6 +61,10 @@ const EmployerSidebar = () => {
     //   search:   "?search=jobs",
     //   hash:     "#top"
     // }
+
+    console.log("pattern: ", pattern);
+
+    console.log("inside: ", pattern.test({ pathname }));
     return pattern.test({ pathname });
   }
 
