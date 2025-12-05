@@ -9,7 +9,7 @@ import {
 // import { FloatingMenu, BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
-import { BoldIcon, ItalicIcon } from "lucide-react";
+import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -37,19 +37,20 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       return {
         isBold: ctx.editor.isActive("bold") ?? false,
         isItalic: ctx.editor.isActive("italic") ?? false,
+        isUnderline: ctx.editor.isActive("bold") ?? false,
       };
     },
   });
   return (
     <>
-    <Toggle
-      size="sm"
-      pressed={editorState.isBold}
-      onPressedChange={() => editor.chain().focus().toggleBold().run()}
-      aria-label="Toggle bold"
+      <Toggle
+        size="sm"
+        pressed={editorState.isBold}
+        onPressedChange={() => editor.chain().focus().toggleBold().run()}
+        aria-label="Toggle bold"
       >
-      <BoldIcon className="h-4 w-4" />
-    </Toggle>
+        <BoldIcon className="h-4 w-4" />
+      </Toggle>
       <Toggle
         size="sm"
         pressed={editorState.isItalic}
@@ -58,6 +59,14 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       >
         <ItalicIcon className="h-4 w-4" />
       </Toggle>
-        </>
+      <Toggle
+        size="sm"
+        pressed={editorState.isUnderline}
+        onPressedChange={() => editor.chain().focus().toggleUnderline().run()}
+        aria-label="Toggle underline"
+      >
+        <UnderlineIcon className="h-4 w-4" />
+      </Toggle>
+    </>
   );
 };
