@@ -1,6 +1,11 @@
 "use client";
 // src/Tiptap.tsx
-import { useEditor, EditorContent, Editor, useEditorState } from "@tiptap/react";
+import {
+  useEditor,
+  EditorContent,
+  Editor,
+  useEditorState,
+} from "@tiptap/react";
 // import { FloatingMenu, BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from "@tiptap/starter-kit";
 
@@ -24,11 +29,17 @@ const Tiptap = () => {
 export default Tiptap;
 
 const ToolBar = ({ editor }: { editor: Editor }) => {
-    const editorState = useEditorState({editor, selector(context) {} })
+  const editorState = useEditorState({
+    editor,
+    selector: (ctx) => {
+      return {
+        isBold: ctx.editor.isActive("bold") ?? false,
+      };
+    },
+  });
   return (
     <button
       onClick={() => editor.chain().focus().toggleBold().run()}
-      disabled={!editorState.canBold}
       className={editorState.isBold ? "is-active" : ""}
     >
       Bold
