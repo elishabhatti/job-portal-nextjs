@@ -15,11 +15,13 @@ import {
   CodeIcon,
   HighlighterIcon,
   ItalicIcon,
+  LinkIcon,
   ListIcon,
   ListOrderedIcon,
   Quote,
   StrikethroughIcon,
   UnderlineIcon,
+  UnlinkIcon,
 } from "lucide-react";
 
 const Tiptap = () => {
@@ -157,6 +159,24 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       >
         <Quote className="h-4 w-4" />
       </Toggle>
+      <div className="bg-border mx-1 h-6 w-px" />
+
+      {editorState.isLink ? (
+        <Toggle
+          pressed
+          onPressedChange={() =>
+            editor.chain().focus().extendMarkRange("link").unsetLink().run()
+          }
+        >
+          <UnlinkIcon className="h-4 w-4" />
+        </Toggle>
+      ) : (
+        <LinkComponent editor={editor}>
+          <Toggle size="sm" aria-label="Toggle link">
+            <LinkIcon className="h-4 w-4" />
+          </Toggle>
+        </LinkComponent>
+      )}
     </>
   );
 };
