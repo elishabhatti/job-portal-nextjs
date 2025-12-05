@@ -9,7 +9,12 @@ import {
 // import { FloatingMenu, BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
-import { BoldIcon, ItalicIcon, UnderlineIcon } from "lucide-react";
+import {
+  BoldIcon,
+  ItalicIcon,
+  StrikethroughIcon,
+  UnderlineIcon,
+} from "lucide-react";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -38,6 +43,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         isBold: ctx.editor.isActive("bold") ?? false,
         isItalic: ctx.editor.isActive("italic") ?? false,
         isUnderline: ctx.editor.isActive("bold") ?? false,
+        isStrike: ctx.editor.isActive("strike") ?? false,
       };
     },
   });
@@ -51,6 +57,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       >
         <BoldIcon className="h-4 w-4" />
       </Toggle>
+
       <Toggle
         size="sm"
         pressed={editorState.isItalic}
@@ -59,6 +66,7 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       >
         <ItalicIcon className="h-4 w-4" />
       </Toggle>
+
       <Toggle
         size="sm"
         pressed={editorState.isUnderline}
@@ -66,6 +74,15 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle underline"
       >
         <UnderlineIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isStrike}
+        onPressedChange={() => editor.chain().focus().toggleStrike().run()}
+        aria-label="Toggle strikethrough"
+      >
+        <StrikethroughIcon className="h-4 w-4" />
       </Toggle>
     </>
   );
