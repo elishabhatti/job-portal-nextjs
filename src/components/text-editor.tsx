@@ -24,6 +24,8 @@ import {
   UnlinkIcon,
 } from "lucide-react";
 import { ReactNode, useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -74,7 +76,41 @@ function LinkComponent({
     setIsLinkPopoverOpen(false);
     setLinkUrl("");
   };
+
+  return (
+    <Popover open={isLinkPopoverOpen} onOpenChange={setIsLinkPopoverOpen}>
+      <PopoverTrigger>{children}</PopoverTrigger>
+      {/* // this is the main */}
+      {/* trigger point */}
+      <PopoverContent className="w-80 p-4">
+        <div className="flex flex-col gap-4">
+          <h3 className="font-medium">Insert Link</h3>
+          <Input
+            placeholder="https://example.com"
+            type="url"
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSetLink();
+              }
+            }}
+          />
+          <div className="flex justify-between">
+            <Button
+              variant="outline"
+              onClick={() => setIsLinkPopoverOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleSetLink}>Save</Button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
 }
+
 const ToolBar = ({ editor }: { editor: Editor }) => {
   const editorState = useEditorState({
     editor,
