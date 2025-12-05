@@ -31,6 +31,7 @@ import {
   teamSizes,
 } from "../employer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Tiptap from "@/components/text-editor";
 
 // const organizationTypeOptions = ["development", "business", "design"] as const;
 // type OrganizationType = (typeof organizationTypeOptions)[number];
@@ -133,6 +134,9 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
                 {errors.description.message}
               </p>
             )}
+          </div>
+          <div>
+            <Tiptap/>
           </div>
 
           {/* When you run const { control } = useForm(), you create a specific instance of a form. The <Controller /> component is isolated; it doesn't know which form it belongs to. Passing control={control} connects this specific input to that specific useForm hook. */}
