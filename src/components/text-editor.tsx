@@ -10,6 +10,7 @@ import {
 // import { FloatingMenu, BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import {
   BoldIcon,
   CodeIcon,
