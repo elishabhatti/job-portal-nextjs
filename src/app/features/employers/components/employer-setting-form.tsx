@@ -117,26 +117,22 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
 
           {/* Description */}
           <div className="space-y-2">
-            <Label htmlFor="description">Company Description *</Label>
-            <div className="relative">
-              <FileText className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
-              <Textarea
-                id="companyDescription"
-                placeholder="Tell us about your company, what you do, and your mission"
-                className={`pl-10 ${
-                  errors.description ? "border-destructive" : ""
-                } min-h-[120px] resize-none`}
-                {...register("description")}
-              />
-            </div>
-            {errors.description && (
-              <p className="text-sm text-destructive">
-                {errors.description.message}
-              </p>
-            )}
-          </div>
-          <div>
-            <Tiptap/>
+            <Controller
+              name="description"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="space-y-2">
+                  <Label>Description *</Label>
+                  <Tiptap content={field.value} onChange={field.onChange} />
+
+                  {fieldState.error && (
+                    <p className="text-sm text-destructive">
+                      {fieldState.error.message}
+                    </p>
+                  )}
+                </div>
+              )}
+            />
           </div>
 
           {/* When you run const { control } = useForm(), you create a specific instance of a form. The <Controller /> component is isolated; it doesn't know which form it belongs to. Passing control={control} connects this specific input to that specific useForm hook. */}
