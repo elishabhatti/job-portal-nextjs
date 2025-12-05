@@ -17,6 +17,7 @@ import {
   ItalicIcon,
   ListIcon,
   ListOrderedIcon,
+  Quote,
   StrikethroughIcon,
   UnderlineIcon,
 } from "lucide-react";
@@ -140,6 +141,15 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle ordered list"
       >
         <ListOrderedIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isBlockquote}
+        onPressedChange={() => editor.chain().focus().toggleBlockquote().run()}
+        aria-label="Toggle blockquote"
+      >
+        <Quote className="h-4 w-4" />
       </Toggle>
     </>
   );
