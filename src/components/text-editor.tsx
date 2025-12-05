@@ -11,6 +11,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
 import {
   BoldIcon,
+  HighlighterIcon,
   ItalicIcon,
   StrikethroughIcon,
   UnderlineIcon,
@@ -42,8 +43,22 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
       return {
         isBold: ctx.editor.isActive("bold") ?? false,
         isItalic: ctx.editor.isActive("italic") ?? false,
-        isUnderline: ctx.editor.isActive("bold") ?? false,
+        isUnderline: ctx.editor.isActive("underline") ?? false,
         isStrike: ctx.editor.isActive("strike") ?? false,
+        isCode: ctx.editor.isActive("code") ?? false,
+        isHighlight: ctx.editor.isActive("highlight") ?? false,
+        isBulletList: ctx.editor.isActive("bulletList") ?? false,
+        isOrderedList: ctx.editor.isActive("orderedList") ?? false,
+        isBlockquote: ctx.editor.isActive("blockquote") ?? false,
+        isLink: ctx.editor.isActive("link") ?? false,
+        canRedo: editor.can().redo(),
+        canUndo: editor.can().undo(),
+        isHeading2: ctx.editor.isActive("heading", { level: 2 }) ?? false,
+        isHeading3: ctx.editor.isActive("heading", { level: 3 }) ?? false,
+        isHeading4: ctx.editor.isActive("heading", { level: 4 }) ?? false,
+        isHeading5: ctx.editor.isActive("heading", { level: 5 }) ?? false,
+        isHeading6: ctx.editor.isActive("heading", { level: 6 }) ?? false,
+        isParagraph: ctx.editor.isActive("paragraph") ?? false,
       };
     },
   });
@@ -83,6 +98,17 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle strikethrough"
       >
         <StrikethroughIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isHighlight}
+        onPressedChange={() =>
+          editor.chain().focus().toggleHighlight({ color: "#fdeb80" }).run()
+        }
+        aria-label="Toggle highlight"
+      >
+        <HighlighterIcon className="h-4 w-4" />
       </Toggle>
     </>
   );
