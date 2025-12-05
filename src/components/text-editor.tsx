@@ -12,6 +12,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
 import {
   BoldIcon,
+  CodeIcon,
   HighlighterIcon,
   ItalicIcon,
   StrikethroughIcon,
@@ -110,6 +111,15 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle highlight"
       >
         <HighlighterIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isCode}
+        onPressedChange={() => editor.chain().focus().toggleCode().run()}
+        aria-label="Toggle code"
+      >
+        <CodeIcon className="h-4 w-4" />
       </Toggle>
     </>
   );
