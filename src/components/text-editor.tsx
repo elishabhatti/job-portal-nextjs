@@ -1,5 +1,5 @@
 "use client";
-import Highlight from '@tiptap/extension-highlight'
+import Highlight from "@tiptap/extension-highlight";
 
 import {
   useEditor,
@@ -15,6 +15,7 @@ import {
   CodeIcon,
   HighlighterIcon,
   ItalicIcon,
+  ListIcon,
   StrikethroughIcon,
   UnderlineIcon,
 } from "lucide-react";
@@ -120,6 +121,15 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle code"
       >
         <CodeIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isBulletList}
+        onPressedChange={() => editor.chain().focus().toggleBulletList().run()}
+        aria-label="Toggle bullet list"
+      >
+        <ListIcon className="h-4 w-4" />
       </Toggle>
     </>
   );
