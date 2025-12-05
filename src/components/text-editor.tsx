@@ -16,6 +16,7 @@ import {
   HighlighterIcon,
   ItalicIcon,
   ListIcon,
+  ListOrderedIcon,
   StrikethroughIcon,
   UnderlineIcon,
 } from "lucide-react";
@@ -130,6 +131,15 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
         aria-label="Toggle bullet list"
       >
         <ListIcon className="h-4 w-4" />
+      </Toggle>
+
+      <Toggle
+        size="sm"
+        pressed={editorState.isOrderedList}
+        onPressedChange={() => editor.chain().focus().toggleOrderedList().run()}
+        aria-label="Toggle ordered list"
+      >
+        <ListOrderedIcon className="h-4 w-4" />
       </Toggle>
     </>
   );
