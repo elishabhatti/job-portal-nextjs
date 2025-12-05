@@ -23,6 +23,7 @@ import {
   UnderlineIcon,
   UnlinkIcon,
 } from "lucide-react";
+import { ReactNode, useState } from "react";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -49,6 +50,31 @@ const Tiptap = () => {
 
 export default Tiptap;
 
+function LinkComponent({
+  editor,
+  children,
+}: {
+  editor: Editor;
+  children: ReactNode;
+}) {
+  const [linkUrl, setLinkUrl] = useState("");
+  const [isLinkPopoverOpen, setIsLinkPopoverOpen] = useState(false);
+
+  const handleSetLink = () => {
+    if (linkUrl) {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange("link")
+        .setLink({ href: linkUrl })
+        .run();
+    } else {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    }
+    setIsLinkPopoverOpen(false);
+    setLinkUrl("");
+  };
+}
 const ToolBar = ({ editor }: { editor: Editor }) => {
   const editorState = useEditorState({
     editor,
@@ -177,6 +203,10 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
           </Toggle>
         </LinkComponent>
       )}
+
+      <div className="bg-border mx-1 h-6 w-px" />
+
+      <div className="bg-border mx-1 h-6 w-px" />
     </>
   );
 };
