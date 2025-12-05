@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { logoutUserAction } from "../../auth/server/auth.action";
 import { cn } from "@/lib/utils";
 import {
@@ -19,53 +20,40 @@ import { usePathname } from "next/navigation";
 const base = "/employer-dashboard";
 
 const navigationItems = [
-  { name: "Overview", icon: LayoutDashboard, href: base + "/" },
-  { name: "Employers Profile", icon: User },
-  { name: "Post a Job", icon: Plus },
-  { name: "My Jobs", icon: Briefcase },
-  { name: "Saved Candidate", icon: Bookmark },
-  { name: "Plans & Billing", icon: CreditCard },
-  { name: "All Companies", icon: Building },
+  { name: "Overview", icon: LayoutDashboard, href: base },
+  { name: "Employers Profile", icon: User, href: base + "/profile" },
+  { name: "Post a Job", icon: Plus, href: base + "/post-job" },
+  { name: "My Jobs", icon: Briefcase, href: base + "/my-jobs" },
+  { name: "Saved Candidate", icon: Bookmark, href: base + "/saved" },
+  { name: "Plans & Billing", icon: CreditCard, href: base + "/billing" },
+  { name: "All Companies", icon: Building, href: base + "/companies" },
   { name: "Settings", icon: Settings, href: base + "/settings" },
 ];
 
 const EmployerSidebar = () => {
   const pathname = usePathname();
 
-  // to check the link of the matching sidebar
-  function isLinkActive({
-    href,
-    pathname,
-    base = "/",
-  }: {
-    href: string;
-    pathname: string;
-    base?: string;
-  }) {
-    const normalizedHref = href.replace(/\/$/, "") || "/";
+  // Prevent hydration mismatch — read path only on client
+  const [activePath, setActivePath] = useState("");
 
-    // URLPattern is a built-in browser API that lets you define URL matching patterns using a template-like syntax.
+  useEffect(() => {
+    setActivePath(pathname);
+  }, [pathname]);
 
-    const pattern = new URLPattern({
-      pathname: normalizedHref === base ? base : `${normalizedHref}{/*}?`,
-    });
+  // FIX: Correct active tab logic
+  function isActive(href: string | undefined) {
+    if (!href) return false;
 
-    // /employer-dashboard/settings/amplye/thapa/id
+    const cleanHref = href.replace(/\/$/, "");
+    const cleanPath = activePath.replace(/\/$/, "");
 
-    // URL: https://www.example.com/employer-dashboard?search=jobs#top
+    // SPECIAL CASE: Overview
+    if (cleanHref === "/employer-dashboard") {
+      return cleanPath === "/employer-dashboard";
+    }
 
-    // {
-    //   protocol: "https",
-    //   hostname: "www.example.com",
-    //   pathname: "/employer-dashboard", // <--- THIS is what we care about
-    //   search:   "?search=jobs",
-    //   hash:     "#top"
-    // }
-
-    console.log("pattern: ", pattern);
-
-    console.log("inside: ", pattern.test({ pathname }));
-    return pattern.test({ pathname });
+    // Other routes
+    return cleanPath.startsWith(cleanHref);
   }
 
   return (
@@ -84,14 +72,9 @@ const EmployerSidebar = () => {
             <Link
               key={curNav.name}
               href={curNav.href || "#"}
-              // className=" flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors"
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                isLinkActive({
-                  href: curNav.href || "#",
-                  pathname,
-                  base: "/employer-dashboard",
-                }) && "text-primary bg-blue-300"
+                isActive(curNav.href) && "text-primary bg-blue-300"
               )}
             >
               <Icon />
