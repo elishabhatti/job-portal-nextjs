@@ -26,6 +26,12 @@ const Tiptap = () => {
   const editor = useEditor({
     extensions: [StarterKit, Highlight.configure({ multicolor: true })], // define your extension array
     content: "<p>Hello World!</p>", // initial content
+    editorProps: {
+      attributes: {
+        class:
+          "prose dark:prose-invert prose-sm sm:prose-base focus:outline-none max-w-none",
+      },
+    },
     immediatelyRender: false,
   });
 
