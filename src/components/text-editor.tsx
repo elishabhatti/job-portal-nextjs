@@ -1,5 +1,6 @@
 "use client";
-// src/Tiptap.tsx
+import Highlight from '@tiptap/extension-highlight'
+
 import {
   useEditor,
   EditorContent,
@@ -19,7 +20,7 @@ import {
 
 const Tiptap = () => {
   const editor = useEditor({
-    extensions: [StarterKit], // define your extension array
+    extensions: [StarterKit, Highlight.configure({ multicolor: true })], // define your extension array
     content: "<p>Hello World!</p>", // initial content
     immediatelyRender: false,
   });
