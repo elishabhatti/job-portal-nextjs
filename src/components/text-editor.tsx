@@ -9,7 +9,7 @@ import {
 // import { FloatingMenu, BubbleMenu } from '@tiptap/react/menus'
 import StarterKit from "@tiptap/starter-kit";
 import { Toggle } from "./ui/toggle";
-import { BoldIcon } from "lucide-react";
+import { BoldIcon, ItalicIcon } from "lucide-react";
 
 const Tiptap = () => {
   const editor = useEditor({
@@ -36,17 +36,28 @@ const ToolBar = ({ editor }: { editor: Editor }) => {
     selector: (ctx) => {
       return {
         isBold: ctx.editor.isActive("bold") ?? false,
+        isItalic: ctx.editor.isActive("italic") ?? false,
       };
     },
   });
   return (
+    <>
     <Toggle
       size="sm"
       pressed={editorState.isBold}
       onPressedChange={() => editor.chain().focus().toggleBold().run()}
       aria-label="Toggle bold"
-    >
+      >
       <BoldIcon className="h-4 w-4" />
     </Toggle>
+      <Toggle
+        size="sm"
+        pressed={editorState.isItalic}
+        onPressedChange={() => editor.chain().focus().toggleItalic().run()}
+        aria-label="Toggle bold"
+      >
+        <ItalicIcon className="h-4 w-4" />
+      </Toggle>
+        </>
   );
 };
