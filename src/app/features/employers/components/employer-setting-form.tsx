@@ -33,7 +33,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Tiptap from "@/components/text-editor";
 import { UploadButton } from "@/lib/uploadthing";
-
 // const organizationTypeOptions = ["development", "business", "design"] as const;
 // type OrganizationType = (typeof organizationTypeOptions)[number];
 // const teamSizeOptions = ["1-5", "6-20", "21-50"] as const;
