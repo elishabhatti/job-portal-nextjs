@@ -76,6 +76,13 @@ export const employerProfileSchema = z.object({
   // in forms, we usually have empty string for optional fields instead of undefined.
   // if we don't do this, then empty string will fail the url validation and it will fail.
 
+  avatarUrl: z
+    .url("Please enter a valid URL (e.g., https://example.com)")
+    .trim()
+    .max(500, "Website URL must not exceed 500 characters")
+    .optional()
+    .or(z.literal("")),
+
   location: z
     .string()
     .trim()
