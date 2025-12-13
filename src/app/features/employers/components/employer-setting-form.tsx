@@ -33,6 +33,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import Tiptap from "@/components/text-editor";
 import { UploadButton } from "@/lib/uploadthing";
+import Image from "next/image";
 // const organizationTypeOptions = ["development", "business", "design"] as const;
 // type OrganizationType = (typeof organizationTypeOptions)[number];
 // const teamSizeOptions = ["1-5", "6-20", "21-50"] as const;
@@ -98,7 +99,7 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
       <CardContent>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
           <div>
-            <UploadButton
+            {/* <UploadButton
               appearance={{
                 button:
                   "bg-blue-500 text-primary-foreground px-4 py-2 rounded-md",
@@ -112,7 +113,27 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
               onUploadError={(error: Error) => {
                 alert(`ERROR! ${error.message}`);
               }}
-            ></UploadButton>
+            ></UploadButton> */}
+            <Label>Company Logo</Label>
+            {avatarUrl ? (
+              <div className="flex items-center gap-4">
+                <div className="relative w-24 h-24 rounded-lg overflow-hidden border-2 border-border">
+                  <Image
+                  src={avatarUrl}
+                  alt="Company Logo"
+                  className="w-full h-full object-cover"
+                  width={200}
+                  height={100}
+                  />
+                </div>
+                <Button type="button" variant="destructive" size="sm" onClick={handleRemoveAvatar}>
+                Remove Logo
+                </Button>
+              </div>
+            ) : (
+              <UploadButton/>
+            )
+              }
           </div>
           {/* <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="username">username</Label>
