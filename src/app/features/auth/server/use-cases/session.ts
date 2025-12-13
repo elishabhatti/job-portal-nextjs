@@ -81,6 +81,7 @@ export const validateSessionAndGetUser = async (session: string) => {
       role: users.role,
       phoneNumber: users.phoneNumber,
       email: users.email,
+      avatarUrl: users.avatarUrl,
       // emailVerifiedAt: users.emailVerifiedAt,
       // avatarUrl: users.avatarUrl,
       createdAt: users.createdAt,
