@@ -119,21 +119,38 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
               <div className="flex items-center gap-4">
                 <div className="relative w-24 h-24 rounded-lg overflow-hidden border-2 border-border">
                   <Image
-                  src={avatarUrl}
-                  alt="Company Logo"
-                  className="w-full h-full object-cover"
-                  width={200}
-                  height={100}
+                    src={avatarUrl}
+                    alt="Company Logo"
+                    className="w-full h-full object-cover"
+                    width={200}
+                    height={100}
                   />
                 </div>
-                <Button type="button" variant="destructive" size="sm" onClick={handleRemoveAvatar}>
-                Remove Logo
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleRemoveAvatar}
+                >
+                  Remove Logo
                 </Button>
               </div>
             ) : (
-              <UploadButton/>
-            )
-              }
+              <UploadButton
+                endpoint="imageUploader"
+                onClientUploadComplete={(res) => {
+                  const profilePic = res[0];
+
+                  setValue("avatarUrl", profilePic.ufsUrl, {
+                    shouldDirty: true,
+                  });
+                  console.log("Files", res);
+                }}
+                onUploadError={(error: Error) => {
+                  toast.error(`Upload failed, ${error.message}`);
+                }}
+              />
+            )}
           </div>
           {/* <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="username">username</Label>
