@@ -88,21 +88,23 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
     <Card className="w-3/4">
       <CardContent>
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-        <div>
-          <UploadButton
-          endpoint="imageUploader"
-          onClientUploadComplete={(res) => {
-            // Do something with the response
-            console.log("Files uploaded:", res);
-            alert("Upload Successful!");
-          }}
-          onUploadError={(error: Error) => {
-            alert(`ERROR! ${error.message}`);
-          }}
-          >
-            
-          </UploadButton>
-        </div>
+          <div>
+            <UploadButton
+              appearance={{
+                button:
+                  "bg-blue-500 text-primary-foreground px-4 py-2 rounded-md",
+              }}
+              endpoint="imageUploader"
+              onClientUploadComplete={(res) => {
+                // Do something with the response
+                console.log("Files uploaded:", res);
+                alert("Upload Successful!");
+              }}
+              onUploadError={(error: Error) => {
+                alert(`ERROR! ${error.message}`);
+              }}
+            ></UploadButton>
+          </div>
           {/* <div className="grid w-full max-w-sm items-center gap-3">
             <Label htmlFor="username">username</Label>
             <Input id="username" type="text" {...register("username")} />
