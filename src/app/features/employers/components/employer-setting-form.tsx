@@ -68,6 +68,7 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
       teamSize: initialData?.teamSize || undefined,
       yearOfEstablishment: initialData?.yearOfEstablishment,
       websiteUrl: initialData?.websiteUrl || "",
+      avatarUrl: initialData?.avatarUrl || "",
       location: initialData?.location || "",
     },
     resolver: zodResolver(employerProfileSchema),
