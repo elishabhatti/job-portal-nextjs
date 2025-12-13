@@ -59,6 +59,8 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
     register,
     handleSubmit,
     control,
+    setValue,
+    watch,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<EmployerProfileData>({
     defaultValues: {
@@ -73,6 +75,12 @@ const EmployerSettingsForm = ({ initialData }: Props) => {
     },
     resolver: zodResolver(employerProfileSchema),
   });
+
+  const avatarUrl = watch("avatarUrl");
+
+  const handleRemoveAvatar = () => {
+    setValue("avatarUrl", "");
+  };
 
   const handleFormSubmit = async (data: EmployerProfileData) => {
     console.log(data);
