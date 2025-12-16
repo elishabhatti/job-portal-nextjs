@@ -83,6 +83,13 @@ export const employerProfileSchema = z.object({
     .optional()
     .or(z.literal("")),
 
+  bannerImageUrl: z
+    .url("Please enter a valid URL (e.g., https://example.com)")
+    .trim()
+    .max(500, "Bannner Image URL must not exceed 500 characters")
+    .optional()
+    .or(z.literal("")),
+
   location: z
     .string()
     .trim()
