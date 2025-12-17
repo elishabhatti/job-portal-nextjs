@@ -21,7 +21,9 @@ import { EmployerProfileData } from "../employers/employer.schema";
 //   teamSize: TeamSize;
 // }
 
-export const updateEmployerProfileAction = async (data: EmployerProfileData) => {
+export const updateEmployerProfileAction = async (
+  data: EmployerProfileData
+) => {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser || currentUser.role !== "employer") {
@@ -35,6 +37,8 @@ export const updateEmployerProfileAction = async (data: EmployerProfileData) => 
       websiteUrl,
       organizationType,
       teamSize,
+      avatarUrl,
+      bannerImageUrl,
     } = data;
 
     const updatedEmployer = await db
@@ -46,6 +50,8 @@ export const updateEmployerProfileAction = async (data: EmployerProfileData) => 
         websiteUrl,
         organizationType,
         teamSize,
+        avatarUrl,
+        bannerImageUrl,
         yearOfEstablishment: yearOfEstablishment
           ? parseInt(yearOfEstablishment)
           : null,
