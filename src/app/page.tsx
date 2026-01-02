@@ -19,7 +19,7 @@ export default async function Home() {
         />
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
           <li className="mb-2 tracking-[-.01em]">
-            Get started with Next Js JOb Portal App by {user?.name}
+            Get started with Next Js Job Portal App by {user?.name}
             <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
               {user?.email}
             </code>
