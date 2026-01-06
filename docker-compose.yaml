@@ -1,0 +1,29 @@
+services:
+  app:
+    container_name: job_portal
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL: mongodb://admin:qwerty@mongo:27017/
+
+  database:
+    container_name: mongodb
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: qwerty
+    ports:
+      - 27017:27017
+    restarts: always
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://admin:qwerty@mongo:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: admin
+      ME_CONFIG_BASICAUTH_PASSWORD: qwerty
