@@ -1,24 +1,26 @@
-FROM node:22-slim AS builder
+FROM node:20-slim AS builder
 
 WORKDIR /app
 
-COPY package*.json /app
-
-RUN npm install
-
-COPY . /app
-
-RUN npm build
-
-FROM node:22-slim
-
-WORKDIR /app
-
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/node_modules /app/node_modules
+COPY package*.json ./
+RUN npm ci
 
 COPY . .
+RUN npm run build
+
+# --------------------
+
+FROM node:20-slim
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD ["node", "dist/index.js"]
