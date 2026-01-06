@@ -12,9 +12,13 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentEmployerDetails } from "../../server/employers.queries";
 
-const EmployerProfileCompletionStatus = async () => {
+export async function EmployerProfileCompletionStatus() {
   const currentEmployer = await getCurrentEmployerDetails();
+
   if (!currentEmployer) return redirect("/login");
+
+  if (currentEmployer.isProfileCompleted) return null;
+
   return (
     <div className="flex flex-col gap-6">
       <Item variant="destructive">
@@ -22,7 +26,7 @@ const EmployerProfileCompletionStatus = async () => {
           <ShieldAlertIcon />
         </ItemMedia>
         <ItemContent>
-          <ItemTitle className="text-white">Incomplete Profile</ItemTitle>
+          <ItemTitle>Incomplete Profile</ItemTitle>
           <ItemDescription className="text-white/80">
             You haven't completed your employer profile yet. Please complete
             your profile to post jobs and access all features.
@@ -36,6 +40,4 @@ const EmployerProfileCompletionStatus = async () => {
       </Item>
     </div>
   );
-};
-
-export default EmployerProfileCompletionStatus;
+}
