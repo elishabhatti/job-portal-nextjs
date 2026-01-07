@@ -1,5 +1,15 @@
+import {
+  JOB_LEVEL,
+  JOB_TYPE,
+  MIN_EDUCATION,
+  SALARY_CURRENCY,
+  SALARY_PERIOD,
+  WORK_TYPE,
+} from "@/config/constant";
 import { relations } from "drizzle-orm";
 import {
+  boolean,
+  date,
   datetime,
   int,
   mysqlEnum,
