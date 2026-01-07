@@ -94,28 +94,18 @@ export const jobSchema = z
       .trim()
       .optional()
       .or(z.literal(""))
-      .transform((v) => (!v || v === "" ? null : v))
-      .pipe(
-        z
-          .string()
-          .regex(
-            /^\d{4}-\d{2}-\d{2}$/,
-            "Please enter a valid date (YYYY-MM-DD)"
-          )
-      )
+      .transform((v) => (v === "" || v === undefined ? null : v))
       .refine(
-        (date) => {
-          const expiryDate = new Date(date);
+        (v) => {
+          if (v === null) return true; // allow empty
+          const expiryDate = new Date(v);
           const today = new Date();
           today.setHours(0, 0, 0, 0);
           return expiryDate >= today;
         },
-        {
-          message: "Expiry date must be today or in the future",
-        }
+        { message: "Expiry date must be today or in the future" }
       )
-      .transform((date) => new Date(date))
-      .nullable(),
+      .transform((v) => (v === null ? null : new Date(v))),
   })
   .refine(
     (data) => {
