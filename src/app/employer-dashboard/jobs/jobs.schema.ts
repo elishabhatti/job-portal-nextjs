@@ -6,7 +6,7 @@ import {
   SALARY_PERIOD,
   WORK_TYPE,
 } from "@/config/constant";
-import { date, z } from "zod";
+import { z } from "zod";
 
 export const jobSchema = z
   .object({
@@ -25,7 +25,7 @@ export const jobSchema = z
     tags: z
       .string()
       .trim()
-      .min(500, "Tags must not exceed 500 characters")
+      .max(500, "Tags must not exceed 500 characters")
       .optional()
       .or(z.literal("")),
 
@@ -35,7 +35,8 @@ export const jobSchema = z
       .regex(/^\d+$/, "Minimum salary must be a valid number")
       .optional()
       .or(z.literal(""))
-      .transform((v) => (!v ? null : parseInt(v))),
+      .transform((v) => (!v ? null : parseInt(v)))
+      .nullable(),
 
     maxSalary: z
       .string()
@@ -43,7 +44,8 @@ export const jobSchema = z
       .regex(/^\d+$/, "Maximun salary must be a valid number")
       .optional()
       .or(z.literal(""))
-      .transform((v) => (!v ? null : parseInt(v))),
+      .transform((v) => (!v ? null : parseInt(v)))
+      .nullable(),
 
     salaryCurrency: z.enum(SALARY_CURRENCY, {
       error: "Please select a valid currency",
@@ -58,8 +60,8 @@ export const jobSchema = z
     location: z
       .string()
       .trim()
-      .min(50, "Description must be at least 50 characters long")
-      .max(5000, "Description must not exceed 5000 characters")
+      .min(2, "Location must be at least 2 characters long")
+      .max(255, "Location must not exceed 255 characters")
       .optional()
       .or(z.literal("")),
 
@@ -90,7 +92,17 @@ export const jobSchema = z
     expiresAt: z
       .string()
       .trim()
-      .regex(/^\d{4}-\d{2}-\d{2}/, "Please enter a valid date (YYYY-MM-DD)")
+      .optional()
+      .or(z.literal(""))
+      .transform((v) => (!v || v === "" ? null : v))
+      .pipe(
+        z
+          .string()
+          .regex(
+            /^\d{4}-\d{2}-\d{2}$/,
+            "Please enter a valid date (YYYY-MM-DD)"
+          )
+      )
       .refine(
         (date) => {
           const expiryDate = new Date(date);
@@ -102,9 +114,8 @@ export const jobSchema = z
           message: "Expiry date must be today or in the future",
         }
       )
-      .optional()
-      .or(z.literal(""))
-      .transform((date) => (date ? new Date(date) : null)),
+      .transform((date) => new Date(date))
+      .nullable(),
   })
   .refine(
     (data) => {
