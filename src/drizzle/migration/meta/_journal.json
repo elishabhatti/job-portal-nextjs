@@ -29,6 +29,13 @@
       "when": 1765599551882,
       "tag": "0003_brief_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1767759930882,
+      "tag": "0004_lush_prodigy",
+      "breakpoints": true
     }
   ]
 }
