@@ -135,6 +135,13 @@ export const jobs = mysqlTable("jobs", {
 
 //! Both the one() and many() helper functions take arguments to define the relationship details.
 
+export const jobsRelations = relations(jobs, ({ one }) => ({
+  employer: one(employers, {
+    fields: [jobs.employerId],
+    references: [employers.id],
+  }),
+}));
+
 // Relations definitions
 export const usersRelations = relations(users, ({ one, many }) => ({
   // One user can have one employer profile (if role is employer)
