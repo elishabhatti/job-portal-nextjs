@@ -88,6 +88,31 @@ export const applicants = mysqlTable("applicants", {
   updatedAt: timestamp("updated_at", { mode: "string" }).defaultNow().notNull(),
 });
 
+export const jobs = mysqlTable("jobs", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  employerId: int("employer_id")
+    .notNull()
+    .references(() => employers.id, { onDelete: "cascade" }),
+  description: text("description").notNull(),
+  tags: text("tags"),
+  minSalary: int("min_salary"),
+  maxSalary: int("max_salary"),
+  salaryCurrency: mysqlEnum("salary_currency", SALARY_CURRENCY),
+  salaryPeriod: mysqlEnum("salary_period", SALARY_PERIOD),
+  location: varchar("location", { length: 255 }),
+  jobType: mysqlEnum("job_type", JOB_TYPE),
+  workType: mysqlEnum("work_type", WORK_TYPE),
+  jobLevel: mysqlEnum("job_level", JOB_LEVEL),
+  experience: text("experience"),
+  minEducation: mysqlEnum("min_education", MIN_EDUCATION),
+  isFeatured: boolean("is_featured").default(false).notNull(),
+  expiresAt: date("expires_at"),
+  deletedAt: timestamp("deleted_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
 // export const tableNameRelations = relations(
 //   // 1. The main table being defined (e.g., users)
 //   table,
