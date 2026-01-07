@@ -35,7 +35,7 @@ export const jobSchema = z
       .regex(/^\d+$/, "Minimum salary must be a valid number")
       .optional()
       .or(z.literal(""))
-      .transform((v) => (!v ? null : parseInt(v)))
+      // .transform((v) => (!v ? null : parseInt(v)))
       .nullable(),
 
     maxSalary: z
@@ -44,7 +44,7 @@ export const jobSchema = z
       .regex(/^\d+$/, "Maximun salary must be a valid number")
       .optional()
       .or(z.literal(""))
-      .transform((v) => (!v ? null : parseInt(v)))
+      // .transform((v) => (!v ? null : parseInt(v)))
       .nullable(),
 
     salaryCurrency: z.enum(SALARY_CURRENCY, {
@@ -89,23 +89,17 @@ export const jobSchema = z
         error: "Please select a valid education level",
       })
       .optional(),
-    expiresAt: z
-      .string()
-      .trim()
-      .optional()
-      .or(z.literal(""))
-      .transform((v) => (v === "" || v === undefined ? null : v))
-      .refine(
-        (v) => {
-          if (v === null) return true; // allow empty
-          const expiryDate = new Date(v);
-          const today = new Date();
-          today.setHours(0, 0, 0, 0);
-          return expiryDate >= today;
-        },
-        { message: "Expiry date must be today or in the future" }
-      )
-      .transform((v) => (v === null ? null : new Date(v))),
+    expiresAt: z.string().trim().optional().or(z.literal("")),
+    // .transform((v) => (v === "" || v === undefined ? null : new Date(v)))
+    // .refine(
+    //   (date) => {
+    //     if (date === null) return true;
+    //     const today = new Date();
+    //     today.setHours(0, 0, 0, 0);
+    //     return date >= today;
+    //   },
+    //   { message: "Expiry date must be today or in the future" }
+    // ),
   })
   .refine(
     (data) => {
