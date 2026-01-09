@@ -1,6 +1,9 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Job } from "../jobs/types/job.types";
+import { Loader2 } from "lucide-react";
 
 const EmployerJobList = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -25,7 +28,28 @@ const EmployerJobList = () => {
     }
     fetchJobs();
   }, []);
-  return <div>EmployerJobList</div>;
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    );
+  }
+  if (jobs.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-muted-forground">No Jobs posted yet.</p>
+      </div>
+    );
+  }
+
+  return (
+    <section className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
+      {jobs.map((job) => (
+        <EmployerJobCard key={job.id} job={job} />
+      ))}
+    </section>
+  );
 };
 
 export default EmployerJobList;
