@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { JobCardProps } from "../jobs/types/job.types";
 import { Button } from "@/components/ui/button";
 import { MapPin, Pencil, Trash } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const EmployerJobCard = ({ job }: JobCardProps) => {
   return (
