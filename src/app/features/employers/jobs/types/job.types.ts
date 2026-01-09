@@ -38,3 +38,9 @@ export interface Job {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface JobCardProps {
+  job: Job;
+  onEdit?: (jobId: number) => void;
+  onDelete?: (jobId: number) => void;
+}
