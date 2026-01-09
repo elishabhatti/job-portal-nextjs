@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Job } from "../jobs/types/job.types";
 import { Loader2 } from "lucide-react";
 import { getEmployerJobsAction } from "../../server/jobs.action";
+import EmployerJobCard from "./employer-job-card";
 
 const EmployerJobList = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
