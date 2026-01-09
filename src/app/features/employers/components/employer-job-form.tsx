@@ -34,45 +34,46 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import Tiptap from "@/components/text-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createJobAction } from "../../server/jobs.action";
 import {
   JobFormData,
   jobSchema,
 } from "@/app/employer-dashboard/jobs/jobs.schema";
-import { toast } from "sonner";
-import { createJobAction } from "../../server/jobs.action";
 
-export type SalaryCurrency = (typeof SALARY_CURRENCY)[number];
-export type SalaryPeriod = (typeof SALARY_PERIOD)[number];
+// export type SalaryCurrency = (typeof SALARY_CURRENCY)[number];
+// export type SalaryPeriod = (typeof SALARY_PERIOD)[number];
 
-export type JobType = (typeof JOB_TYPE)[number];
-export type WorkType = (typeof WORK_TYPE)[number];
+// export type JobType = (typeof JOB_TYPE)[number];
+// export type WorkType = (typeof WORK_TYPE)[number];
 
-export type JobLevel = (typeof JOB_LEVEL)[number];
-export type MinEducation = (typeof MIN_EDUCATION)[number];
+// export type JobLevel = (typeof JOB_LEVEL)[number];
+// export type MinEducation = (typeof MIN_EDUCATION)[number];
 
-interface JobFormValues {
-  title: string;
-  description: string;
+// interface JobFormValues {
+//   title: string;
+//   description: string;
 
-  tags?: string;
-  minSalary?: number;
-  maxSalary?: number;
-  salaryCurrency: SalaryCurrency;
-  salaryPeriod?: SalaryPeriod;
-  location?: string;
-  jobType: JobType;
-  workType: WorkType;
-  jobLevel: JobLevel;
-  experience?: string;
-  minEducation?: MinEducation;
-  expiresAt?: string;
-}
+//   tags?: string; // comma-separated or space-separated
 
-const handleFormSubmit = async (data: JobFormData) => {
-  const response = await createJobAction(data);
-  if (response.status === "SUCCESS") toast.success(response.message);
-  else toast.error(response.message);
-};
+//   minSalary?: number;
+//   maxSalary?: number;
+
+//   salaryCurrency?: SalaryCurrency;
+//   salaryPeriod?: SalaryPeriod;
+
+//   location?: string;
+
+//   jobType?: JobType;
+//   workType?: WorkType;
+//   jobLevel?: JobLevel;
+
+//   experience?: string;
+//   minEducation?: MinEducation;
+
+//   isFeatured: boolean;
+
+//   expiresAt?: string; // YYYY-MM-DD (HTML date input)
+// }
 
 const JobForm = () => {
   const {
@@ -83,6 +84,10 @@ const JobForm = () => {
   } = useForm({
     resolver: zodResolver(jobSchema),
   });
+
+  const handleFormSubmit = async (data: JobFormData) => {
+    const response = await createJobAction(data);
+  };
 
   return (
     <Card className="w-3/4 ">

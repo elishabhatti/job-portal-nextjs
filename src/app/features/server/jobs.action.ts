@@ -32,3 +32,4 @@ export const createJobAction = async (data: JobFormData) => {
     return { status: "ERROR", message: "Something went wrong" };
   }
 };
+
