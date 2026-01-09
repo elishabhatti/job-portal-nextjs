@@ -1,14 +1,11 @@
 "use server";
 
-import {
-  JobFormData,
-  jobSchema,
-} from "@/app/employer-dashboard/jobs/jobs.schema";
 import { getCurrentUser } from "../auth/server/auth.quires";
 import { jobs } from "@/drizzle/schema";
 import { db } from "@/config/db";
 import { eq } from "drizzle-orm";
 import { Job } from "../employers/jobs/types/job.types";
+import { JobFormData, jobSchema } from "../employers/jobs/jobs.schema";
 
 export const createJobAction = async (data: JobFormData) => {
   try {

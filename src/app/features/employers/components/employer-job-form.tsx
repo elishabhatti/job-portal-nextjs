@@ -35,10 +35,9 @@ import { Button } from "@/components/ui/button";
 import Tiptap from "@/components/text-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createJobAction } from "../../server/jobs.action";
-import {
-  JobFormData,
-  jobSchema,
-} from "@/app/employer-dashboard/jobs/jobs.schema";
+import { JobFormData, jobSchema } from "../jobs/jobs.schema";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 // export type SalaryCurrency = (typeof SALARY_CURRENCY)[number];
 // export type SalaryPeriod = (typeof SALARY_PERIOD)[number];
@@ -84,9 +83,17 @@ const JobForm = () => {
   } = useForm({
     resolver: zodResolver(jobSchema),
   });
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   const handleFormSubmit = async (data: JobFormData) => {
     const response = await createJobAction(data);
+    toast.success(response.message);
   };
 
   return (

@@ -15,48 +15,41 @@ export const jobSchema = z
       .trim()
       .min(3, "Job title must be at least 3 characters long")
       .max(255, "Job title must not exceed 255 characters"),
-
     description: z
       .string()
       .trim()
       .min(50, "Description must be at least 50 characters long")
       .max(5000, "Description must not exceed 5000 characters"),
-
     tags: z
       .string()
       .trim()
       .max(500, "Tags must not exceed 500 characters")
       .optional()
-      .or(z.literal("")),
-
+      .or(z.literal("")), //This field is allowed to be an empty string.
     minSalary: z
       .string()
       .trim()
       .regex(/^\d+$/, "Minimum salary must be a valid number")
       .optional()
-      .or(z.literal(""))
-      // .transform((v) => (!v ? null : parseInt(v)))
-      .nullable(),
-
+      // .transform((v) => (!v ? null : parseInt(v))),
+      .or(z.literal("")),
     maxSalary: z
       .string()
       .trim()
-      .regex(/^\d+$/, "Maximun salary must be a valid number")
+      .regex(/^\d+$/, "Maximum salary must be a valid number")
       .optional()
-      .or(z.literal(""))
       // .transform((v) => (!v ? null : parseInt(v)))
-      .nullable(),
-
-    salaryCurrency: z.enum(SALARY_CURRENCY, {
-      error: "Please select a valid currency",
-    }),
-
+      .or(z.literal("")),
+    salaryCurrency: z
+      .enum(SALARY_CURRENCY, {
+        error: "Please select a valid currency",
+      })
+      .optional(),
     salaryPeriod: z
       .enum(SALARY_PERIOD, {
         error: "Please select a valid salary period",
       })
       .optional(),
-
     location: z
       .string()
       .trim()
@@ -64,42 +57,46 @@ export const jobSchema = z
       .max(255, "Location must not exceed 255 characters")
       .optional()
       .or(z.literal("")),
-
     jobType: z.enum(JOB_TYPE, {
       error: "Please select a valid job type",
     }),
-
     workType: z.enum(WORK_TYPE, {
       error: "Please select a valid work type",
     }),
-
     jobLevel: z.enum(JOB_LEVEL, {
       error: "Please select a valid job level",
     }),
-
     experience: z
       .string()
       .trim()
       .max(1000, "Experience requirements must not exceed 1000 characters")
       .optional()
       .or(z.literal("")),
-
     minEducation: z
       .enum(MIN_EDUCATION, {
         error: "Please select a valid education level",
       })
       .optional(),
-    expiresAt: z.string().trim().optional().or(z.literal("")),
-    // .transform((v) => (v === "" || v === undefined ? null : new Date(v)))
-    // .refine(
-    //   (date) => {
-    //     if (date === null) return true;
-    //     const today = new Date();
-    //     today.setHours(0, 0, 0, 0);
-    //     return date >= today;
-    //   },
-    //   { message: "Expiry date must be today or in the future" }
-    // ),
+
+    // 2026-01-05  ✅  01-05-2026  ❌  2026/01/05  ❌
+    expiresAt: z
+      .string()
+      .trim()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, "Please enter a valid date (YYYY-MM-DD)")
+      // .refine(
+      //   (date) => {
+      //     const expiryDate = new Date(date);
+      //     const today = new Date();
+      //     today.setHours(0, 0, 0, 0);
+      //     return expiryDate >= today;
+      //   },
+      //   {
+      //     message: "Expiry date must be today or in the future",
+      //   }
+      // )
+      .optional()
+      .or(z.literal("")),
+    // .transform((date) => (date ? new Date(date) : null)),
   })
   .refine(
     (data) => {
@@ -109,8 +106,8 @@ export const jobSchema = z
       return true;
     },
     {
-      message: "Maximum salary must be greater than or equal to minimun salary",
-      path: ["maxSalary"],
+      message: "Maximum salary must be greater than or equal to minimum salary",
+      path: ["maxSalary"], // path is an array because Zod supports deep/nested paths
     }
   )
   .refine(
@@ -127,9 +124,22 @@ export const jobSchema = z
       return true;
     },
     {
-      message: "Currecny and period are requires when salaray is specified",
+      message: "Currency and period are required when salary is specified",
       path: ["salaryCurrency"],
     }
   );
 
 export type JobFormData = z.infer<typeof jobSchema>;
+
+//   .refine(
+//   (data) => BOOLEAN_EXPRESSION,
+//   { message, path }
+// )
+// Rule
+// If the function returns true → validation passes
+// If the function returns false → validation fails and the error message is shown
+
+// const expiryDate = new Date("2026-01-04"); // 2026-01-04 00:00:00
+// const today = new Date();                 //  2026-01-04 14:35:20
+
+// console.log(expiryDate >= today); // ❌ false
