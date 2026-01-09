@@ -15,8 +15,8 @@ const EmployerJobCard = ({ job }: JobCardProps) => {
             <Button size="icon" variant="ghost">
               <Pencil className="w-4 h-4" />
             </Button>
-            <Button size="icon" variant="ghost" className="text-destructive">
-              <Trash className="w-4 h-4" />
+            <Button size="icon" variant="ghost" className="hover:bg-red-200">
+              <Trash className="w-4 h-4 text-destructive" />
             </Button>
           </div>
         </div>
@@ -35,7 +35,7 @@ const EmployerJobCard = ({ job }: JobCardProps) => {
         )}
 
         {job.minSalary && job.maxSalary && (
-          <p className="text-sm font-mediu,">
+          <p className="text-sm font-medium">
             {job.salaryCurrency} {job.minSalary} - {job.maxSalary} /
             {job.salaryPeriod}
           </p>
