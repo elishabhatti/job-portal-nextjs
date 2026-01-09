@@ -28,7 +28,7 @@ export interface Job {
   tags: string | null;
 
   minSalary: number | null;
-  maxSalry: number | null;
+  maxSalary: number | null;
   salaryCurrency: SalaryCurrency | null;
   salaryPeriod: SalaryPeriod | null;
 
