@@ -48,7 +48,7 @@ const EmployerJobList = () => {
   return (
     <section className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
       {jobs.map((job) => (
-        <EmployerJobCard key={job.id} job={job} />
+        <EmployerJobCard key={job.id} job={job} onDelete={handleDelete} />
       ))}
     </section>
   );
