@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const EmployerJobCard = ({ job, onDelete }: JobCardProps) => {
+const EmployerJobCard = ({ job, onDelete, onEdit }: JobCardProps) => {
   return (
     <Card className="hover:shadow-,d transition cursor-pointer">
       <CardContent className="space-y-3 py-4">
@@ -23,7 +23,11 @@ const EmployerJobCard = ({ job, onDelete }: JobCardProps) => {
           <h3 className="font-semibold text-lg">{job.title}</h3>
 
           <div className="flex gap-2">
-            <Button size="icon" variant="ghost">
+            <Button
+              onClick={() => onEdit?.(job.id)}
+              size="icon"
+              variant="ghost"
+            >
               <Pencil className="w-4 h-4" />
             </Button>
             {/* <Button size="icon" variant="ghost" className="hover:bg-red-200">
