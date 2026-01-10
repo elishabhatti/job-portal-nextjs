@@ -15,3 +15,5 @@ export const JobID = ({ params }: EditJobPageProps) => {
     </div>
   );
 };
+
+export default JobID;
