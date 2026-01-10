@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Job } from "../jobs/types/job.types";
 import { Loader2 } from "lucide-react";
-import { deleteJobAction, getEmployerJobsAction } from "../../server/jobs.action";
+import {
+  deleteJobAction,
+  getEmployerJobsAction,
+} from "../../server/jobs.action";
 import EmployerJobCard from "./employer-job-card";
+import { useRouter } from "next/navigation";
 
 const EmployerJobList = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  const router = useRouter();
+  
   useEffect(() => {
     async function fetchJobs() {
       setIsLoading(true);
@@ -45,6 +50,10 @@ const EmployerJobList = () => {
     }
   };
 
+  const handleEdit = async (jobId: number) => {
+    router.push(`/employer-dashboard/jobslist/${jobId}.edit`);
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
@@ -63,7 +72,12 @@ const EmployerJobList = () => {
   return (
     <section className="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
       {jobs.map((job) => (
-        <EmployerJobCard key={job.id} job={job} onDelete={handleDelete} />
+        <EmployerJobCard
+          key={job.id}
+          job={job}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+        />
       ))}
     </section>
   );
