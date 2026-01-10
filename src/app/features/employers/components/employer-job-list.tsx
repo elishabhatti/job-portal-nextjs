@@ -30,6 +30,21 @@ const EmployerJobList = () => {
     }
     fetchJobs();
   }, []);
+
+  const handleDelete = async (jobId: number) => {
+    try {
+      const res = await deleteJobAction(jobId);
+      if (res.status === "SUCCESS") {
+        setJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+        toast.success("Job Deleted Successfully!");
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      toast.error("An upexpexted error occured");
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
