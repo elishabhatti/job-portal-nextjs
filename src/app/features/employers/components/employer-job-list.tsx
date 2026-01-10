@@ -15,7 +15,7 @@ const EmployerJobList = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-  
+
   useEffect(() => {
     async function fetchJobs() {
       setIsLoading(true);
@@ -51,7 +51,7 @@ const EmployerJobList = () => {
   };
 
   const handleEdit = async (jobId: number) => {
-    router.push(`/employer-dashboard/jobslist/${jobId}.edit`);
+    router.push(`/employer-dashboard/joblist/${jobId}/edit`);
   };
 
   if (isLoading) {
