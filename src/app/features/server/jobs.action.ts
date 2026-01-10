@@ -3,7 +3,7 @@
 import { getCurrentUser } from "../auth/server/auth.quires";
 import { jobs } from "@/drizzle/schema";
 import { db } from "@/config/db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Job } from "../employers/jobs/types/job.types";
 import { JobFormData, jobSchema } from "../employers/jobs/jobs.schema";
 
@@ -49,6 +49,24 @@ export const getEmployerJobsAction = async (): Promise<{
       .orderBy(jobs.createdAt);
 
     return { status: "SUCCESS", data: result as Job[] };
+  } catch (error) {
+    return { status: "ERROR", message: "Something went wrong" };
+  }
+};
+
+export const deleteJobAction = async (jobId: number) => {
+  try {
+    const currentUser = await getCurrentUser();
+    if (!currentUser || currentUser.role !== "employer") {
+      return { status: "ERROR", data: [] };
+    }
+
+    await db
+      .delete(jobs)
+      .where(and(eq(jobs.id, jobId), eq(jobs.employerId, currentUser.id)))
+      .orderBy(jobs.createdAt);
+
+    return { status: "SUCCESS", message: "Job deleted successfully" };
   } catch (error) {
     return { status: "ERROR", message: "Something went wrong" };
   }
