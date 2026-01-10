@@ -3,6 +3,17 @@ import { JobCardProps } from "../jobs/types/job.types";
 import { Button } from "@/components/ui/button";
 import { MapPin, Pencil, Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const EmployerJobCard = ({ job, onDelete }: JobCardProps) => {
   return (
@@ -15,9 +26,41 @@ const EmployerJobCard = ({ job, onDelete }: JobCardProps) => {
             <Button size="icon" variant="ghost">
               <Pencil className="w-4 h-4" />
             </Button>
-            <Button size="icon" variant="ghost" className="hover:bg-red-200">
+            {/* <Button size="icon" variant="ghost" className="hover:bg-red-200">
               <Trash className="w-4 h-4 text-destructive" />
-            </Button>
+              </Button> */}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                >
+                  <Trash className="w-4 h-4 text-destructive" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undonw. This will permanently delete
+                    the job listing for{" "}
+                    <span className="font-semibold text-foreground">
+                      "{job.title}"
+                    </span>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    className="bg-destructive text-desctructive-foreground hover:bg-destructive/90"
+                    onClick={() => onDelete?.(job.id)}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
 
