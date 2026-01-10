@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, Pencil, Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-const EmployerJobCard = ({ job }: JobCardProps) => {
+const EmployerJobCard = ({ job, onDelete }: JobCardProps) => {
   return (
     <Card className="hover:shadow-,d transition cursor-pointer">
       <CardContent className="space-y-3 py-4">
