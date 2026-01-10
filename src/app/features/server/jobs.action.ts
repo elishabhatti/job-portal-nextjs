@@ -58,16 +58,15 @@ export const deleteJobAction = async (jobId: number) => {
   try {
     const currentUser = await getCurrentUser();
     if (!currentUser || currentUser.role !== "employer") {
-      return { status: "ERROR", data: [] };
+      return { status: "ERROR", message: "Unauthorized" };
     }
 
     await db
       .delete(jobs)
-      .where(and(eq(jobs.id, jobId), eq(jobs.employerId, currentUser.id)))
-      .orderBy(jobs.createdAt);
+      .where(and(eq(jobs.id, jobId), eq(jobs.employerId, currentUser.id)));
 
     return { status: "SUCCESS", message: "Job deleted successfully" };
   } catch (error) {
-    return { status: "ERROR", message: "Something went wrong" };
+    return { status: "DELETE_JOB_ERROR", error };
   }
 };
