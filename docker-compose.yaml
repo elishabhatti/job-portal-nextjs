@@ -1,0 +1,16 @@
+services:
+  database:
+    container_name: mysql_db
+    image: mysql
+    ports:
+      - "6969:3306"
+    volumes:
+      - job_portal:/var/lib/mysql
+    environment:
+      MYSQL_USER: elisha
+      MYSQL_PASSWORD: elisha2007
+      MYSQL_DATABASE: next_job_portal
+      MYSQL_ROOT_PASSWORD: elisha123
+
+volumes:
+  job_portal:
