@@ -1,10 +1,11 @@
+import { getJobByIdAction } from "@/app/features/server/jobs.action";
 import { redirect } from "next/navigation";
 
 interface EditJobPageProps {
   params: { jobId: string };
 }
 
-export const JobID = ({ params }: EditJobPageProps) => {
+export const JobID = async ({ params }: EditJobPageProps) => {
   const jobId = Number(params.jobId);
 
   // if (Number.isNaN(jobId)) {
@@ -13,7 +14,7 @@ export const JobID = ({ params }: EditJobPageProps) => {
 
   if (Number.isNaN(jobId)) redirect("/employer-dashboard/jobs");
 
-  // const { status, data: job } obByIdActoin(jobId);
+  const { status, data: job } = await getJobByIdAction(jobId);
 
   return (
     <div className="flex flex-col gap-4">
