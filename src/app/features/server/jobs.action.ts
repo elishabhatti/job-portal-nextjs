@@ -70,3 +70,27 @@ export const deleteJobAction = async (jobId: number) => {
     return { status: "DELETE_JOB_ERROR", error };
   }
 };
+
+export const getJobByIdAction = async ({ jobId }: number) => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser || currentUser.role !== "employer") {
+      return { status: "ERROR", message: "Unauthorized" };
+    }
+
+    const [job] = await db
+      .select()
+      .from(jobs)
+      .where(and(eq(jobs.id, jobId), eq(jobs.employerId, currentUser.id)))
+      .limit(1);
+
+    if (!job) {
+      return { status: "ERROR", message: "Job not found" };
+    }
+
+    return { status: "SUCCESS", data: job };
+  } catch (error) {
+    return { status: "ERROR", message: "Something went wrong" };
+  }
+};
