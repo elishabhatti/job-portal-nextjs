@@ -71,7 +71,7 @@ export const deleteJobAction = async (jobId: number) => {
   }
 };
 
-export const getJobByIdAction = async ({ jobId }: number) => {
+export const getJobByIdAction = async (jobId: number) => {
   try {
     const currentUser = await getCurrentUser();
 

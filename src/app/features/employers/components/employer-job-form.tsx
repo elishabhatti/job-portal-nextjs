@@ -74,7 +74,12 @@ import { toast } from "sonner";
 //   expiresAt?: string; // YYYY-MM-DD (HTML date input)
 // }
 
-const JobForm = () => {
+interface JobFormProps {
+  initialData?: JobFormData;
+  isEditMode?: boolean;
+}
+
+const JobForm = ({ initialData, isEditMode = false }: JobFormProps) => {
   const {
     register,
     control,
@@ -82,6 +87,29 @@ const JobForm = () => {
     formState: { errors, isDirty, isSubmitting },
   } = useForm({
     resolver: zodResolver(jobSchema),
+    defaultValues: initialData
+      ? {
+          ...initialData,
+          expiresAt: initialData.expiresAt
+            ? new Date(initialData.expiresAt).toISOString().split("T")[0]
+            : "",
+        }
+      : {
+          title: "",
+          description: "",
+          tags: "",
+          minSalary: undefined,
+          maxSalary: undefined,
+          salaryCurrency: undefined,
+          salaryPeriod: undefined,
+          location: "",
+          jobType: undefined,
+          workType: undefined,
+          jobLevel: undefined,
+          experience: "",
+          minEducation: undefined,
+          expiresAt: undefined,
+        },
   });
   const [mounted, setMounted] = useState(false);
 
@@ -133,7 +161,7 @@ const JobForm = () => {
                         id="jobType"
                         className={cn(
                           "pl-10 w-full",
-                          errors.jobType && "border-destructive"
+                          errors.jobType && "border-destructive",
                         )}
                       >
                         <SelectValue placeholder="Select job type" />
@@ -169,7 +197,7 @@ const JobForm = () => {
                         id="workType"
                         className={cn(
                           "pl-10 w-full",
-                          errors.workType && "border-destructive"
+                          errors.workType && "border-destructive",
                         )}
                       >
                         <SelectValue placeholder="Select work type" />
@@ -205,7 +233,7 @@ const JobForm = () => {
                         id="jobLevel"
                         className={cn(
                           "pl-10 w-full",
-                          errors.jobLevel && "border-destructive"
+                          errors.jobLevel && "border-destructive",
                         )}
                       >
                         <SelectValue placeholder="Select job level" />
@@ -241,7 +269,7 @@ const JobForm = () => {
                   placeholder="e.g., New York, NY or Remote"
                   className={cn(
                     "pl-10",
-                    errors.location && "border-destructive"
+                    errors.location && "border-destructive",
                   )}
                   {...register("location")}
                   aria-invalid={!!errors.location}
@@ -288,7 +316,7 @@ const JobForm = () => {
                   placeholder="e.g., 50000"
                   className={cn(
                     "pl-10",
-                    errors.minSalary && "border-destructive"
+                    errors.minSalary && "border-destructive",
                   )}
                   {...register("minSalary")}
                   aria-invalid={!!errors.minSalary}
@@ -312,7 +340,7 @@ const JobForm = () => {
                   placeholder="e.g., 80000"
                   className={cn(
                     "pl-10",
-                    errors.maxSalary && "border-destructive"
+                    errors.maxSalary && "border-destructive",
                   )}
                   {...register("maxSalary")}
                   aria-invalid={!!errors.maxSalary}
@@ -336,7 +364,7 @@ const JobForm = () => {
                       id="salaryCurrency"
                       className={cn(
                         "w-full",
-                        errors.salaryCurrency && "border-destructive"
+                        errors.salaryCurrency && "border-destructive",
                       )}
                     >
                       <SelectValue placeholder="Currency" />
@@ -369,7 +397,7 @@ const JobForm = () => {
                       id="salaryPeriod"
                       className={cn(
                         "w-full",
-                        errors.salaryPeriod && "border-destructive"
+                        errors.salaryPeriod && "border-destructive",
                       )}
                     >
                       <SelectValue placeholder="Period" />
@@ -407,7 +435,7 @@ const JobForm = () => {
                         id="minEducation"
                         className={cn(
                           "pl-10 w-full",
-                          errors.minEducation && "border-destructive"
+                          errors.minEducation && "border-destructive",
                         )}
                       >
                         <SelectValue placeholder="Select education level" />
@@ -439,7 +467,7 @@ const JobForm = () => {
                   type="date"
                   className={cn(
                     "pl-10",
-                    errors.expiresAt && "border-destructive"
+                    errors.expiresAt && "border-destructive",
                   )}
                   {...register("expiresAt")}
                   aria-invalid={!!errors.expiresAt}
@@ -466,7 +494,7 @@ const JobForm = () => {
                 placeholder="e.g., 3+ years of React development"
                 className={cn(
                   "pl-10",
-                  errors.experience && "border-destructive"
+                  errors.experience && "border-destructive",
                 )}
                 {...register("experience")}
                 aria-invalid={!!errors.experience}
@@ -506,7 +534,11 @@ const JobForm = () => {
               className="w-full md:w-auto"
             >
               {isSubmitting && <Loader className="w-4 h-4 animate-spin" />}
-              {isSubmitting ? "Saving..." : "Post Job"}
+              {isEditMode
+                ? isSubmitting
+                  ? "Saving..."
+                  : "Update Job"
+                : "Post Job"}
             </Button>
             {!isDirty && (
               <p className="text-sm text-muted-foreground">
