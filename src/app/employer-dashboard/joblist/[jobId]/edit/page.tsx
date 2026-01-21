@@ -1,12 +1,19 @@
+import { redirect } from "next/navigation";
+
 interface EditJobPageProps {
   params: { jobId: string };
 }
 
 export const JobID = ({ params }: EditJobPageProps) => {
   const jobId = Number(params.jobId);
-  if (Number.isNaN(jobId)) {
-    throw new Error("Invalid job ID");
-  }
+
+  // if (Number.isNaN(jobId)) {
+  //   throw new Error("Invalid job ID");
+  // }
+
+  if (Number.isNaN(jobId)) redirect("/employer-dashboard/jobs");
+
+  // const { status, data: job } obByIdActoin(jobId);
 
   return (
     <div className="flex flex-col gap-4">
