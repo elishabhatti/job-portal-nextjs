@@ -94,3 +94,22 @@ export const getJobByIdAction = async (jobId: number) => {
     return { status: "ERROR", message: "Something went wrong" };
   }
 };
+
+export const updateJobAction = async (jobId: number, values: any) => {
+  try {
+    const currentUser = await getCurrentUser();
+
+    if (!currentUser || currentUser.role !== "employer") {
+      return { status: "ERROR", message: "Unauthorized" };
+    }
+
+    await db
+      .update(jobs)
+      .set({ ...values, updatedAt: new Date() })
+      .where(and(eq(jobs.id, jobId), eq(jobs.employerId, currentUser.id)));
+
+    return { status: "SUCCESS", message: "Job updated successfully!" };
+  } catch (error) {
+    return { status: "ERROR", message: "Something went wrong" };
+  }
+};

@@ -38,6 +38,7 @@ import { createJobAction } from "../../server/jobs.action";
 import { JobFormData, jobSchema } from "../jobs/jobs.schema";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 // export type SalaryCurrency = (typeof SALARY_CURRENCY)[number];
 // export type SalaryPeriod = (typeof SALARY_PERIOD)[number];
@@ -118,10 +119,25 @@ const JobForm = ({ initialData, isEditMode = false }: JobFormProps) => {
   }, []);
 
   if (!mounted) return null;
+  const router = useRouter();
 
   const handleFormSubmit = async (data: JobFormData) => {
-    const response = await createJobAction(data);
-    toast.success(response.message);
+    try {
+      let response;
+      if (isEditMode && initialData) {
+        // Update job logic here
+        response = await updateJobAction(initialData.id, data);
+      } else {
+        response = await createJobAction(data);
+      }
+
+      if (response.status === "SUCCESS") {
+        toast.success(response.message);
+        router.push("/employer-dashboard/jobs");
+      } else toast.error(response.message);
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
