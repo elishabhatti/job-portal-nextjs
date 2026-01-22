@@ -59,13 +59,13 @@ export const jobSchema = z
       .or(z.literal("")),
     jobType: z.enum(JOB_TYPE, {
       error: "Please select a valid job type",
-    }),
+    }).optional(),
     workType: z.enum(WORK_TYPE, {
       error: "Please select a valid work type",
-    }),
+    }).optional(),
     jobLevel: z.enum(JOB_LEVEL, {
       error: "Please select a valid job level",
-    }),
+    }).optional(),
     experience: z
       .string()
       .trim()
@@ -108,7 +108,7 @@ export const jobSchema = z
     {
       message: "Maximum salary must be greater than or equal to minimum salary",
       path: ["maxSalary"], // path is an array because Zod supports deep/nested paths
-    }
+    },
   )
   .refine(
     (data) => {
@@ -126,7 +126,7 @@ export const jobSchema = z
     {
       message: "Currency and period are required when salary is specified",
       path: ["salaryCurrency"],
-    }
+    },
   );
 
 export type JobFormData = z.infer<typeof jobSchema>;

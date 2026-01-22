@@ -34,7 +34,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import Tiptap from "@/components/text-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createJobAction } from "../../server/jobs.action";
+import { createJobAction, updateJobAction } from "../../server/jobs.action";
 import { JobFormData, jobSchema } from "../jobs/jobs.schema";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -76,7 +76,7 @@ import { useRouter } from "next/navigation";
 // }
 
 interface JobFormProps {
-  initialData?: JobFormData;
+  initialData?: JobFormData & { id: number };
   isEditMode?: boolean;
 }
 
@@ -98,18 +98,22 @@ const JobForm = ({ initialData, isEditMode = false }: JobFormProps) => {
       : {
           title: "",
           description: "",
-          tags: "",
-          minSalary: undefined,
-          maxSalary: undefined,
-          salaryCurrency: undefined,
-          salaryPeriod: undefined,
-          location: "",
+
           jobType: undefined,
           workType: undefined,
           jobLevel: undefined,
-          experience: "",
+
+          location: "",
+          tags: "",
+
+          minSalary: "",
+          maxSalary: "",
+          salaryCurrency: undefined,
+          salaryPeriod: undefined,
+
           minEducation: undefined,
-          expiresAt: undefined,
+          experience: "",
+          expiresAt: "",
         },
   });
   const [mounted, setMounted] = useState(false);
@@ -127,6 +131,7 @@ const JobForm = ({ initialData, isEditMode = false }: JobFormProps) => {
       if (isEditMode && initialData) {
         // Update job logic here
         response = await updateJobAction(initialData.id, data);
+        console.log("intial data", initialData);
       } else {
         response = await createJobAction(data);
       }
