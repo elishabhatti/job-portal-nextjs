@@ -5,28 +5,22 @@ import { logoutUserAction } from "../../auth/server/auth.action";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
-  User,
-  Plus,
   Briefcase,
   Bookmark,
-  CreditCard,
-  Building,
   Settings,
   LogOut,
+  Search,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const base = "/employer-dashboard";
+const base = "/dashboard";
 
 const navigationItems = [
-  { name: "Overview", icon: LayoutDashboard, href: base },
-  { name: "Employers Profile", icon: User, href: base + "/profile" },
-  { name: "Post a Job", icon: Plus, href: base + "/jobs" },
-  { name: "My Jobs", icon: Briefcase, href: base + "/joblist" },
-  { name: "Saved Candidate", icon: Bookmark, href: base + "/saved" },
-  { name: "Plans & Billing", icon: CreditCard, href: base + "/billing" },
-  { name: "All Companies", icon: Building, href: base + "/companies" },
+  { name: "Home", icon: LayoutDashboard, href: base },
+  { name: "Find Jobs", icon: Search, href: base + "/profile" },
+  { name: "Applied", icon: Briefcase, href: base + "/jobs" },
+  { name: "Saved Jobs", icon: Bookmark, href: base + "/joblist" },
   { name: "Settings", icon: Settings, href: base + "/settings" },
 ];
 
@@ -74,7 +68,7 @@ const ApplicantSidebar = () => {
               href={curNav.href || "#"}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                isActive(curNav.href) && "text-primary bg-blue-300"
+                isActive(curNav.href) && "text-primary bg-blue-300",
               )}
             >
               <Icon />
