@@ -18,9 +18,9 @@ const base = "/dashboard";
 
 const navigationItems = [
   { name: "Home", icon: LayoutDashboard, href: base },
-  { name: "Find Jobs", icon: Search, href: base + "/profile" },
-  { name: "Applied", icon: Briefcase, href: base + "/jobs" },
-  { name: "Saved Jobs", icon: Bookmark, href: base + "/joblist" },
+  { name: "Find Jobs", icon: Search, href: base + "/find-jobs" },
+  { name: "Applied", icon: Briefcase, href: base + "/applications" },
+  { name: "Saved Jobs", icon: Bookmark, href: base + "/saved-jobs" },
   { name: "Settings", icon: Settings, href: base + "/settings" },
 ];
 
