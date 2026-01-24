@@ -14,7 +14,6 @@ export default async function RootLayout({
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* <EmployerSidebar /> */}
       <main className="container mx-auto mt-5 ml-70 mr-5">{children}</main>
     </div>
   );
