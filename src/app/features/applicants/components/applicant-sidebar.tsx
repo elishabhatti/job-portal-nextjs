@@ -42,8 +42,8 @@ const ApplicantSidebar = () => {
     const cleanPath = activePath.replace(/\/$/, "");
 
     // SPECIAL CASE: Overview
-    if (cleanHref === "/employer-dashboard") {
-      return cleanPath === "/employer-dashboard";
+    if (cleanHref === "/dashboard") {
+      return cleanPath === "/dashboard";
     }
 
     // Other routes
@@ -54,7 +54,7 @@ const ApplicantSidebar = () => {
     <div className="w-64 bg-card border-r border-border fixed bottom-0 top-0">
       <div className="p-6">
         <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-          Employers Dashboard
+          Applicant Dashboard
         </h2>
       </div>
 
