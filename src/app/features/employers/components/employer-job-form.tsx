@@ -117,13 +117,13 @@ const JobForm = ({ initialData, isEditMode = false }: JobFormProps) => {
         },
   });
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
-  const router = useRouter();
 
   const handleFormSubmit = async (data: JobFormData) => {
     try {
