@@ -19,16 +19,7 @@ import { usePathname } from "next/navigation";
 
 const base = "/employer-dashboard";
 
-const navigationItems = [
-  { name: "Overview", icon: LayoutDashboard, href: base },
-  { name: "Employers Profile", icon: User, href: base + "/profile" },
-  { name: "Post a Job", icon: Plus, href: base + "/jobs" },
-  { name: "My Jobs", icon: Briefcase, href: base + "/joblist" },
-  { name: "Saved Candidate", icon: Bookmark, href: base + "/saved" },
-  { name: "Plans & Billing", icon: CreditCard, href: base + "/billing" },
-  { name: "All Companies", icon: Building, href: base + "/companies" },
-  { name: "Settings", icon: Settings, href: base + "/settings" },
-];
+
 
 const EmployerSidebar = () => {
   const pathname = usePathname();

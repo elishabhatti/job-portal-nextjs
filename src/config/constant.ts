@@ -1,10 +1,14 @@
 import {
   Bookmark,
   Briefcase,
+  Building,
+  CreditCard,
   LayoutDashboard,
   LucideIcon,
+  Plus,
   Search,
   Settings,
+  User,
 } from "lucide-react";
 
 export const SESSION_LIFETIME = 30 * 24 * 60 * 60;
@@ -81,6 +85,50 @@ export const applicantNavItems: NavItem[] = [
     name: "Saved Jobs",
     href: "/dashboard/saved",
     icon: Bookmark,
+  },
+  {
+    name: "Settings",
+    href: "/dashboard/settings",
+    icon: Settings,
+  },
+];
+
+export const employersNavItems: NavItem[] = [
+  {
+    name: "Overview",
+    href: "/employer-dashboard",
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    name: "Employers Profile",
+    href: "/employer-dashboard/profile",
+    icon: User,
+  },
+  {
+    name: "Post a Job",
+    href: "/employer-dashboard/jobs",
+    icon: Plus,
+  },
+  {
+    name: "My Jobs",
+    href: "/employer-dashboard/joblist",
+    icon: Briefcase,
+  },
+  {
+    name: "Saved Candidate",
+    href: "/employer-dashboard/saved",
+    icon: Bookmark,
+  },
+  {
+    name: "Plans & Billing",
+    href: "/employer-dashboard/billing",
+    icon: CreditCard,
+  },
+  {
+    name: "All Companies",
+    href: "/employer-dashboard/companies",
+    icon: Building,
   },
   {
     name: "Settings",
