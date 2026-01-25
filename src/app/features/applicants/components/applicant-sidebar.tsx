@@ -21,14 +21,14 @@ const ApplicantSidebar = () => {
       </div>
 
       <nav className="px-3 space-y-1">
-        {applicantNavItems.map((item) => {
+        {applicantNavItems.map((item, index) => {
           const Icon = item.icon;
           const active = isActiveLink(pathname, item.href, item.exact);
           console.log("pathname: items.href", item.href);
 
           return (
             <Link
-              key={item.name}
+              key={index}
               href={item.href || "#"}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
