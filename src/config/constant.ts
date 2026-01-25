@@ -1,3 +1,12 @@
+import {
+  Bookmark,
+  Briefcase,
+  LayoutDashboard,
+  LucideIcon,
+  Search,
+  Settings,
+} from "lucide-react";
+
 export const SESSION_LIFETIME = 30 * 24 * 60 * 60;
 export const SESSION_REFRESH_TIME = SESSION_LIFETIME / 2;
 export const SALARY_CURRENCY = [
@@ -42,3 +51,40 @@ export const MIN_EDUCATION = [
   "masters",
   "phd",
 ] as const;
+
+export interface NavItem {
+  name: string;
+  href: string;
+  icon: LucideIcon;
+  exact?: boolean;
+  bagde?: number | "dynamic";
+}
+
+export const applicantNavItems: NavItem[] = [
+  {
+    name: "Home",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    exact: true,
+  },
+  {
+    name: "Find Jobs",
+    href: "/dashboard/jobs",
+    icon: Search,
+  },
+  {
+    name: "Applied",
+    href: "/dashboard/",
+    icon: Briefcase,
+  },
+  {
+    name: "Home",
+    href: "/dashboard",
+    icon: Bookmark,
+  },
+  {
+    name: "Home",
+    href: "/dashboard",
+    icon: Settings,
+  },
+];
