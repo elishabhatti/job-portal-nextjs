@@ -10,7 +10,6 @@ import { isActiveLink } from "@/lib/navigation-utils";
 
 const ApplicantSidebar = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <div className="w-64 bg-card border-r border-border fixed bottom-0 top-0">
@@ -24,7 +23,6 @@ const ApplicantSidebar = () => {
         {applicantNavItems.map((item, index) => {
           const Icon = item.icon;
           const active = isActiveLink(pathname, item.href, item.exact);
-          console.log("pathname: items.href", item.href);
 
           return (
             <Link
