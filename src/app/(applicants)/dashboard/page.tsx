@@ -1,6 +1,4 @@
 import { logoutUserAction } from "@/app/features/auth/server/auth.action";
-import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
-import { redirect } from "next/navigation";
 
 const Applicant = async () => {
   // const user = await getCurrentUser();
@@ -9,7 +7,7 @@ const Applicant = async () => {
   // if (!user) return redirect("/login");
 
   return (
-    <div>
+    <div className="p-6">
       <h1>Hello Applicant Dashboard.</h1>
       <button onClick={logoutUserAction}>Logout</button>
     </div>

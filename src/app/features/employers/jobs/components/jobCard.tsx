@@ -17,7 +17,7 @@ const JobCard = ({ job }: JobCardProps) => {
   return (
     <Link
       href={`/dashboard/jobs/${job.id}`}
-      className="group flex flex-col gap-5 rounded-xl border border-gray-200 bg-white p-6"
+      className="group flex flex-col gap-5 rounded-xl border border-gray-200 p-6"
     >
       {/* Header Logo & Title */}
       <div className="flex items-center justify-between gap-4 mb-5">
