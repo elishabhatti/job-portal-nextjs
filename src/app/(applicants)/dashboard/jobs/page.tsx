@@ -1,3 +1,5 @@
+import JobCard from "@/app/features/employers/jobs/components/jobCard";
+import { getAllJobs } from "@/app/features/employers/jobs/server/jobs.queries";
 import React from "react";
 
 const JobsPage = async () => {
@@ -16,10 +18,10 @@ const JobsPage = async () => {
       </div>
 
       {/* Job Grid */}
-      {jobs.lenght > 0 ? (
+      {jobs.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {jobs.map((job) => (
-            <JobCard key={jobs.id} job={job} />
+            <JobCard key={job.id} job={job} />
           ))}
         </div>
       ) : (
