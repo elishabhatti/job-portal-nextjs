@@ -30,9 +30,7 @@ const ApplicantSidebar = () => {
               href={item.href || "#"}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                active
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent",
+                active ? "text-primary bg-blue-300" : "",
               )}
             >
               <Icon />
