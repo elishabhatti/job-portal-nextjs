@@ -38,7 +38,7 @@ const JobCard = ({ job }: JobCardProps) => {
           </div>
 
           <div>
-            <h3 className="max-w-[180px] truncate text-base font-semibold text-gray-900 group-hover:text-blue-600">
+            <h3 className="max-w-45 truncate text-base font-semibold text-gray-900 group-hover:text-blue-600">
               {job.title}
             </h3>
             <p className="text-sm text-gray-500">{job.companyName}</p>
@@ -46,17 +46,17 @@ const JobCard = ({ job }: JobCardProps) => {
         </div>
       </div>
 
-      {/* Badge */}
+      {/* Badges */}
       <div className="flex flex-wrap gap-2 pt-1 text-xs mb-5">
         <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-blue-700">
           <MapPin className="h-3 w-3" />
           {job.location || "Remote"}
         </div>
-        <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2.5 py-1 text-gray-700">
+        <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-gray-700">
           <Briefcase className="h-3 w-3" />
           {job.workType?.replace("-", "").toUpperCase() || "Full Time"}
         </div>
-        <div className="flex items-center gap-1 rounded-md bg-gray-50 px-2.5 py-1 text-gray-500">
+        <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-gray-500">
           <Banknote className="h-3 w-3" /> {formatSalary()}
         </div>
       </div>
