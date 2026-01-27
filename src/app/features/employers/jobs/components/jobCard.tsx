@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { JobCardType } from "../server/jobs.queries";
 import { Banknote, Briefcase, Clock, MapPin } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 interface JobCardProps {
   job: JobCardType;
