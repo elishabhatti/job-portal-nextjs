@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { JobCardType } from "../server/jobs.queries";
+import { Banknote, Briefcase, MapPin } from "lucide-react";
 
 interface JobCardProps {
   job: JobCardType;
@@ -9,7 +10,7 @@ interface JobCardProps {
 const JobCard = ({ job }: JobCardProps) => {
   const formatSalary = () => {
     if (!job.minSalary || !job.maxSalary) return "Not Disclosed";
-    return `${job.salaryCurrency} ${job.minSalary.toLocalString()} - ${job.maxSalary.toLocalString()}`;
+    return `${job.salaryCurrency} ${job.minSalary.toLocaleString()} - ${job.maxSalary.toLocaleString()}`;
   };
 
   return (
@@ -46,6 +47,20 @@ const JobCard = ({ job }: JobCardProps) => {
         </div>
 
         {/* Badge */}
+        <div className="flex flex-wrap gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
+            <MapPin className="h-3 w-3" />
+            {job.location || "Remote"}
+          </div>
+          <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2">
+            <Briefcase className="h-3 w-3" />
+            {job.workType?.replace("-", "").toUpperCase() || "Full Time"}
+          </div>
+          <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2">
+            <Banknote className="h-3 w-3" />
+            {formatSalary()}
+          </div>
+        </div>
       </Link>
     </div>
   );

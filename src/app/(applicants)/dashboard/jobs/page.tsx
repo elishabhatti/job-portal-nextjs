@@ -1,4 +1,3 @@
-import JobCard from "@/app/features/applicants/components/jobCard";
 import React from "react";
 
 const JobsPage = async () => {
