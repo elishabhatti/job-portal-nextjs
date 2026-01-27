@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { JobCardType } from "../server/jobs.queries";
-import { Banknote, Briefcase, MapPin } from "lucide-react";
+import { Banknote, Briefcase, Clock, MapPin } from "lucide-react";
 
 interface JobCardProps {
   job: JobCardType;
@@ -47,7 +47,7 @@ const JobCard = ({ job }: JobCardProps) => {
         </div>
 
         {/* Badge */}
-        <div className="flex flex-wrap gap-2 text-sm text-gray-600">
+        <div className="flex flex-wrap gap-2 text-xs text-gray-600">
           <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
             <MapPin className="h-3 w-3" />
             {job.location || "Remote"}
@@ -60,6 +60,19 @@ const JobCard = ({ job }: JobCardProps) => {
             <Banknote className="h-3 w-3" />
             {formatSalary()}
           </div>
+        </div>
+
+        {/* Footer: Time Ago */}
+        <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-4 text-xs text-gray-500">
+          <span className="flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            Posted
+            {formatDistanceToNow(new Date(job.createdAt), { addSuffix: true })}
+          </span>
+
+          <span className="font-medium text-blue-600 group-hover:underline">
+            View Details &rarr;
+          </span>
         </div>
       </Link>
     </div>
