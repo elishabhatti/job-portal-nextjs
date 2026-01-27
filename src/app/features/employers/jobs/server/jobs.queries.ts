@@ -1,6 +1,6 @@
 import { db } from "@/config/db";
 import { employers, jobs, users } from "@/drizzle/schema";
-import { desc, eq, gte, isNull, or } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, or } from "drizzle-orm";
 
 const jobsData = await db
   .select({
@@ -29,3 +29,5 @@ const jobsData = await db
   )
   .orderBy(desc(jobs.createdAt));
   return jobsData;
+
+  export type JobCardType = Awaited<ReturnType<typeof getAllJobs>>[number];
