@@ -1,9 +1,19 @@
+import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
+import { notFound } from "next/navigation";
+
 interface EditJobPageProps {
   params: { jobId: string };
 }
 
 const JobId = async ({ params }: EditJobPageProps) => {
-  const { jobId } = await params;
+  const jobId = parseInt(params.jobId);
+  if (isNaN(jobId)) return notFound();
+
+  const job = await getJobById(jobId);
+  console.log("job", job);
+
+  if (!job) return notFound();
+
   return (
     <>
       {/* Breadcrumbs */}

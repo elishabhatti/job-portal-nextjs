@@ -36,3 +36,8 @@ export const getAllJobs = async () => {
 };
 
 export type JobCardType = Awaited<ReturnType<typeof getAllJobs>>[number];
+
+
+export const getJobById = (jobId: number) => {
+
+}
