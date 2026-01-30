@@ -74,8 +74,9 @@ export const getJobById = async (jobId: number) => {
     .from(jobs)
     .innerJoin(employers, eq(jobs.employerId, employers.id))
     .innerJoin(users, eq(employers.id, users.id))
-    .where(eq(jobs.id, jobId))
-    .limit(1);
+    .where(eq(jobs.id, jobId)) // filter by id
+    .limit(1); // we only want one result
 
+  // Return the first item
   return job[0];
 };
