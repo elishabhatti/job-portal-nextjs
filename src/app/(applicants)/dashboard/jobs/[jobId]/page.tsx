@@ -1,5 +1,6 @@
 import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
 import { Button } from "@/components/ui/button";
+import { Building2 } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -37,7 +38,17 @@ const JobId = async ({ params }: EditJobPageProps) => {
             )}
           </div>
           {/* Title & Meta */}
-          <div className="space-y-1"></div>
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+              {job.title}
+            </h1>
+            <div className="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+              <span className="font-medium text-blue-600 flex items-center gap-1">
+                <Building2 className="h-4 w-4" />
+                {job.companyName}
+              </span>
+            </div>
+          </div>
         </div>
         {/* Action Button */}
         <div className="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
