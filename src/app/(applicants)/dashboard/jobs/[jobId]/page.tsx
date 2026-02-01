@@ -1,6 +1,8 @@
 import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Building2 } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
+import { Building2, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -8,7 +10,7 @@ interface EditJobPageProps {
   params: { jobId: string };
 }
 
-const JobId = async ({ params }: EditJobPageProps) => {
+const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
   const jobId = parseInt(params.jobId);
   if (isNaN(jobId)) return notFound();
 
@@ -47,9 +49,23 @@ const JobId = async ({ params }: EditJobPageProps) => {
                 <Building2 className="h-4 w-4" />
                 {job.companyName}
               </span>
+              <span className="hidden sm:inline">.</span>
+              <span className="flex items-center gap-1">
+                <MapPin className="h-4 w-4" />
+                {job.location || "Remote"}
+              </span>
+              <span className="hidden sm:inline">.</span>
+              <span className="flex items-center gap-1">
+                <Clock className="h-4 w-4" />
+                Posted{" "}
+                {formatDistanceToNow(new Date(job.createdAt), {
+                  addSuffix: true,
+                })}
+              </span>
             </div>
           </div>
         </div>
+
         {/* Action Button */}
         <div className="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
           <Button size="lg" className="w-full md:w-auto font-semibold">
@@ -57,8 +73,42 @@ const JobId = async ({ params }: EditJobPageProps) => {
           </Button>
         </div>
       </div>
+
+      {/* Main Grid Content */}
+      <div className="grid gap-8 lg:grid-cols-3">
+        {/* Left Column Description */}
+        <div className="lg:col-span-1 space-y-8">
+          <section>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              About the Job
+            </h2>
+            <div
+              className="prose prose-blue max-w-none text-gray-600 leading-relaxed"
+              dangerouslySetInnerHTML={{ __html: job.description }}
+            />
+          </section>
+          {/* Tags */}
+          {job.tags && (
+            <section className="pt-4">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">
+                Skills & Technologies
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {job.tags.split(",").map((tag) => (
+                  <Badge key={tag} variant="secondary" className="px-3 py-1">
+                    {tag.trim()}
+                  </Badge>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+
+        {/* Right Column: Sidebar (1/3) */}
+        <JobOverviewSidebar job={job} />
+      </div>
     </div>
   );
 };
 
-export default JobId;
+export default JobsDetailedPage;
