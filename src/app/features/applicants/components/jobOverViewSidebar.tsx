@@ -1,4 +1,4 @@
-export function OverviewItem({
+function OverviewItem({
   icon,
   label,
   value,
@@ -20,3 +20,5 @@ export function OverviewItem({
     </div>
   );
 }
+
+export default OverviewItem;
