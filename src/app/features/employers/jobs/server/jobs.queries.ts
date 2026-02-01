@@ -80,3 +80,5 @@ export const getJobById = async (jobId: number) => {
   // Return the first item
   return job[0];
 };
+
+export type JobDetailsType = Awaited<ReturnType<typeof getJobById>>;
