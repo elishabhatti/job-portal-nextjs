@@ -83,6 +83,7 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
             <h2 className="text-xl font-bold text-gray-900 mb-4">
               About the Job
             </h2>
+
             <div
               className="prose prose-blue max-w-none text-gray-600 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: job.description }}
