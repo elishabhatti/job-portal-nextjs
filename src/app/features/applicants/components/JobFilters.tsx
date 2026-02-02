@@ -1,7 +1,14 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { Select } from "@radix-ui/react-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { JOB_LEVEL, JOB_TYPE, WORK_TYPE } from "@/config/constant";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -53,7 +60,61 @@ const JobFilters = () => {
             setJobType(val);
             updateFilters({ jobType: val });
           }}
-        ></Select>
+        >
+          <SelectTrigger className="w-[160px] h-9 text-xs">
+            <SelectValue placeholder="Job Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            {JOB_TYPE.map((type) => (
+              <SelectItem key={type} value={type} className="capitalize">
+                {type.replace(/-/g, "")}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Job Level Dropdown */}
+        <Select
+          value={jobLevel}
+          onValueChange={(val) => {
+            setJobType(val);
+            updateFilters({ jobLevel: val });
+          }}
+        >
+          <SelectTrigger className="w-[160px] h-9 text-xs">
+            <SelectValue placeholder="Jov Level" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            {JOB_LEVEL.map((type) => (
+              <SelectItem key={type} value={type} className="capitalize">
+                {type.replace(/-/g, "")}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Work Type Dropdown */}
+        <Select
+          value={workType}
+          onValueChange={(val) => {
+            setJobType(val);
+            updateFilters({ workType: val });
+          }}
+        >
+          <SelectTrigger className="w-[160px] h-9 text-xs">
+            <SelectValue placeholder="Work Type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types</SelectItem>
+            {WORK_TYPE.map((type) => (
+              <SelectItem key={type} value={type} className="capitalize">
+                {type.replace(/-/g, "")}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
