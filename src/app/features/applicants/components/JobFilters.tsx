@@ -52,78 +52,81 @@ const JobFilters = () => {
         />
       </div>
 
-      {/* Row 2: Filters */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Job Type Dropdown */}
-        <Select
-          value={jobType}
-          onValueChange={(val) => {
-            setJobType(val);
-            updateFilters({ jobType: val });
-          }}
-        >
-          <SelectTrigger className="w-40 h-9 text-xs">
-            <SelectValue placeholder="Job Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Types</SelectItem>
-            {JOB_TYPE.map((type) => (
-              <SelectItem key={type} value={type} className="capitalize">
-                {type.replace(/-/g, "")}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      {/* Row 2: Filters + Reset */}
+      <div className="flex items-center justify-between gap-4">
+        {/* LEFT: Filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Job Type */}
+          <Select
+            value={jobType}
+            onValueChange={(val) => {
+              setJobType(val);
+              updateFilters({ jobType: val });
+            }}
+          >
+            <SelectTrigger className="w-40 h-9 text-xs">
+              <SelectValue placeholder="Job Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              {JOB_TYPE.map((type) => (
+                <SelectItem key={type} value={type} className="capitalize">
+                  {type.replace(/-/g, " ")}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-        {/* Job Level Dropdown */}
-        <Select
-          value={jobLevel}
-          onValueChange={(val) => {
-            setJobLevel(val);
-            updateFilters({ jobLevel: val });
-          }}
-        >
-          <SelectTrigger className="w-40 h-9 text-xs">
-            <SelectValue placeholder="Jov Level" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Types</SelectItem>
-            {JOB_LEVEL.map((type) => (
-              <SelectItem key={type} value={type} className="capitalize">
-                {type.replace(/-/g, "")}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          {/* Job Level */}
+          <Select
+            value={jobLevel}
+            onValueChange={(val) => {
+              setJobLevel(val);
+              updateFilters({ jobLevel: val });
+            }}
+          >
+            <SelectTrigger className="w-40 h-9 text-xs">
+              <SelectValue placeholder="Job Level" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Levels</SelectItem>
+              {JOB_LEVEL.map((type) => (
+                <SelectItem key={type} value={type} className="capitalize">
+                  {type.replace(/-/g, " ")}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
-        {/* Work Type Dropdown */}
-        <Select
-          value={workType}
-          onValueChange={(val) => {
-            setWorkType(val);
-            updateFilters({ workType: val });
-          }}
-        >
-          <SelectTrigger className="w-40 h-9 text-xs">
-            <SelectValue placeholder="Work Type" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Types</SelectItem>
-            {WORK_TYPE.map((type) => (
-              <SelectItem key={type} value={type} className="capitalize">
-                {type.replace(/-/g, "")}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          {/* Work Type */}
+          <Select
+            value={workType}
+            onValueChange={(val) => {
+              setWorkType(val);
+              updateFilters({ workType: val });
+            }}
+          >
+            <SelectTrigger className="w-40 h-9 text-xs">
+              <SelectValue placeholder="Work Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              {WORK_TYPE.map((type) => (
+                <SelectItem key={type} value={type} className="capitalize">
+                  {type.replace(/-/g, " ")}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-        {/* Reset Button */}
-        {(search || jobType || jobLevel || workType) && (
+        {/* RIGHT: Reset */}
+        {(search || jobLevel || jobType || workType) && (
           <Button
-            variant="ghost"
+            variant="destructive"
             size="sm"
             onClick={clearFilters}
-            className="ml-auto text-red-500 hover:text-red-600 hover:bg-red-50"
+            className="shrink-0"
           >
             <X className="mr-2 h-3 w-3" />
             Reset Filters
