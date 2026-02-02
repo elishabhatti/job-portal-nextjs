@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -9,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { JOB_LEVEL, JOB_TYPE, WORK_TYPE } from "@/config/constant";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -115,6 +116,19 @@ const JobFilters = () => {
             ))}
           </SelectContent>
         </Select>
+
+        {/* Reset Button */}
+        {(search || jobType || jobLevel || workType) && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={clearFilters}
+            className="ml-auto text-red-500 hover:text-red-600 hover:bg-red-50"
+          >
+            <X className="mr-2 h-3 w-3" />
+            Reset Filters
+          </Button>
+        )}
       </div>
     </div>
   );
