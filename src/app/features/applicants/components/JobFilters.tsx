@@ -61,7 +61,7 @@ const JobFilters = () => {
             updateFilters({ jobType: val });
           }}
         >
-          <SelectTrigger className="w-[160px] h-9 text-xs">
+          <SelectTrigger className="w-40 h-9 text-xs">
             <SelectValue placeholder="Job Type" />
           </SelectTrigger>
           <SelectContent>
@@ -78,11 +78,11 @@ const JobFilters = () => {
         <Select
           value={jobLevel}
           onValueChange={(val) => {
-            setJobType(val);
+            setJobLevel(val);
             updateFilters({ jobLevel: val });
           }}
         >
-          <SelectTrigger className="w-[160px] h-9 text-xs">
+          <SelectTrigger className="w-40 h-9 text-xs">
             <SelectValue placeholder="Jov Level" />
           </SelectTrigger>
           <SelectContent>
@@ -99,11 +99,11 @@ const JobFilters = () => {
         <Select
           value={workType}
           onValueChange={(val) => {
-            setJobType(val);
+            setWorkType(val);
             updateFilters({ workType: val });
           }}
         >
-          <SelectTrigger className="w-[160px] h-9 text-xs">
+          <SelectTrigger className="w-40 h-9 text-xs">
             <SelectValue placeholder="Work Type" />
           </SelectTrigger>
           <SelectContent>
