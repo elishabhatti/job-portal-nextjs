@@ -23,7 +23,7 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
   return (
     <div className="container mx-auto max-w-6xl py-10 px-4 space-y-8">
       {/* Hero Header */}
-      <div className="flex flex-col gap-6 md:flex-row md:item-start md:justify-between border-b pb-8">
+      <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between border-b pb-8">
         <div className="flex gap-5">
           {/* Logo */}
           <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border bg-gray-50">
@@ -86,7 +86,9 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
 
             <div
               className="prose prose-blue max-w-none text-gray-600 leading-relaxed"
-              dangerouslySetInnerHTML={{ __html: job.description }}
+              dangerouslySetInnerHTML={{
+                __html: job.description || "No Description",
+              }}
             />
           </section>
           {/* Tags */}

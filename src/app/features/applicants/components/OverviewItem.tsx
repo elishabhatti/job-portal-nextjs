@@ -18,7 +18,7 @@ const JobOverviewSidebar = ({ job }: JobSideBarProps) => {
     job.minSalary && job.maxSalary
       ? `${job.salaryCurrency} ${job.minSalary.toLocaleString()} - ${job.maxSalary.toLocaleString()}`
       : "Not Disclosed";
-      
+
   return (
     <div>
       <div className="space-y-6">
@@ -68,7 +68,6 @@ const JobOverviewSidebar = ({ job }: JobSideBarProps) => {
                 __html: job.companyBio || "No Company description available",
               }}
             />
-
 
             {job.companyWebsite && (
               <Link
