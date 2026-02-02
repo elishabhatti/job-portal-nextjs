@@ -1,3 +1,4 @@
+import JobFilters from "@/app/features/applicants/components/JobFilters";
 import JobCard from "@/app/features/employers/jobs/components/jobCard";
 import { getAllJobs } from "@/app/features/employers/jobs/server/jobs.queries";
 import React from "react";
@@ -16,6 +17,9 @@ const JobsPage = async () => {
           Browse latest job openings from top companies
         </p>
       </div>
+
+      {/* Add the Filter Component Here */}
+      <JobFilters />
 
       {/* Job Grid */}
       {jobs.length > 0 ? (
