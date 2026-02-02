@@ -1,4 +1,4 @@
-function OverviewItem({
+const OverviewItem = ({
   icon,
   label,
   value,
@@ -6,7 +6,7 @@ function OverviewItem({
   icon: React.ReactNode;
   label: string;
   value: string | null | undefined;
-}) {
+}) => {
   if (!value) return null;
   return (
     <div className="flex items-start gap-3">
@@ -19,6 +19,6 @@ function OverviewItem({
       </div>
     </div>
   );
-}
+};
 
 export default OverviewItem;

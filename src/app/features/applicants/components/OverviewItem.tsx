@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { JobDetailsType } from "../../employers/jobs/server/jobs.queries";
 import { Banknote, Briefcase, CalendarDays, GraduationCap } from "lucide-react";
+import OverviewItem from "./jobOverViewSidebar";
 
 interface JobSideBarProps {
   job: NonNullable<JobDetailsType>;
