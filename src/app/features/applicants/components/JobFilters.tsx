@@ -40,7 +40,7 @@ const JobFilters = () => {
   };
 
   return (
-    <div className="space-y-4 rounded-xl bg-white p-4 border border-gray-100">
+    <div className="space-y-6 rounded-xl bg-white p-4 border border-gray-100">
       {/* Row 1: Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
