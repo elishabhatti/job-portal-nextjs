@@ -1,10 +1,35 @@
 import JobFilters from "@/app/features/applicants/components/JobFilters";
 import JobCard from "@/app/features/employers/jobs/components/jobCard";
-import { getAllJobs } from "@/app/features/employers/jobs/server/jobs.queries";
-import React from "react";
+import { getAllJobs, JobFilterParams } from "@/app/features/employers/jobs/server/jobs.queries";
 
-const JobsPage = async () => {
-  const jobs = await getAllJobs();
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+const JobsPage = async ({ searchParams }: PageProps) => {
+  const resolveParams = await searchParams;
+  console.log("resolveParams:", resolveParams);
+
+  const filters: JobFilterParams = {
+    search:
+      typeof resolveParams.search === "string"
+        ? resolveParams.search
+        : undefined,
+    jobType:
+      typeof resolveParams.jobType === "string"
+        ? resolveParams.jobType
+        : undefined,
+    jobLevel:
+      typeof resolveParams.jobLevel === "string"
+        ? resolveParams.jobLevel
+        : undefined,
+    workType:
+      typeof resolveParams.workType === "string"
+        ? resolveParams.workType
+        : undefined,
+  };
+
+  const jobs = await getAllJobs(filters);
 
   return (
     <div className="space-y-6 p-6">

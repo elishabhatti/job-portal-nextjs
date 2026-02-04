@@ -2,7 +2,16 @@ import { db } from "@/config/db";
 import { employers, jobs, users } from "@/drizzle/schema";
 import { and, desc, eq, gte, isNull, or } from "drizzle-orm";
 
-export const getAllJobs = async () => {
+export interface JobFilterParams {
+  search?: string;
+  jobType?: string;
+  jobLevel?: string;
+  workType?: string;
+}
+
+export const getAllJobs = async (filters: JobFilterParams) => {
+  console.log("filters real:", filters);
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
