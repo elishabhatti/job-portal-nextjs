@@ -20,6 +20,7 @@ const JobFilters = () => {
   console.log("searchParams: ", searchParams);
   console.log("searchingParams string: ", searchParams.toString());
 
+  // Local state for immediate UI feedback
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [jobType, setJobType] = useState(searchParams.get("jobType") || "");
   const [jobLevel, setJobLevel] = useState(searchParams.get("jobLevel") || "");
@@ -27,7 +28,22 @@ const JobFilters = () => {
 
   useEffect(() => {}, [search]);
 
-  const updateFilters = (newParams: Record<string, string | null>) => {};
+  const updateFilters = (newParams: Record<string, string | null>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    console.log("params:", params);
+
+    Object.entries(newParams).forEach(([key, value]) => {
+      const actualValue = value?.trim();
+
+      if (!actualValue || actualValue === "all") {
+        params.delete(key);
+      } else {
+        params.set(key, actualValue);
+      }
+    });
+
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   const clearFilters = () => {
     setSearch("");
