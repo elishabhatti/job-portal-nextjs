@@ -26,7 +26,13 @@ const JobFilters = () => {
   const [jobLevel, setJobLevel] = useState(searchParams.get("jobLevel") || "");
   const [workType, setWorkType] = useState(searchParams.get("workType") || "");
 
-  useEffect(() => {}, [search]);
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      updateFilters({ search: search });
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search]);
 
   const updateFilters = (newParams: Record<string, string | null>) => {
     const params = new URLSearchParams(searchParams.toString());
