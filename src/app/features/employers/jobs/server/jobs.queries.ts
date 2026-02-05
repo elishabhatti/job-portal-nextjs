@@ -1,6 +1,6 @@
 import { db } from "@/config/db";
 import { employers, jobs, users } from "@/drizzle/schema";
-import { and, desc, eq, gte, isNull, or, SQL } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, like, or, SQL } from "drizzle-orm";
 
 export interface JobFilterParams {
   search?: string;
@@ -15,10 +15,28 @@ export const getAllJobs = async (filters: JobFilterParams) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  // Base Rule
   const conditions: (SQL | undefined)[] = [
     isNull(jobs.deletedAt),
     or(isNull(jobs.expiresAt), gte(jobs.expiresAt, today)),
   ];
+
+  // search
+  if (filters?.search) {
+    // 1: react - mern stack react title, react, react elisha
+    // % - wildcard
+    // 2: company name, tags, title - LIKE() - contains
+    // 3: OR
+
+    const searchTerm = `%${filters.search}%`;
+    conditions.push(
+      or(
+        like(jobs.title, searchTerm),
+        like(employers.name, searchTerm),
+        like(jobs.tags, searchTerm),
+      ),
+    );
+  }
 
   const jobsData = await db
     .select({
