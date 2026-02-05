@@ -1,6 +1,6 @@
 import { db } from "@/config/db";
 import { employers, jobs, users } from "@/drizzle/schema";
-import { and, desc, eq, gte, isNull, or } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, or, SQL } from "drizzle-orm";
 
 export interface JobFilterParams {
   search?: string;
@@ -14,6 +14,11 @@ export const getAllJobs = async (filters: JobFilterParams) => {
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+
+  const conditions: (SQL | undefined)[] = [
+    isNull(jobs.deletedAt),
+    or(isNull(jobs.expiresAt), gte(jobs.expiresAt, today)),
+  ];
 
   const jobsData = await db
     .select({
@@ -34,12 +39,13 @@ export const getAllJobs = async (filters: JobFilterParams) => {
     .from(jobs)
     .innerJoin(employers, eq(jobs.employerId, employers.id))
     .innerJoin(users, eq(employers.id, users.id))
-    .where(
-      and(
-        isNull(jobs.deletedAt),
-        or(isNull(jobs.expiresAt), gte(jobs.expiresAt, today)),
-      ),
-    )
+    // .where(
+    //   and(
+    //     isNull(jobs.deletedAt),
+    //     or(isNull(jobs.expiresAt), gte(jobs.expiresAt, today)),
+    //   ),
+    // )
+    .where(and(...conditions))
     .orderBy(desc(jobs.createdAt));
   return jobsData;
 };
