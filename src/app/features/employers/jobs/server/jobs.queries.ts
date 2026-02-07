@@ -38,6 +38,10 @@ export const getAllJobs = async (filters: JobFilterParams) => {
     );
   }
 
+  if (filters?.jobType && filters.jobType !== "all") {
+    conditions.push(eq(jobs.jobType, filters.jobType as any));
+  }
+
   const jobsData = await db
     .select({
       id: jobs.id,
