@@ -41,8 +41,13 @@ export const getAllJobs = async (filters: JobFilterParams) => {
   if (filters?.jobType && filters.jobType !== "all") {
     conditions.push(eq(jobs.jobType, filters.jobType as any));
   }
+
   if (filters?.jobLevel && filters.jobLevel !== "all") {
     conditions.push(eq(jobs.jobLevel, filters.jobLevel as any));
+  }
+
+  if (filters?.workType && filters.workType !== "all") {
+    conditions.push(eq(jobs.workType, filters.workType as any));
   }
 
   const jobsData = await db
