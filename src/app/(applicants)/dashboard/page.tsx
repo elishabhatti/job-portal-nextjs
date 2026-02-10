@@ -1,7 +1,7 @@
-import { logoutUserAction } from "@/app/features/auth/server/auth.action";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { redirect } from "next/navigation";
 import { ApplicantStats } from "@/app/features/applicants/components/ApplicantStats";
+import { ApplicantProfileStatus } from "@/app/features/applicants/components/ApplicantProfileStatus";
 
 const Applicant = async () => {
   const user = await getCurrentUser();
@@ -23,6 +23,8 @@ const Applicant = async () => {
 
       {/* 1. Stats Row */}
       <ApplicantStats />
+
+      <ApplicantProfileStatus />
     </div>
   );
 };
