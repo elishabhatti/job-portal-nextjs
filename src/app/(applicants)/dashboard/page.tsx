@@ -1,6 +1,7 @@
 import { logoutUserAction } from "@/app/features/auth/server/auth.action";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { redirect } from "next/navigation";
+import { ApplicantStats } from "@/app/features/applicants/components/ApplicantStats";
 
 const Applicant = async () => {
   const user = await getCurrentUser();
@@ -19,7 +20,9 @@ const Applicant = async () => {
           Here is your daily activites and job alerts
         </p>
       </div>
-      <button onClick={logoutUserAction}>Logout</button>
+
+      {/* 1. Stats Row */}
+      <ApplicantStats />
     </div>
   );
 };
