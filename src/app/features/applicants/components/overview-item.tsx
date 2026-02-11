@@ -7,7 +7,7 @@ import {
   Globe,
   GraduationCap,
 } from "lucide-react";
-import OverviewItem from "./jobOverViewSidebar";
+import OverviewItem from "./job-overview-sidebar";
 import Link from "next/link";
 
 interface JobSideBarProps {

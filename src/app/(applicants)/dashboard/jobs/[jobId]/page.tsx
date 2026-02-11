@@ -1,4 +1,4 @@
-import JobOverviewSidebar from "@/app/features/applicants/components/OverviewItem";
+import JobOverviewSidebar from "@/app/features/applicants/components/overview-item";
 import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

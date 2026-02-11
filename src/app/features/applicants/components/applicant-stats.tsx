@@ -5,7 +5,7 @@ export const ApplicantStats = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {/* Card 1: Applied Jobs (Blue) */}
-      <Card className="bg-blue-50 border-blue-100 shadow-sm">
+      <Card className="bg-green-50 border-blue-100 shadow-sm">
         <CardContent className="p-6 flex items-center justify-between">
           <div>
             <p className="text-3xl font-bold text-gray-900">589</p>
@@ -41,7 +41,7 @@ export const ApplicantStats = () => {
             <p className="text-sm font-medium text-gray-500">Job Alerts</p>
           </div>
           <div className="p-3 bg-white rounded-lg shadow-sm">
-            <Bell className="h-6 w-6 text-[#16a34a]" />
+            <Bell style={{ color: "#16a34a" }} className="h-6 w-6" />
           </div>
         </CardContent>
       </Card>
