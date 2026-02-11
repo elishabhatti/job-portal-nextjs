@@ -1,7 +1,7 @@
+import { ApplicantProfileStatus } from "@/app/features/applicants/components/applicant-profile-status";
+import { ApplicantStats } from "@/app/features/applicants/components/applicant-stats";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { redirect } from "next/navigation";
-import { ApplicantStats } from "@/app/features/applicants/components/ApplicantStats";
-import { ApplicantProfileStatus } from "@/app/features/applicants/components/ApplicantProfileStatus";
 
 const Applicant = async () => {
   const user = await getCurrentUser();

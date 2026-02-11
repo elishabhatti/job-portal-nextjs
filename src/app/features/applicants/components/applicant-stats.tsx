@@ -21,7 +21,7 @@ export const ApplicantStats = () => {
       <Card className="bg-orange-50 border-orange-100 shadow-sm">
         <CardContent className="p-6 flex items-center justify-between">
           <div>
-            <p className="text-3xl font-bold text-gray-900">589</p>
+            <p className="text-3xl font-bold text-gray-900">238</p>
             <p className="text-sm font-medium text-gray-500">Applied Jobs</p>
           </div>
           <div className="p-3 bg-white rounded-lg shadow-sm">
@@ -37,7 +37,7 @@ export const ApplicantStats = () => {
       >
         <CardContent className="p-6 flex items-center justify-between">
           <div>
-            <p className="text-3xl font-bold text-gray-900">589</p>
+            <p className="text-3xl font-bold text-gray-900">579</p>
             <p className="text-sm font-medium text-gray-500">Job Alerts</p>
           </div>
           <div className="p-3 bg-white rounded-lg shadow-sm">
