@@ -35,7 +35,7 @@ export const ApplicantProfileStatus = () => {
           <div style={{ color: "white" }}>
             <h3
               style={{
-                fontSize: "18px",
+                fontSize: "16px",
                 fontWeight: "700",
                 margin: 0,
                 color: "white",
@@ -48,6 +48,7 @@ export const ApplicantProfileStatus = () => {
               style={{
                 fontSize: "14px",
                 color: "rgba(255, 255, 255, 0.9)",
+                fontWeight: "500",
                 margin: "4px 0 0 0",
               }}
             >
