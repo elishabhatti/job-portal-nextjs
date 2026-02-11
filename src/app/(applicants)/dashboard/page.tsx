@@ -24,7 +24,9 @@ const Applicant = async () => {
       {/* 1. Stats Row */}
       <ApplicantStats />
 
+      {/* 2. Red Alert Banner (Profile Incomplete) */}
       <ApplicantProfileStatus />
+      
     </div>
   );
 };

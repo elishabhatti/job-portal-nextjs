@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { UserCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -59,23 +60,13 @@ export const ApplicantProfileStatus = () => {
         </div>
 
         {/* White Button */}
-        <Link
-          href="/dashboard/settings"
-          style={{
-            backgroundColor: "white",
-            color: "#FF3B30",
-            padding: "10px 20px",
-            borderRadius: "8px",
-            fontWeight: "bold",
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-            fontSize: "14px",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Edit Profile <ArrowRight size={16} />
+        <Link href="/dashboard/settings">
+          <Button
+            style={{ padding: "20px", backgroundColor: "white", color: "red" }}
+            className="font-bold rounded-md flex items-center text-lg whitespace-nowrap gap-2"
+          >
+            Edit Profile <ArrowRight className="ml-2" size={16} />
+          </Button>
         </Link>
       </div>
     </div>
