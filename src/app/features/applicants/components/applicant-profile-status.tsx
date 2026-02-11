@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const ApplicantProfileStatus = () => {
   return (
-    <div className="mt-6" style={{ width: "100%", marginTop: "20px" }}>
+    <div style={{ width: "100%", marginTop: "20px" }}>
       {/* Container with forced Red Background */}
       <div
         style={{
