@@ -1,5 +1,6 @@
 import { ApplicantProfileStatus } from "@/app/features/applicants/components/applicant-profile-status";
 import { ApplicantStats } from "@/app/features/applicants/components/applicant-stats";
+import RecentApplications from "@/app/features/applicants/components/recent-applications";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { redirect } from "next/navigation";
 
@@ -26,7 +27,9 @@ const Applicant = async () => {
 
       {/* 2. Red Alert Banner (Profile Incomplete) */}
       <ApplicantProfileStatus />
-      
+
+      {/* 3. Recent Applications */}
+      <RecentApplications />
     </div>
   );
 };
