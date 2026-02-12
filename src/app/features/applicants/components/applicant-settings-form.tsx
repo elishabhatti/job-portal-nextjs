@@ -7,8 +7,15 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { Calendar, Mail, MapPin, Phone, UploadCloud, User } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 type ApplicantProfileData = {
   fullName: string;
@@ -125,34 +132,76 @@ const ApplicantSettingsForm = () => {
         <Card>
           <CardHeader>
             <CardTitle>Personal Details</CardTitle>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Date of Birth */}
-              <div className="space-y-2">
-                <Label>Date of Birth</Label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    {...register("dateOfBirth")}
-                    type="date"
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-
-              {/* Nationaly */}
-              <div className="space-y-2">
-                <Label>Nationality</Label>
-                <div className="relative">
-                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                  <Input
-                    {...register("dateOfBirth")}
-                    type="date"
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-            </CardContent>
           </CardHeader>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Date of Birth */}
+            <div className="space-y-2">
+              <Label>Date of Birth</Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  {...register("dateOfBirth")}
+                  type="date"
+                  className="pl-10"
+                />
+              </div>
+            </div>
+
+            {/* Nationaly */}
+            <div className="space-y-2">
+              <Label>Nationality</Label>
+              <div className="relative">
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  {...register("dateOfBirth")}
+                  type="date"
+                  className="pl-10"
+                />
+              </div>
+            </div>
+
+            {/* Gender */}
+            <div className="space-y-2">
+              <Label>Gender</Label>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            {/* Gender */}
+            <div className="space-y-2">
+              <Label>Martial Status</Label>
+              <Controller
+                name="maritalStatus"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="male">Single</SelectItem>
+                      <SelectItem value="female">Married</SelectItem>
+                      <SelectItem value="other">Divorced</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+          </CardContent>
         </Card>
       </form>
     </div>
