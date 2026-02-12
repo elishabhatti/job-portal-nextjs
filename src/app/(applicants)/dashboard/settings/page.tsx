@@ -1,5 +1,7 @@
 "use client";
 
+import ApplicantSettingsForm from "@/app/features/applicants/components/applicant-settings-form";
+
 const SettingsPage = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-8">
@@ -11,6 +13,8 @@ const SettingsPage = () => {
         </p>
       </div>
 
+      {/* Applicant Settings Form */}
+      <ApplicantSettingsForm />
     </div>
   );
 };
