@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   Calendar,
   Globe,
+  Loader,
   Mail,
   MapPin,
   Phone,
@@ -293,6 +295,18 @@ const ApplicantSettingsForm = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Footer Actions */}
+        <div className="flex items-center gap-4">
+          <Button type="submit" disabled={isSubmitting} className="min-w-37.5">
+            {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </Button>
+
+          {!isDirty && (
+            <p className="text-sm text-muted-foreground">No changes to save</p>
+          )}
+        </div>
       </form>
     </div>
   );
