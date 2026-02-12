@@ -14,7 +14,17 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Calendar, Mail, MapPin, Phone, UploadCloud, User } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Calendar,
+  Globe,
+  Mail,
+  MapPin,
+  Phone,
+  UploadCloud,
+  User,
+} from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 
 type ApplicantProfileData = {
@@ -181,7 +191,7 @@ const ApplicantSettingsForm = () => {
               />
             </div>
 
-            {/* Gender */}
+            {/* Marital Status */}
             <div className="space-y-2">
               <Label>Martial Status</Label>
               <Controller
@@ -200,6 +210,86 @@ const ApplicantSettingsForm = () => {
                   </Select>
                 )}
               />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* SECTION 3: Professional Profile */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Professional Profile</CardTitle>
+            <CardDescription>
+              Highlight your skills and experience
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Highest Education */}
+              <div className="space-y-2">
+                <Label>Highest Education</Label>
+                <Controller
+                  name="education"
+                  control={control}
+                  render={({ field }) => (
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Education" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">None</SelectItem>
+                        <SelectItem value="high_school">High School</SelectItem>
+                        <SelectItem value="bachelors">Bachelors</SelectItem>
+                        <SelectItem value="masters">Masters</SelectItem>
+                        <SelectItem value="phd">PhD</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+
+              {/* Portfolio Website */}
+              <div className="space-y-2">
+                <Label>Portfolio Website</Label>
+                <div className="relative">
+                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    {...register("websiteUrl")}
+                    placeholder="https://..."
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+
+              {/* Biography */}
+              <div className="space-y-2">
+                <Label>Biography</Label>
+                <Textarea
+                  {...register("biography")}
+                  className="min-h-40"
+                  placeholder="Tell us about yourself..."
+                />
+                <p className="text-[10px] text-right text-muted-foreground">
+                  Max 500 characters
+                </p>
+              </div>
+
+              <Separator />
+
+              {/* Resume Upload (Visual Only) */}
+              <div className="space-y-4">
+                <Label className="text-base">Resume / CV</Label>
+                <div className="border border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray  transition cursor-pointer">
+                  <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
+                    <UploadCloud className="h-6 w-6" />
+                  </div>
+                  <h4 className="font-medium text-sm">
+                    Click to upload or drag and drop
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    PDF (MAX 2MB)
+                  </p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
