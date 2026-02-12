@@ -48,47 +48,49 @@ const ApplicantSettingsForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
-    formState: { errors, isDirty, isSubmitting },
-  } = useForm();
-  //   <ApplicantProfileData>;
+    formState: { isDirty, isSubmitting },
+  } = useForm<ApplicantProfileData>();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ApplicantProfileData) => {
     console.log("Saving Date:", data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     alert("Profile Updated (Check Console)");
   };
+
   return (
-    <div className="max-w-5xl mx-auto py-8">
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        {/* Section 1: Basic Info */}
-        <Card>
-          <CardTitle>Basic Information</CardTitle>
-          <CardDescription>This is how employers will see you.</CardDescription>
+    <div className="max-w-6xl mx-auto">
+      <form className="flex gap-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
+        {/* ================= BASIC INFORMATION ================= */}
+        <Card className="w-full">
           <CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex items-center gap-6 mb-6">
+            <CardTitle>Basic Information</CardTitle>
+            <CardDescription>
+              This is how employers will see you.
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            <div className="flex items-start gap-8">
+              {/* Photo */}
+              <div className="pr-10 flex flex-col items-center gap-3">
                 <div className="h-24 w-24 rounded-full bg-gray-50 flex items-center justify-center border-2 border-dashed border-gray-200 hover:border-gray-400 cursor-pointer transition">
-                  <div className="text-center space-y-1">
-                    <UploadCloud className="h-6 w-6 mx-auto text-muted-foreground" />
-                    <span className="text-[10px] text-muted-foreground block">
-                      Upload Photo
-                    </span>
-                  </div>
+                  <UploadCloud className="h-6 w-6 text-muted-foreground" />
                 </div>
-                <div className="text-sm text-muted-foreground">
-                  <p>Max file size is 5MB. Minimum dimension: 150x150</p>
-                  <p>Suitable files are .jgp and .png</p>
+
+                <div className="text-xs text-muted-foreground text-center max-w-[160px]">
+                  <p>Max file size is 5MB</p>
+                  <p>Minimum dimension: 150x150</p>
+                  <p>JPG / PNG</p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Full Name */}
+              {/* Fields */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label>Full Name</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       {...register("fullName")}
                       placeholder="John Doe"
@@ -97,11 +99,10 @@ const ApplicantSettingsForm = () => {
                   </div>
                 </div>
 
-                {/* Email */}
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label>Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       {...register("email")}
                       placeholder="john@example.com"
@@ -110,11 +111,10 @@ const ApplicantSettingsForm = () => {
                   </div>
                 </div>
 
-                {/* Phone */}
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
+                  <Label>Phone</Label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       {...register("phone")}
                       placeholder="+92 123 456789"
@@ -123,11 +123,10 @@ const ApplicantSettingsForm = () => {
                   </div>
                 </div>
 
-                {/* Location */}
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Location</Label>
+                  <Label>Location</Label>
                   <div className="relative">
-                    <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                    <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                       {...register("location")}
                       placeholder="Karachi, Islamabad, Lahore"
@@ -136,21 +135,21 @@ const ApplicantSettingsForm = () => {
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </CardHeader>
+            </div>
+          </CardContent>
         </Card>
 
-        {/* SECTION 2: Personal Details */}
-        <Card>
+        {/* ================= PERSONAL DETAILS ================= */}
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Personal Details</CardTitle>
           </CardHeader>
+
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Date of Birth */}
             <div className="space-y-2">
               <Label>Date of Birth</Label>
               <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   {...register("dateOfBirth")}
                   type="date"
@@ -159,20 +158,11 @@ const ApplicantSettingsForm = () => {
               </div>
             </div>
 
-            {/* Nationaly */}
             <div className="space-y-2">
               <Label>Nationality</Label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <Input
-                  {...register("dateOfBirth")}
-                  type="date"
-                  className="pl-10"
-                />
-              </div>
+              <Input {...register("nationality")} placeholder="Pakistani" />
             </div>
 
-            {/* Gender */}
             <div className="space-y-2">
               <Label>Gender</Label>
               <Controller
@@ -193,9 +183,8 @@ const ApplicantSettingsForm = () => {
               />
             </div>
 
-            {/* Marital Status */}
             <div className="space-y-2">
-              <Label>Martial Status</Label>
+              <Label>Marital Status</Label>
               <Controller
                 name="maritalStatus"
                 control={control}
@@ -205,9 +194,9 @@ const ApplicantSettingsForm = () => {
                       <SelectValue placeholder="Select Status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="male">Single</SelectItem>
-                      <SelectItem value="female">Married</SelectItem>
-                      <SelectItem value="other">Divorced</SelectItem>
+                      <SelectItem value="single">Single</SelectItem>
+                      <SelectItem value="married">Married</SelectItem>
+                      <SelectItem value="divorced">Divorced</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
@@ -216,17 +205,17 @@ const ApplicantSettingsForm = () => {
           </CardContent>
         </Card>
 
-        {/* SECTION 3: Professional Profile */}
-        <Card>
+        {/* ================= PROFESSIONAL PROFILE ================= */}
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Professional Profile</CardTitle>
             <CardDescription>
               Highlight your skills and experience
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+
+          <CardContent className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Highest Education */}
               <div className="space-y-2">
                 <Label>Highest Education</Label>
                 <Controller
@@ -249,11 +238,10 @@ const ApplicantSettingsForm = () => {
                 />
               </div>
 
-              {/* Portfolio Website */}
               <div className="space-y-2">
                 <Label>Portfolio Website</Label>
                 <div className="relative">
-                  <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     {...register("websiteUrl")}
                     placeholder="https://..."
@@ -261,44 +249,42 @@ const ApplicantSettingsForm = () => {
                   />
                 </div>
               </div>
+            </div>
 
-              {/* Biography */}
-              <div className="space-y-2">
-                <Label>Biography</Label>
-                <Textarea
-                  {...register("biography")}
-                  className="min-h-40"
-                  placeholder="Tell us about yourself..."
-                />
-                <p className="text-[10px] text-right text-muted-foreground">
-                  Max 500 characters
-                </p>
-              </div>
+            <div className="space-y-2">
+              <Label>Biography</Label>
+              <Textarea
+                {...register("biography")}
+                className="min-h-[120px]"
+                placeholder="Tell us about yourself..."
+              />
+              <p className="text-xs text-right text-muted-foreground">
+                Max 500 characters
+              </p>
+            </div>
 
-              <Separator />
+            <Separator />
 
-              {/* Resume Upload (Visual Only) */}
-              <div className="space-y-4">
-                <Label className="text-base">Resume / CV</Label>
-                <div className="border border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray  transition cursor-pointer">
-                  <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
-                    <UploadCloud className="h-6 w-6" />
-                  </div>
-                  <h4 className="font-medium text-sm">
-                    Click to upload or drag and drop
-                  </h4>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    PDF (MAX 2MB)
-                  </p>
+            <div className="space-y-4">
+              <Label className="text-base">Resume / CV</Label>
+              <div className="border border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 transition cursor-pointer">
+                <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
+                  <UploadCloud className="h-6 w-6" />
                 </div>
+                <h4 className="font-medium text-sm">
+                  Click to upload or drag and drop
+                </h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  PDF (MAX 2MB)
+                </p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Footer Actions */}
+        {/* ================= FOOTER ================= */}
         <div className="flex items-center gap-4">
-          <Button type="submit" disabled={isSubmitting} className="min-w-37.5">
+          <Button type="submit" disabled={isSubmitting}>
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
             {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>
