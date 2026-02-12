@@ -10,6 +10,21 @@ import { Label } from "@/components/ui/label";
 import { Calendar, Mail, MapPin, Phone, UploadCloud, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 
+type ApplicantProfileData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  location: string;
+  dateOfBirth: string;
+  nationality: string;
+  gender: string;
+  maritalStatus: string;
+  education: string;
+  experience: string;
+  websiteUrl: string;
+  biography: string;
+};
+
 const ApplicantSettingsForm = () => {
   const {
     register,
@@ -100,6 +115,40 @@ const ApplicantSettingsForm = () => {
                       className="pl-10"
                     />
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </CardHeader>
+        </Card>
+
+        {/* SECTION 2: Personal Details */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Personal Details</CardTitle>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Date of Birth */}
+              <div className="space-y-2">
+                <Label>Date of Birth</Label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    {...register("dateOfBirth")}
+                    type="date"
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+
+              {/* Nationaly */}
+              <div className="space-y-2">
+                <Label>Nationality</Label>
+                <div className="relative">
+                  <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    {...register("dateOfBirth")}
+                    type="date"
+                    className="pl-10"
+                  />
                 </div>
               </div>
             </CardContent>
