@@ -15,9 +15,9 @@ const EDUCATION_OPTIONS = [
 ] as const;
 
 export const applicantSettingsSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 charachters"),
+  name: z.string().min(2, "Name must be at least 2 charachters"),
   email: z.email("Invalid email address"),
-  phone: z.string().min(11, "Phone number must be atlest 11 digits"),
+  phoneNumber: z.string().min(11, "Phone number must be atlest 11 digits"),
   location: z.string().min(2, "Location is required"),
   dateOfBirth: z.string().refine((val) => !isNaN(Date.parse(val)), {
     message: "Invalid date of birth",

@@ -19,6 +19,7 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Calendar,
+  Flag,
   Globe,
   Loader,
   Mail,
@@ -33,33 +34,16 @@ import {
   applicantSettingsSchema,
 } from "../applicant.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-type ApplicantProfileData = {
-  fullName: string;
-  email: string;
-  phone: string;
-  location: string;
-  dateOfBirth: string;
-  nationality: string;
-  gender: string;
-  maritalStatus: string;
-  education: string;
-  experience: string;
-  websiteUrl: string;
-  biography: string;
-};
+import { FormMessage } from "@/components/ui/form";
 
 const ApplicantSettingsForm = () => {
   const {
     register,
     handleSubmit,
     control,
-    formState: { isDirty, isSubmitting },
+    formState: { isDirty, isSubmitting, errors },
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
-    defaultValues: {
-      email: "example@gmail.com",
-    },
   });
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
@@ -69,7 +53,7 @@ const ApplicantSettingsForm = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-autow">
+    <div className="max-w-5xl mx-auto">
       <form className="flex gap-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
         {/* ================= BASIC INFORMATION ================= */}
         <Card className="w-full">
@@ -88,7 +72,7 @@ const ApplicantSettingsForm = () => {
                   <UploadCloud className="h-6 w-6 text-muted-foreground" />
                 </div>
 
-                <div className="text-xs text-muted-foreground text-center max-w-[160px]">
+                <div className="text-xs text-muted-foreground text-center max-w-40">
                   <p>Max file size is 5MB</p>
                   <p>Minimum dimension: 150x150</p>
                   <p>JPG / PNG</p>
@@ -102,11 +86,16 @@ const ApplicantSettingsForm = () => {
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
-                      {...register("fullName")}
+                      {...register("name")}
                       placeholder="John Doe"
-                      className="pl-10"
+                      className={`pl-10 ${errors.name ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
+                  {errors.name && (
+                    <p className="text-sm text-destructive">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -116,9 +105,14 @@ const ApplicantSettingsForm = () => {
                     <Input
                       {...register("email")}
                       placeholder="john@example.com"
-                      className="pl-10"
+                      className={`pl-10 ${errors.email ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
+                  {errors.email && (
+                    <p className="text-sm text-destructive">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -126,11 +120,16 @@ const ApplicantSettingsForm = () => {
                   <div className="relative">
                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
-                      {...register("phone")}
+                      {...register("phoneNumber")}
                       placeholder="+92 123 456789"
-                      className="pl-10"
+                      className={`pl-10 ${errors.phoneNumber ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
+                  {errors.phoneNumber && (
+                    <p className="text-sm text-destructive">
+                      {errors.phoneNumber.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -140,9 +139,14 @@ const ApplicantSettingsForm = () => {
                     <Input
                       {...register("location")}
                       placeholder="Karachi, Islamabad, Lahore"
-                      className="pl-10"
+                      className={`pl-10 ${errors.location ? "border-destructive focus-visible:ring-destructive" : ""}`}
                     />
                   </div>
+                  {errors.location && (
+                    <p className="text-sm text-destructive">
+                      {errors.location.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -163,14 +167,31 @@ const ApplicantSettingsForm = () => {
                 <Input
                   {...register("dateOfBirth")}
                   type="date"
-                  className="pl-10"
+                  className={`pl-10 ${errors.dateOfBirth ? "border-destructive focus-visible:ring-destructive" : ""}`}
                 />
               </div>
+              {errors.dateOfBirth && (
+                <p className="text-sm text-destructive">
+                  {errors.dateOfBirth.message}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
               <Label>Nationality</Label>
-              <Input {...register("nationality")} placeholder="Pakistani" />
+              <div className="relative">
+                <Flag className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  {...register("nationality")}
+                  placeholder="Pakistani"
+                  className={`pl-10 ${errors.nationality ? "border-destructive focus-visible:ring-destructive" : ""}`}
+                />
+              </div>
+              {errors.nationality && (
+                <p className="text-sm text-destructive">
+                  {errors.nationality.message}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -191,6 +212,11 @@ const ApplicantSettingsForm = () => {
                   </Select>
                 )}
               />
+              {errors.gender && (
+                <p className="text-sm text-destructive">
+                  {errors.gender.message}
+                </p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -211,6 +237,11 @@ const ApplicantSettingsForm = () => {
                   </Select>
                 )}
               />
+              {errors.maritalStatus && (
+                <p className="text-sm text-destructive">
+                  {errors.maritalStatus.message}
+                </p>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -246,6 +277,11 @@ const ApplicantSettingsForm = () => {
                     </Select>
                   )}
                 />
+                {errors.education && (
+                  <p className="text-sm text-destructive">
+                    {errors.education.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -255,8 +291,13 @@ const ApplicantSettingsForm = () => {
                   <Input
                     {...register("websiteUrl")}
                     placeholder="https://..."
-                    className="pl-10"
+                    className={`pl-10 ${errors.websiteUrl ? "border-destructive focus-visible:ring-destructive" : ""}`}
                   />
+                  {errors.websiteUrl && (
+                    <p className="text-sm text-destructive">
+                      {errors.websiteUrl.message}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -265,19 +306,35 @@ const ApplicantSettingsForm = () => {
               <Label>Biography</Label>
               <Textarea
                 {...register("biography")}
-                className="min-h-[120px]"
+                className={`${errors.biography ? "border-destructive focus-visible:ring-destructive" : ""}`}
                 placeholder="Tell us about yourself..."
               />
               <p className="text-xs text-right text-muted-foreground">
                 Max 500 characters
               </p>
             </div>
+            {errors.biography && (
+              <p className="text-sm text-destructive">
+                {errors.biography.message}
+              </p>
+            )}
 
             <Separator />
 
             <div className="space-y-4">
               <Label className="text-base">Resume / CV</Label>
-              <div className="border border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 transition cursor-pointer">
+              <input
+                type="file"
+                id="resume-upload"
+                className="hidden"
+                accept=".pdf"
+                {...register("resume")}
+              />
+
+              <label
+                htmlFor="resume-upload"
+                className="border border-dashed border-gray-200 rounded-xl p-8 flex flex-col items-center justify-center text-center hover:bg-gray-50 transition cursor-pointer"
+              >
                 <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
                   <UploadCloud className="h-6 w-6" />
                 </div>
@@ -287,8 +344,13 @@ const ApplicantSettingsForm = () => {
                 <p className="text-xs text-muted-foreground mt-1">
                   PDF (MAX 2MB)
                 </p>
-              </div>
+              </label>
             </div>
+            {errors.resume && (
+              <p className="text-sm text-destructive">
+                {errors.resume.message as string}
+              </p>
+            )}
           </CardContent>
         </Card>
 
