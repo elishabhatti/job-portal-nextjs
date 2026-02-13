@@ -59,7 +59,7 @@ const ApplicantSettingsForm = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-autow">
       <form className="flex gap-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
         {/* ================= BASIC INFORMATION ================= */}
         <Card className="w-full">
