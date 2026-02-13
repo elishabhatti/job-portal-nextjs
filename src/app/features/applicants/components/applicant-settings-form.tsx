@@ -32,9 +32,11 @@ import { Controller, useForm } from "react-hook-form";
 import {
   ApplicantSettingsSchema,
   applicantSettingsSchema,
+  EDUCATION_OPTIONS,
+  GENDER_OPTIONS,
+  MARITAL_STATUS_OPTIONS,
 } from "../applicant.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormMessage } from "@/components/ui/form";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -205,9 +207,11 @@ const ApplicantSettingsForm = () => {
                       <SelectValue placeholder="Select Gender" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      {GENDER_OPTIONS.map((val, idx) => (
+                        <SelectItem key={idx} value={val}>
+                          {val}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -230,9 +234,11 @@ const ApplicantSettingsForm = () => {
                       <SelectValue placeholder="Select Status" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="single">Single</SelectItem>
-                      <SelectItem value="married">Married</SelectItem>
-                      <SelectItem value="divorced">Divorced</SelectItem>
+                      {MARITAL_STATUS_OPTIONS.map((val, idx) => (
+                        <SelectItem key={idx} value={val}>
+                          {val}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -268,11 +274,11 @@ const ApplicantSettingsForm = () => {
                         <SelectValue placeholder="Select Education" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="none">None</SelectItem>
-                        <SelectItem value="high_school">High School</SelectItem>
-                        <SelectItem value="bachelors">Bachelors</SelectItem>
-                        <SelectItem value="masters">Masters</SelectItem>
-                        <SelectItem value="phd">PhD</SelectItem>
+                        {EDUCATION_OPTIONS.map((val, idx) => (
+                          <SelectItem key={idx} value={val}>
+                            {val}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   )}
