@@ -37,6 +37,7 @@ import {
   MARITAL_STATUS_OPTIONS,
 } from "../applicant.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Tiptap from "@/components/text-editor";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -308,7 +309,7 @@ const ApplicantSettingsForm = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label>Biography</Label>
               <Textarea
                 {...register("biography")}
@@ -318,12 +319,31 @@ const ApplicantSettingsForm = () => {
               <p className="text-xs text-right text-muted-foreground">
                 Max 500 characters
               </p>
+            </div> */}
+
+            <div className="space-y-2">
+              <Controller
+                name="biography"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <div className="space-y-2">
+                    <Label>Biography *</Label>
+                    <Tiptap content={field.value} onChange={field.onChange} />
+
+                    {fieldState.error && (
+                      <p className="text-sm text-destructive">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
+              {errors.biography && (
+                <p className="text-sm text-destructive">
+                  {errors.biography.message}
+                </p>
+              )}
             </div>
-            {errors.biography && (
-              <p className="text-sm text-destructive">
-                {errors.biography.message}
-              </p>
-            )}
 
             <Separator />
 
