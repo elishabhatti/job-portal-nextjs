@@ -28,6 +28,11 @@ import {
   User,
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import {
+  ApplicantSettingsSchema,
+  applicantSettingsSchema,
+} from "../applicant.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type ApplicantProfileData = {
   fullName: string;
@@ -50,9 +55,14 @@ const ApplicantSettingsForm = () => {
     handleSubmit,
     control,
     formState: { isDirty, isSubmitting },
-  } = useForm<ApplicantProfileData>();
+  } = useForm<ApplicantSettingsSchema>({
+    resolver: zodResolver(applicantSettingsSchema),
+    defaultValues: {
+      email: "example@gmail.com",
+    },
+  });
 
-  const onSubmit = async (data: ApplicantProfileData) => {
+  const onSubmit = async (data: ApplicantSettingsSchema) => {
     console.log("Saving Date:", data);
     await new Promise((resolve) => setTimeout(resolve, 1000));
     alert("Profile Updated (Check Console)");
