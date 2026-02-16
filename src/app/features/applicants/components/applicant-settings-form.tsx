@@ -40,6 +40,8 @@ import {
   ApplicantSettingsSchema,
 } from "../applicant.schema";
 import Tiptap from "@/components/text-editor";
+import { ImageUpload } from "../../employers/components/employer-setting-form";
+import { cn } from "@/lib/utils";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -72,20 +74,32 @@ const ApplicantSettingsForm = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex items-center gap-6 mb-6">
-              <div className="h-24 w-24 rounded-full bg-gray-50 flex items-center justify-center border-2 border-dashed border-gray-200 hover:border-gray-400 cursor-pointer transition">
-                <div className="text-center space-y-1">
-                  <UploadCloud className="h-6 w-6 mx-auto text-muted-foreground" />
-                  <span className="text-[10px] text-muted-foreground block">
-                    Upload Photo
-                  </span>
+            <Controller
+              name="avatarUrl"
+              control={control}
+              render={({ field, fieldState }) => (
+                <div className="space-y-2">
+                  <Label>Upload Logo *</Label>
+                  <ImageUpload
+                    value={field.value}
+                    onChange={field.onChange}
+                    boxText={
+                      "A photo larger than 400 pixels works best. Max photo size 5 MB."
+                    }
+                    className={cn(
+                      fieldState.error &&
+                        "ring-1 ring-destructive/50 rounded-lg",
+                      "h-64 w-64",
+                    )}
+                  />
+                  {fieldState.error && (
+                    <p className="text-sm text-destructive">
+                      {fieldState.error.message}
+                    </p>
+                  )}
                 </div>
-              </div>
-              <div className="text-sm text-muted-foreground">
-                <p>Max file size is 5MB. Minimum dimension: 150x150</p>
-                <p>Suitable files are .jpg and .png</p>
-              </div>
-            </div>
+              )}
+            />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">

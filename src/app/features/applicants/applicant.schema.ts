@@ -49,6 +49,7 @@ export const applicantSettingsSchema = z.object({
       (files) => ACCEOTED_DOCUMENT_TYPES.includes(files?.[0]?.type),
       "Only .pdf format is supported",
     ),
+    avatarUrl: z.string()
 });
 
 export type ApplicantSettingsSchema = z.infer<typeof applicantSettingsSchema>;
