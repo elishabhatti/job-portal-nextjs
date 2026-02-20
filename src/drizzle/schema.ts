@@ -123,7 +123,7 @@ export const jobs = mysqlTable("jobs", {
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
-export const resume = mysqlTable("resume", {
+export const resumes = mysqlTable("resumes", {
   id: int("id").autoincrement().primaryKey(),
   applicantId: int("applicant_id")
     .notNull()
@@ -149,6 +149,13 @@ export const resume = mysqlTable("resume", {
 // );
 
 //! Both the one() and many() helper functions take arguments to define the relationship details.
+
+export const resumesRelations = relations(resumes, ({ one }) => ({
+  applicant: one(applicants, {
+    fields: [resumes.applicantId],
+    references: [applicants.id],
+  }),
+}));
 
 export const jobsRelations = relations(jobs, ({ one }) => ({
   employer: one(employers, {
