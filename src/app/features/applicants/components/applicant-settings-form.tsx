@@ -66,7 +66,7 @@ const ApplicantSettingsForm = () => {
   return (
     <div className="max-w-5xl mx-auto py-8">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <Card>
+        <Card style={{ marginBottom: "20px" }}>
           <CardHeader>
             <CardTitle>Basic Information</CardTitle>
             <CardDescription>
@@ -89,7 +89,7 @@ const ApplicantSettingsForm = () => {
                     className={cn(
                       fieldState.error &&
                         "ring-1 ring-destructive/50 rounded-lg",
-                      "h-64 w-64",
+                      "w-64 h-64",
                     )}
                   />
                   {fieldState.error && (
@@ -174,7 +174,7 @@ const ApplicantSettingsForm = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card style={{ marginBottom: "20px" }}>
           <CardHeader>
             <CardTitle>Personal Details</CardTitle>
           </CardHeader>
@@ -277,7 +277,7 @@ const ApplicantSettingsForm = () => {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card style={{ marginBottom: "20px" }}>
           <CardHeader>
             <CardTitle>Professional Profile</CardTitle>
             <CardDescription>
@@ -435,7 +435,10 @@ const ApplicantSettingsForm = () => {
         </Card>
 
         {/* Footer Actions */}
-        <div className="flex items-center gap-4">
+        <div
+          style={{ marginBottom: "20px" }}
+          className="flex items-center gap-4"
+        >
           <Button
             type="submit"
             disabled={isSubmitting}
