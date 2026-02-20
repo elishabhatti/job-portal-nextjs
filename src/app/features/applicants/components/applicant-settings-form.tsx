@@ -52,7 +52,7 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "vinod@thapa.com",
+      email: "elishajameel270@gmail.com",
     },
   });
 
@@ -125,7 +125,7 @@ const ApplicantSettingsForm = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     {...register("email")}
-                    placeholder="john@example.com"
+                    placeholder="elisha@example"
                     className="pl-10 bg-gray-50"
                     readOnly
                   />
@@ -160,7 +160,7 @@ const ApplicantSettingsForm = () => {
                   <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     {...register("location")}
-                    placeholder="New York, USA"
+                    placeholder="Karachi, Lahore"
                     className={`pl-10 ${errors.location ? "border-destructive focus-visible:ring-destructive" : ""}`}
                   />
                 </div>
@@ -202,7 +202,7 @@ const ApplicantSettingsForm = () => {
                 <Flag className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   {...register("nationality")}
-                  placeholder="American"
+                  placeholder="Pakistani"
                   className={`pl-10 ${errors.nationality ? "border-destructive focus-visible:ring-destructive" : ""}`}
                 />
               </div>
