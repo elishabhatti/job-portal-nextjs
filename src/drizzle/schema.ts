@@ -27,7 +27,7 @@ export const users = mysqlTable("users", {
   password: text("password").notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   role: mysqlEnum("role", ["admin", "applicant", "employer"]).default(
-    "applicant"
+    "applicant",
   ),
   phoneNumber: varchar("phone_number", { length: 255 }),
   avatarUrl: text("avatar_url"),
@@ -119,6 +119,21 @@ export const jobs = mysqlTable("jobs", {
   isFeatured: boolean("is_featured").default(false).notNull(),
   expiresAt: date("expires_at"),
   deletedAt: timestamp("deleted_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export const resume = mysqlTable("resume", {
+  id: int("id").autoincrement().primaryKey(),
+  applicantId: int("applicant_id")
+    .notNull()
+    .references(() => applicants.id, { onDelete: "cascade" }),
+  fileUrl: text("file_url").notNull(),
+  fileName: varchar("file_name", { length: 255 }).notNull(),
+
+  fileSize: int("file_size"),
+  isPrimary: boolean("is_primary").default(false),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
