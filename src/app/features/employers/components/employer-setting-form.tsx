@@ -345,7 +345,7 @@ const EmployerSettingsForm = ({
                 <Input
                   id="location"
                   type="text"
-                  placeholder="e.g., Pune, Bangalore"
+                  placeholder="e.g., Karachi, Lahore"
                   className="pl-10"
                   {...register("location")}
                 />
