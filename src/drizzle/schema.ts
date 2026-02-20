@@ -157,6 +157,10 @@ export const resumesRelations = relations(resumes, ({ one }) => ({
   }),
 }));
 
+export const applicantsRelations = relations(applicants, ({ many }) => ({
+  resumes: many(resumes),
+}));
+
 export const jobsRelations = relations(jobs, ({ one }) => ({
   employer: one(employers, {
     fields: [jobs.employerId],
