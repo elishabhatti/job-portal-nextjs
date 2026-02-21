@@ -48,17 +48,17 @@ export const applicantSettingsSchema = z.object({
     .max(500, "Bio must be less than 500 characters")
     .optional(),
 
-  // resume: z
-  //   .any()
-  //   .refine((files) => files?.length == 1, "Resume is required")
-  //   .refine(
-  //     (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-  //     "Max file size is 5MB",
-  //   )
-  //   .refine(
-  //     (files) => ACCEOTED_DOCUMENT_TYPES.includes(files?.[0]?.type),
-  //     "Only .pdf format is supported",
-  //   ),
+  resume: z
+    .any()
+    .refine((files) => files?.length == 1, "Resume is required")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      "Max file size is 5MB",
+    )
+    .refine(
+      (files) => ACCEOTED_DOCUMENT_TYPES.includes(files?.[0]?.type),
+      "Only .pdf format is supported",
+    ),
 
   resumeUrl: z.url({ error: "Invalid URL" }).optional().or(z.literal("")),
   resumeName: z.string().optional(),

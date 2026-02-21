@@ -74,32 +74,39 @@ const ApplicantSettingsForm = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <Controller
-              name="avatarUrl"
-              control={control}
-              render={({ field, fieldState }) => (
-                <div className="space-y-2">
-                  <Label>Upload Logo *</Label>
-                  <ImageUpload
-                    value={field.value}
-                    onChange={field.onChange}
-                    boxText={
-                      "A photo larger than 400 pixels works best. Max photo size 5 MB."
-                    }
-                    className={cn(
-                      fieldState.error &&
-                        "ring-1 ring-destructive/50 rounded-lg",
-                      "w-64 h-64",
+            <div className="flex items-center gap-6 mb-6">
+              <div>
+                <div className="text-center space-y-1">
+                  <Controller
+                    name="avatarUrl"
+                    control={control}
+                    render={({ field, fieldState }) => (
+                      <div>
+                        <Label>Upload Logo *</Label>
+                        <ImageUpload
+                          value={field.value}
+                          onChange={field.onChange}
+                          className={cn(
+                            fieldState.error &&
+                              "ring-1 ring-destructive/50 rounded-full",
+                            "h-34 w-34",
+                          )}
+                        />
+                        {fieldState.error && (
+                          <p className="text-sm text-destructive">
+                            {fieldState.error.message}
+                          </p>
+                        )}
+                      </div>
                     )}
                   />
-                  {fieldState.error && (
-                    <p className="text-sm text-destructive">
-                      {fieldState.error.message}
-                    </p>
-                  )}
                 </div>
-              )}
-            />
+              </div>
+              <div className="text-sm text-muted-foreground">
+                <p>Max file size is 5MB. Minimum dimension: 150x150</p>
+                <p>Suitable files are .jpg and .png</p>
+              </div>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
