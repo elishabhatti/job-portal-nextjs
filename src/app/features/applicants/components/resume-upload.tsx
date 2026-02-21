@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useUploadThing } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 import { useDropzone } from "@uploadthing/react";
-import { Loader2, Upload, X } from "lucide-react";
+import { FileText, Loader2, Upload, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -79,52 +79,37 @@ export const ResumeUpload = ({
           className,
         )}
       >
-        <Image
-          src={value || ""}
-          alt="Uploaded image"
-          height={200}
-          width={200}
-          className="w-full h-full object-cover"
-        />
-
-        {isUploading && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-2">
-              <Loader2 className="w-8 h-8 text-white animate-spin" />
-              <p className="text-sm text-white font-medium">Uploading...</p>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-blue-600 rounded-lg">
+            <FileText className="h-6 w-6" />
           </div>
-        )}
+        </div>
+        <p className="text-sm font-medium text-foreground line-clamp-1">
+          {fileName || "Uploaded Resume.pdf"}
+        </p>
+        <a
+          href={value}
+          target="_blank"
+          rel="noreferrer"
+          className="text-xs text-blue-600 hover:underline"
+        >
+          View Document
+        </a>
 
-        {!isUploading && (
-          <div
-            {...getRootProps()}
-            className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <input {...getInputProps()} />
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Upload className="w-4 h-4 mr-2" />
-              Change
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              size="sm"
-              onClick={handleRemove}
-            >
-              <X className="w-4 h-4 mr-2" />
-              Remove
-            </Button>
-          </div>
-        )}
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className="text-destructive hover:bg-destructive/10"
+          onClick={handleRemove}
+        >
+          <X className="w-4 h-4" />
+          Remove
+        </Button>
       </div>
     );
 
+  // Upload State UI
   return (
     <div
       {...getRootProps()}
