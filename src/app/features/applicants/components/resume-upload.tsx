@@ -71,17 +71,16 @@ export const ResumeUpload = ({
     setFileName(null);
   };
 
-  if (value || previewUrl)
+  if (value)
     return (
       <div
         className={cn(
-          "overflow-hidden border-2 border-border relative group rounded-lg",
+          "border border-border rounded-lg p-4 flex items-center justify-between bg-blue-50",
           className,
         )}
-        {...props}
       >
         <Image
-          src={previewUrl || value || ""}
+          src={value || ""}
           alt="Uploaded image"
           height={200}
           width={200}
@@ -137,7 +136,6 @@ export const ResumeUpload = ({
         isUploading && "opacity-50 pointer-events-none",
         className,
       )}
-      {...props}
     >
       <input {...getInputProps()} />
       <div className="flex flex-col items-center">
@@ -147,11 +145,6 @@ export const ResumeUpload = ({
         <p className="text-sm font-medium text-foreground mb-1">
           <span className="text-primary">Browse photo</span> or drop here
         </p>
-        {boxText && (
-          <p className="text-xs text-muted-foreground text-center px-4 max-w-xs">
-            {boxText}
-          </p>
-        )}
       </div>
     </div>
   );
