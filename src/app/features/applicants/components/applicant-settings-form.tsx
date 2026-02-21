@@ -17,7 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -49,6 +48,7 @@ const ApplicantSettingsForm = () => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
@@ -410,14 +410,20 @@ const ApplicantSettingsForm = () => {
               <Controller
                 name="resumeUrl"
                 control={control}
-                render={({ field, fieldState }) => {
+                render={({ field, fieldState }) => (
                   <div>
                     <ResumeUpload
                       value={field.value}
                       onChange={(url, name, size) => {
                         field.onChange(url);
-                        setValue("resumeName", name, {});
-                        setValue("resumeSize", name, {});
+                        setValue("resumeName", name, {
+                          shouldDirty: true,
+                          shouldValidate: true,
+                        });
+                        setValue("resumeSize", size, {
+                          shouldDirty: true,
+                          shouldValidate: true,
+                        });
                       }}
                     />
                     {fieldState.error && (
@@ -425,40 +431,9 @@ const ApplicantSettingsForm = () => {
                         {fieldState.error.message}
                       </p>
                     )}
-                  </div>;
-                }}
+                  </div>
+                )}
               />
-
-              <input
-                type="file"
-                id="resume-upload"
-                className="hidden"
-                accept=".pdf"
-                {...register("resume")}
-              />
-
-              <label
-                htmlFor="resume-upload"
-                className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition cursor-pointer 
-                    ${errors.resume ? "border-destructive bg-destructive/5" : "border-gray-200 hover:bg-gray-50"}
-                  `}
-              >
-                <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
-                  <UploadCloud className="h-6 w-6" />
-                </div>
-                <h4 className="font-medium text-sm">
-                  Click to upload or drag and drop
-                </h4>
-                <p className="text-xs text-muted-foreground mt-1">
-                  PDF (Max 5MB)
-                </p>
-              </label>
-
-              {errors.resume && (
-                <p className="text-sm text-destructive text-center font-medium">
-                  {errors.resume.message as string}
-                </p>
-              )}
             </div>
           </CardContent>
         </Card>

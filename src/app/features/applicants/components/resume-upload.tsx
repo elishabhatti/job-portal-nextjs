@@ -2,8 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useUploadThing } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 import { useDropzone } from "@uploadthing/react";
-import { FileText, Loader2, Upload, X } from "lucide-react";
-import Image from "next/image";
+import { FileText, Loader2, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -13,15 +12,11 @@ interface ResumeUploadProps {
   className?: string;
 }
 
-export const ResumeUpload = ({
-  value,
-  onChange,
-  className,
-}: ResumeUploadProps) => {
+const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
 
-  const { startUpload } = useUploadThing("imageUploader", {
+  const { startUpload } = useUploadThing("pdfUploader", {
     onClientUploadComplete: (res) => {
       console.log("res pdf: ", res);
 
@@ -29,7 +24,7 @@ export const ResumeUpload = ({
         const file = res[0];
         onChange(file.ufsUrl, file.name, file.size);
         setFileName(file.name);
-        toast.success("Image uploaded successfully!");
+        toast.success("Resume uploaded successfully!");
       }
 
       setIsUploading(false);
@@ -123,14 +118,26 @@ export const ResumeUpload = ({
       )}
     >
       <input {...getInputProps()} />
-      <div className="flex flex-col items-center">
-        <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-3">
-          <Upload className="w-6 h-6 text-muted-foreground" />
+      {isUploading ? (
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+          <p className="text-sm font-medium">Uploading securely...</p>
         </div>
-        <p className="text-sm font-medium text-foreground mb-1">
-          <span className="text-primary">Browse photo</span> or drop here
-        </p>
-      </div>
+      ) : (
+        <>
+          <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
+            <UploadCloud className="h-6 w-6" />
+          </div>
+          <h4 className="font-medium text-sm">
+            <span className="text-primary">Browse file</span> or drop here
+          </h4>
+          <p className="text-xs text-muted-foreground mt-1">
+            Ony PDF format available. Max file size 5 MB.
+          </p>
+        </>
+      )}
     </div>
   );
 };
+
+export default ResumeUpload;
