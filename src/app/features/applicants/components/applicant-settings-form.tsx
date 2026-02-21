@@ -42,6 +42,7 @@ import {
 import Tiptap from "@/components/text-editor";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import { cn } from "@/lib/utils";
+import ResumeUpload from "./resume-upload";
 
 const ApplicantSettingsForm = () => {
   const {
