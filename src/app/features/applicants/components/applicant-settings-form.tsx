@@ -406,6 +406,27 @@ const ApplicantSettingsForm = () => {
             {/* --- RESUME UPLOAD --- */}
             <div className="space-y-4">
               <Label className="text-base">Resume / CV</Label>
+              <Controller
+                name="resumeUrl"
+                control={control}
+                render={({ field, fieldState }) => {
+                  <div>
+                    <ResumeUpload
+                      value={field.value}
+                      onChange={(url, name, size) => {
+                        field.onChange(url);
+                        setValue("resumeName", name, {});
+                        setValue("resumeSize", name, {});
+                      }}
+                    />
+                    {fieldState.error && (
+                      <p className="text-sm text-destructive">
+                        {fieldState.error.message}
+                      </p>
+                    )}
+                  </div>;
+                }}
+              />
 
               <input
                 type="file"

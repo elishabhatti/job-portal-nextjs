@@ -62,6 +62,7 @@ export const applicantSettingsSchema = z.object({
 
   resumeUrl: z.url({ error: "Invalid URL" }).optional().or(z.literal("")),
   resumeName: z.string().optional(),
+  resumeSize: z.string().optional(),
 
   avatarUrl: z.string(),
 });
