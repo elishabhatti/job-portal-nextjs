@@ -56,7 +56,7 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "vinod@thapa.com",
+      email: "elishajameel270@gmail.com",
     },
   });
 
