@@ -62,12 +62,12 @@ const ApplicantSettingsForm = () => {
     console.log("Saving Data:", data);
 
     try {
-      // const res = await createdApplicantProfile(data);
-      // if (res.status === "SUCCESS") {
-      //   toast.success(res.message);
-      // } else {
-      //   toast.error(res.message);
-      // }
+      const res = await createdApplicantProfile(data);
+      if (res.status === "SUCCESS") {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message);
+      }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
       console.error("Form Submission Error", error);
