@@ -8,7 +8,6 @@ import {
   Flag,
   Briefcase,
   Globe,
-  UploadCloud,
   Loader,
   Mail,
   Phone,
@@ -43,6 +42,7 @@ import { ImageUpload } from "../../employers/components/employer-setting-form";
 import { cn } from "@/lib/utils";
 import ResumeUpload from "./resume-upload";
 import { toast } from "sonner";
+import { createdApplicantProfile } from "../actions/applicant.actions";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -55,6 +55,9 @@ const ApplicantSettingsForm = () => {
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
       email: "elishajameel270@gmail.com",
+      gender: "male",
+      maritalStatus: "single",
+      education: "none",
     },
   });
 
@@ -456,7 +459,7 @@ const ApplicantSettingsForm = () => {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="min-w-[150px]"
+            className="min-w-[150px] cursor-pointer"
           >
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
             {isSubmitting ? "Saving..." : "Save Changes"}
