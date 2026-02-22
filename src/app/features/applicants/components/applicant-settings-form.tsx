@@ -42,6 +42,7 @@ import Tiptap from "@/components/text-editor";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import { cn } from "@/lib/utils";
 import ResumeUpload from "./resume-upload";
+import { toast } from "sonner";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -59,9 +60,18 @@ const ApplicantSettingsForm = () => {
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
     console.log("Saving Data:", data);
-    console.log("Resume File:", data.resume?.[0]);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    alert("Profile Updated (Check Console)");
+
+    try {
+      // const res = await createdApplicantProfile(data);
+      // if (res.status === "SUCCESS") {
+      //   toast.success(res.message);
+      // } else {
+      //   toast.error(res.message);
+      // }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      console.error("Form Submission Error", error);
+    }
   };
 
   return (
