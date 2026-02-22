@@ -8,6 +8,7 @@ import {
   Flag,
   Briefcase,
   Globe,
+  UploadCloud,
   Loader,
   Mail,
   Phone,
@@ -16,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -41,8 +43,8 @@ import Tiptap from "@/components/text-editor";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import { cn } from "@/lib/utils";
 import ResumeUpload from "./resume-upload";
+import { createApplicantProfile } from "../actions/applicant.actions";
 import { toast } from "sonner";
-import { createdApplicantProfile } from "../actions/applicant.actions";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -54,10 +56,7 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "elishajameel270@gmail.com",
-      gender: "male",
-      maritalStatus: "single",
-      education: "none",
+      email: "vinod@thapa.com",
     },
   });
 
@@ -65,7 +64,7 @@ const ApplicantSettingsForm = () => {
     console.log("Saving Data:", data);
 
     try {
-      const res = await createdApplicantProfile(data);
+      const res = await createApplicantProfile(data);
       if (res.status === "SUCCESS") {
         toast.success(res.message);
       } else {
@@ -73,14 +72,14 @@ const ApplicantSettingsForm = () => {
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
-      console.error("Form Submission Error", error);
+      console.error("Form Submission Error:", error);
     }
   };
 
   return (
     <div className="max-w-5xl mx-auto py-8">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <Card style={{ marginBottom: "20px" }}>
+        <Card>
           <CardHeader>
             <CardTitle>Basic Information</CardTitle>
             <CardDescription>
@@ -146,7 +145,7 @@ const ApplicantSettingsForm = () => {
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     {...register("email")}
-                    placeholder="elisha@example"
+                    placeholder="john@example.com"
                     className="pl-10 bg-gray-50"
                     readOnly
                   />
@@ -181,7 +180,7 @@ const ApplicantSettingsForm = () => {
                   <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                   <Input
                     {...register("location")}
-                    placeholder="Karachi, Lahore"
+                    placeholder="New York, USA"
                     className={`pl-10 ${errors.location ? "border-destructive focus-visible:ring-destructive" : ""}`}
                   />
                 </div>
@@ -195,7 +194,7 @@ const ApplicantSettingsForm = () => {
           </CardContent>
         </Card>
 
-        <Card style={{ marginBottom: "20px" }}>
+        <Card>
           <CardHeader>
             <CardTitle>Personal Details</CardTitle>
           </CardHeader>
@@ -223,7 +222,7 @@ const ApplicantSettingsForm = () => {
                 <Flag className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                   {...register("nationality")}
-                  placeholder="Pakistani"
+                  placeholder="American"
                   className={`pl-10 ${errors.nationality ? "border-destructive focus-visible:ring-destructive" : ""}`}
                 />
               </div>
@@ -298,7 +297,7 @@ const ApplicantSettingsForm = () => {
           </CardContent>
         </Card>
 
-        <Card style={{ marginBottom: "20px" }}>
+        <Card>
           <CardHeader>
             <CardTitle>Professional Profile</CardTitle>
             <CardDescription>
@@ -418,8 +417,45 @@ const ApplicantSettingsForm = () => {
             <Separator />
 
             {/* --- RESUME UPLOAD --- */}
-            <div className="space-y-4">
+            {/* <div className="space-y-4">
               <Label className="text-base">Resume / CV</Label>
+
+              <input
+                type="file"
+                id="resume-upload"
+                className="hidden"
+                accept=".pdf"
+                {...register("resume")}
+              />
+
+              <label
+                htmlFor="resume-upload"
+                className={`border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition cursor-pointer 
+                    ${errors.resume ? "border-destructive bg-destructive/5" : "border-gray-200 hover:bg-gray-50"}
+                  `}
+              >
+                <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
+                  <UploadCloud className="h-6 w-6" />
+                </div>
+                <h4 className="font-medium text-sm">
+                  Click to upload or drag and drop
+                </h4>
+                <p className="text-xs text-muted-foreground mt-1">
+                  PDF (Max 5MB)
+                </p>
+              </label>
+
+              {errors.resume && (
+                <p className="text-sm text-destructive text-center font-medium">
+                  {errors.resume.message as string}
+                </p>
+              )}
+            </div> */}
+
+            {/* --- RESUME UPLOAD --- */}
+            <div className="space-y-4">
+              <Label className="text-base">Your Cv/Resume</Label>
+
               <Controller
                 name="resumeUrl"
                 control={control}
@@ -428,6 +464,7 @@ const ApplicantSettingsForm = () => {
                     <ResumeUpload
                       value={field.value}
                       onChange={(url, name, size) => {
+                        // We update BOTH fields in React Hook Form when upload finishes
                         field.onChange(url);
                         setValue("resumeName", name, {
                           shouldDirty: true,
@@ -440,7 +477,7 @@ const ApplicantSettingsForm = () => {
                       }}
                     />
                     {fieldState.error && (
-                      <p className="text-sm text-destructive">
+                      <p className="text-sm text-destructive mt-2">
                         {fieldState.error.message}
                       </p>
                     )}
@@ -452,14 +489,11 @@ const ApplicantSettingsForm = () => {
         </Card>
 
         {/* Footer Actions */}
-        <div
-          style={{ marginBottom: "20px" }}
-          className="flex items-center gap-4"
-        >
+        <div className="flex items-center gap-4">
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="min-w-[150px] cursor-pointer"
+            className="min-w-[150px]"
           >
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
             {isSubmitting ? "Saving..." : "Save Changes"}

@@ -9,7 +9,6 @@ import {
   Briefcase,
   Building2,
   Calendar,
-  FileText,
   Globe,
   Loader,
   Loader2,

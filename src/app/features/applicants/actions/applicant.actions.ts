@@ -1,19 +1,17 @@
 "use server";
 
-import { db } from "@/config/db";
-import { getCurrentUser } from "../../auth/server/auth.quires";
 import {
   applicantSettingsSchema,
   ApplicantSettingsSchema,
 } from "../applicant.schema";
-import { eq } from "drizzle-orm";
+import { db } from "@/config/db";
 import { applicants, resumes, users } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
+import { getCurrentUser } from "../../auth/server/auth.quires";
 
-export const createdApplicantProfile = async (
-  data: ApplicantSettingsSchema,
-) => {
+export const createApplicantProfile = async (data: ApplicantSettingsSchema) => {
   try {
-    console.log("data", data);
+    console.log("data: ", data);
 
     const user = await getCurrentUser();
     if (!user) return { status: "ERROR", message: "Unauthorized" };
@@ -22,6 +20,7 @@ export const createdApplicantProfile = async (
       applicantSettingsSchema.safeParse(data);
 
     if (error) {
+      // Return the very first Zod validation error message
       return { status: "ERROR", message: error.issues[0].message };
     }
 
@@ -44,7 +43,7 @@ export const createdApplicantProfile = async (
     } = validatedData;
 
     await db.transaction(async (tx) => {
-      // update the user's table
+      // 1: update the user's table
       await tx
         .update(users)
         .set({
@@ -55,7 +54,7 @@ export const createdApplicantProfile = async (
         .where(eq(users.id, user.id));
 
       await tx.insert(applicants).values({
-        id: user.id,
+        id: user.id, // Foreign key & Primary key
         location,
         dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
         nationality,
@@ -76,10 +75,9 @@ export const createdApplicantProfile = async (
         });
       }
     });
-
     return { status: "SUCCESS", message: "Profile created successfully!" };
   } catch (error) {
-    console.error("CREATE PROFILE ERROR", error);
+    console.error("CREATE PROFILE ERROR:", error);
     return { status: "ERROR", message: "Failed to create Profile." };
   }
 };
