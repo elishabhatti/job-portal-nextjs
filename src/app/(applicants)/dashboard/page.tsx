@@ -1,13 +1,13 @@
 import { ApplicantProfileStatus } from "@/app/features/applicants/components/applicant-profile-status";
 import { ApplicantStats } from "@/app/features/applicants/components/applicant-stats";
-import RecentApplications from "@/app/features/applicants/components/recent-applications";
+import { RecentApplications } from "@/app/features/applicants/components/recent-applications";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { redirect } from "next/navigation";
 
-const Applicant = async () => {
+export default async function ApplicantDashboard() {
   const user = await getCurrentUser();
-  console.log("user data employer:", user);
 
+  // Redirect if not logged in
   if (!user) return redirect("/login");
 
   return (
@@ -18,7 +18,7 @@ const Applicant = async () => {
           Hello, <span className="capitalize">{user.name}</span>
         </h1>
         <p className="text-gray-500">
-          Here is your daily activites and job alerts
+          Here is your daily activities and job alerts
         </p>
       </div>
 
@@ -28,10 +28,8 @@ const Applicant = async () => {
       {/* 2. Red Alert Banner (Profile Incomplete) */}
       <ApplicantProfileStatus />
 
-      {/* 3. Recent Applications */}
+      {/* 3. Recently Applied Table */}
       <RecentApplications />
     </div>
   );
-};
-
-export default Applicant;
+}

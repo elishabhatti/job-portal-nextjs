@@ -1,74 +1,42 @@
-import { Button } from "@/components/ui/button";
-import { UserCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight, UserCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export const ApplicantProfileStatus = () => {
+export function ApplicantProfileStatus() {
+  // You can add logic here later: if (user.profileComplete) return null;
+
   return (
-    <div style={{ width: "100%", marginTop: "20px" }}>
-      {/* Container with forced Red Background */}
-      <div
-        style={{
-          backgroundColor: "#FF3B30",
-          borderRadius: "16px",
-          padding: "20px",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: "16px",
-          boxShadow: "0 10px 15px -3px rgba(255, 59, 48, 0.1)",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-          {/* Icon Circle */}
-          <div
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.2)",
-              padding: "8px",
-              borderRadius: "9999px",
-              display: "flex",
-            }}
-          >
-            <UserCircle size={40} color="white" />
-          </div>
+    <div className="relative overflow-hidden rounded-xl bg-red-500 p-6 text-white shadow-md">
+      {/* Decorative Circles (Optional visual flair) */}
+      <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
+      <div className="absolute right-20 -bottom-12.5 h-24 w-24 rounded-full bg-white/10" />
 
-          {/* Text Content */}
-          <div style={{ color: "white" }}>
-            <h3
-              style={{
-                fontSize: "16px",
-                fontWeight: "700",
-                margin: 0,
-                color: "white",
-                lineHeight: "1.2",
-              }}
-            >
+      <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="flex items-center gap-4">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-red-400">
+            <UserCircle className="h-10 w-10 text-white" />
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">
               Your profile editing is not completed.
             </h3>
-            <p
-              style={{
-                fontSize: "14px",
-                color: "rgba(255, 255, 255, 0.9)",
-                fontWeight: "500",
-                margin: "4px 0 0 0",
-              }}
-            >
+            <p className="text-red-100 text-sm mt-1">
               Complete your profile editing & build your custom Resume to get
               better job recommendations.
             </p>
           </div>
         </div>
 
-        {/* White Button */}
         <Link href="/dashboard/settings">
           <Button
-            style={{ padding: "20px", backgroundColor: "white", color: "red" }}
-            className="font-bold rounded-md flex items-center text-lg whitespace-nowrap gap-2"
+            variant="secondary"
+            className="whitespace-nowrap bg-white text-red-600 hover:bg-gray-100 font-semibold"
           >
-            Edit Profile <ArrowRight className="ml-2" size={16} />
+            Edit Profile
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </Link>
       </div>
     </div>
   );
-};
+}

@@ -1,3 +1,6 @@
+import Link from "next/link";
+import Image from "next/image";
+import { MoreHorizontal, Eye, CheckCircle2, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,133 +11,94 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowRight, CheckCircle2, MapPin } from "lucide-react";
-import Link from "next/link";
 
+// Mock Data to match your screenshot
 const RECENT_APPLICATIONS = [
   {
     id: 1,
     title: "Networking Engineer",
     type: "Remote",
-    salary: "$50k/month",
-    date: "Feb 2, 2025 19:28",
-    status: "Active",
-    company: "Google",
     location: "Washington",
+    salary: "$50k-80k/month",
+    date: "Feb 2, 2026 19:28",
+    status: "Active",
+    logo: "/companies/google.png", // Replace with real logos or placeholders
+    company: "Google",
+    typeColor: "bg-blue-100 text-blue-700 hover:bg-blue-100",
   },
   {
     id: 2,
     title: "Product Designer",
     type: "Full Time",
-    salary: "$60k/month",
+    location: "Dhaka",
+    salary: "$50k-80k/month",
     date: "Dec 7, 2025 23:26",
     status: "Active",
+    logo: "/companies/dribbble.png",
     company: "Dribbble",
-    location: "India",
+    typeColor: "bg-purple-100 text-purple-700 hover:bg-purple-100",
   },
   {
     id: 3,
     title: "Junior Graphic Designer",
     type: "Temporary",
-    salary: "$50k/month",
-    date: "Feb 2, 2025 19:28",
-    status: "Active",
-    company: "AP",
     location: "Brazil",
+    salary: "$50k-80k/month",
+    date: "Feb 2, 2026 19:28",
+    status: "Active",
+    logo: "/companies/apple.png",
+    company: "Apple",
+    typeColor: "bg-blue-100 text-blue-700 hover:bg-blue-100", // Adjusted to match generic blue
   },
 ];
 
-const RecentApplications = () => {
+export function RecentApplications() {
   return (
-    <div
-      style={{ marginTop: "20px" }}
-      className="rounded-xl border bg-white shadow-sm border-gray-200"
-    >
-      {/* Header */}
+    <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b p-6">
-        <h3 style={{ color: "oklch(20% 0.1 250)" }} className="font-semibold">
-          Recently Applied
-        </h3>
+        <h3 className="font-semibold text-gray-900">Recently Applied</h3>
         <Link
           href="/dashboard/applied-jobs"
-          className="flex items-center gap-1"
-          style={{ color: "oklch(50% 0.05 250)" }}
+          className="text-sm font-medium text-gray-500 hover:text-blue-600 flex items-center gap-1"
         >
-          <span style={{ fontSize: "0.875rem", fontWeight: 500 }}>
-            View all
-          </span>
-          <ArrowRight className="h-4 w-4" />
+          View all <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
 
-      {/* Table */}
       <Table>
         <TableHeader>
-          <TableRow style={{ textAlign: "left" }}>
-            <TableHead
-              className="text-left" // ← add text-left
-              style={{
-                color: "oklch(30% 0.05 250)",
-                paddingLeft: "40px",
-              }}
-            >
-              Job
-            </TableHead>
-            <TableHead style={{ color: "oklch(30% 0.05 250)" }}>
-              Date Applied
-            </TableHead>
-            <TableHead style={{ color: "oklch(30% 0.05 250)" }}>
-              Status
-            </TableHead>
-            <TableHead
-              className="pr-6 text-right"
-              style={{ color: "oklch(30% 0.05 250)" }}
-            >
-              Actions
-            </TableHead>
+          <TableRow className="bg-gray-50/50 hover:bg-gray-50/50">
+            <TableHead className="w-[40%] pl-6">Job</TableHead>
+            <TableHead>Date Applied</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead className="text-right pr-6">Action</TableHead>
           </TableRow>
         </TableHeader>
-
         <TableBody>
           {RECENT_APPLICATIONS.map((job) => (
-            <TableRow key={job.id}>
-              {/* Job Column */}
-              <TableCell style={{ paddingLeft: "30px" }} className="pl-6 py-4">
+            <TableRow key={job.id} className="hover:bg-gray-50">
+              {/* Job Info Column */}
+              <TableCell className="pl-6 py-4">
                 <div className="flex items-start gap-4">
-                  <div
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg font-bold text-xs"
-                    style={{
-                      backgroundColor: "oklch(95% 0.01 250)",
-                      color: "oklch(20% 0.1 250)",
-                    }}
-                  >
+                  {/* Logo Placeholder */}
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-xs font-bold text-gray-500">
                     {job.company.slice(0, 2).toUpperCase()}
                   </div>
 
-                  <div className="flex flex-col gap-1">
-                    <span
-                      style={{ color: "oklch(20% 0.1 250)" }}
-                      className="font-semibold"
-                    >
-                      {job.title}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-semibold text-gray-900">
+                        {job.title}
+                      </span>
                       <Badge
-                        className="rounded-full px-2 py-0.5 font-normal border-0"
-                        style={{
-                          marginLeft: "10px",
-                          backgroundColor: "oklch(60% 0.25 250)",
-                          color: "oklch(95% 0 250)",
-                        }}
+                        className={`rounded-full px-2 py-0.5 text-[10px] font-normal border-0 ${job.typeColor}`}
                       >
                         {job.type}
                       </Badge>
-                    </span>
-                    <div
-                      className="flex items-center gap-3 text-sm"
-                      style={{ color: "oklch(37.3% 0.034 259.733)" }}
-                    >
+                    </div>
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
                       <span className="flex items-center gap-1">
-                        <MapPin className="h-3 w-4" />
-                        {job.location}
+                        <MapPin className="h-3 w-3" /> {job.location}
                       </span>
                       <span>{job.salary}</span>
                     </div>
@@ -143,31 +107,24 @@ const RecentApplications = () => {
               </TableCell>
 
               {/* Date Column */}
-              <TableCell style={{ color: "oklch(50% 0.05 250)" }}>
+              <TableCell className="text-sm text-gray-500">
                 {job.date}
               </TableCell>
 
               {/* Status Column */}
               <TableCell>
-                <div
-                  className="flex items-center gap-1.5 font-medium text-sm"
-                  style={{ color: "oklch(62.7% 0.194 149.214)" }}
-                >
+                <div className="flex items-center gap-1.5 text-green-600 font-medium text-sm">
                   <CheckCircle2 className="h-4 w-4" />
                   {job.status}
                 </div>
               </TableCell>
 
               {/* Action Column */}
-              <TableCell>
+              <TableCell className="text-right pr-6">
                 <Button
-                  size="sm"
                   variant="secondary"
-                  className="font-medium"
-                  style={{
-                    backgroundColor: "oklch(96.7% 0.003 264.542)",
-                    color: "oklch(54.6% 0.245 262.881)",
-                  }}
+                  size="sm"
+                  className="bg-gray-100 hover:bg-gray-200 text-blue-600 font-medium"
                 >
                   View Details
                 </Button>
@@ -178,6 +135,6 @@ const RecentApplications = () => {
       </Table>
     </div>
   );
-};
+}
 
-export default RecentApplications;
+import { ArrowRight } from "lucide-react"; // Forgot to import this in the snippet above
