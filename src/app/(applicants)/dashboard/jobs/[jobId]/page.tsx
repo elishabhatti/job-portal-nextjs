@@ -35,7 +35,7 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
                 className="object-cover"
               />
             ) : (
-              <div className="flex he-full items-center justify-center bg-gray-100 text-lg font-bold text-gray-400">
+              <div className="flex h-full items-center justify-center bg-gray-100 text-lg font-bold text-gray-400">
                 {job.companyName?.slice(0, 2).toUpperCase()}
               </div>
             )}

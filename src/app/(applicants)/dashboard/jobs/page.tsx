@@ -1,34 +1,39 @@
 import JobFilters from "@/app/features/applicants/components/job-filters";
 import JobCard from "@/app/features/employers/jobs/components/jobCard";
-import { getAllJobs, JobFilterParams } from "@/app/features/employers/jobs/server/jobs.queries";
+import {
+  getAllJobs,
+  JobFilterParams,
+} from "@/app/features/employers/jobs/server/jobs.queries";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-const JobsPage = async ({ searchParams }: PageProps) => {
-  const resolveParams = await searchParams;
-  console.log("resolveParams:", resolveParams);
+export default async function JobsPage({ searchParams }: PageProps) {
+  const resolvedParams = await searchParams;
+
+  console.log("resolvedParams: ", resolvedParams);
 
   const filters: JobFilterParams = {
     search:
-      typeof resolveParams.search === "string"
-        ? resolveParams.search
+      typeof resolvedParams.search === "string"
+        ? resolvedParams.search
         : undefined,
     jobType:
-      typeof resolveParams.jobType === "string"
-        ? resolveParams.jobType
+      typeof resolvedParams.jobType === "string"
+        ? resolvedParams.jobType
         : undefined,
     jobLevel:
-      typeof resolveParams.jobLevel === "string"
-        ? resolveParams.jobLevel
+      typeof resolvedParams.jobLevel === "string"
+        ? resolvedParams.jobLevel
         : undefined,
     workType:
-      typeof resolveParams.workType === "string"
-        ? resolveParams.workType
+      typeof resolvedParams.workType === "string"
+        ? resolvedParams.workType
         : undefined,
   };
 
+  // 1. Fetch data directly on the server
   const jobs = await getAllJobs(filters);
 
   return (
@@ -36,14 +41,14 @@ const JobsPage = async ({ searchParams }: PageProps) => {
       {/* Page Header */}
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-          Find Your Next Dream Job
+          Find your Next Dream Job
         </h1>
         <p className="text-gray-500">
-          Browse latest job openings from top companies
+          Browse latest job openings from top companies.
         </p>
       </div>
 
-      {/* Add the Filter Component Here */}
+      {/* 3. Add the Filter Component Here */}
       <JobFilters />
 
       {/* Job Grid */}
@@ -54,15 +59,16 @@ const JobsPage = async ({ searchParams }: PageProps) => {
           ))}
         </div>
       ) : (
+        // Empty State
         <div className="flex h-100 flex-col items-center justify-center rounded-xl border border-dashed border-gray-300 bg-gray-50 text-center">
           <h3 className="mt-4 text-lg font-semibold text-gray-900">
-            No Jobs Found
+            No jobs found
           </h3>
-          <p>Check back later for new opportunities.</p>
+          <p className="text-gray-500">
+            Check back later for new opportunities.
+          </p>
         </div>
       )}
     </div>
   );
-};
-
-export default JobsPage;
+}
