@@ -40,11 +40,11 @@ import {
   ApplicantSettingsSchema,
 } from "../applicant.schema";
 import Tiptap from "@/components/text-editor";
-import { ImageUpload } from "../../employers/components/employer-setting-form";
-import { cn } from "@/lib/utils";
-import ResumeUpload from "./resume-upload";
-import { createApplicantProfile } from "../actions/applicant.actions";
 import { toast } from "sonner";
+import { createApplicantProfile } from "../actions/applicant.actions";
+import { cn } from "@/lib/utils";
+import { ImageUpload } from "../../employers/components/employer-setting-form";
+import ResumeUpload from "./resume-upload";
 
 const ApplicantSettingsForm = () => {
   const {
@@ -56,7 +56,7 @@ const ApplicantSettingsForm = () => {
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
     defaultValues: {
-      email: "elishajameel270@gmail.com",
+      email: "vinod@thapa.com",
     },
   });
 
@@ -94,7 +94,7 @@ const ApplicantSettingsForm = () => {
                     name="avatarUrl"
                     control={control}
                     render={({ field, fieldState }) => (
-                      <div>
+                      <div className="space-y-2">
                         <Label>Upload Logo *</Label>
                         <ImageUpload
                           value={field.value}
@@ -138,7 +138,6 @@ const ApplicantSettingsForm = () => {
                   </p>
                 )}
               </div>
-              <div className="bg-blue-500 text-white p-4">Working?</div>
 
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -491,11 +490,7 @@ const ApplicantSettingsForm = () => {
 
         {/* Footer Actions */}
         <div className="flex items-center gap-4">
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="min-w-[150px]"
-          >
+          <Button type="submit" disabled={isSubmitting} className="min-w-37.5">
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
             {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>

@@ -109,7 +109,7 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
     <div
       {...getRootProps()}
       className={cn(
-        "border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer transition-colors",
+        "border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer transition-colors",
         isDragActive
           ? "border-primary bg-primary/5"
           : "border-muted-foreground/25 hover:border-primary/50",
