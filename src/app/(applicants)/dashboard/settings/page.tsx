@@ -2,6 +2,7 @@
 
 import ApplicantSettingsForm from "@/app/features/applicants/components/applicant-settings-form";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
+import {getApplicatProfileData} from "@/feat"
 import { redirect } from "next/navigation";
 
 

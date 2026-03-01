@@ -2,7 +2,7 @@ import { db } from "@/config/db";
 import { applicants, resumes, users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 
-const getApplicantProfileData = async (userId: number) => {
+export const getApplicantProfileData = async (userId: number) => {
   const [combinedData] = await db
     .select({
       user: users,
