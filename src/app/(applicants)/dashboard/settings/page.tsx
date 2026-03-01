@@ -1,5 +1,3 @@
-"use client";
-
 import ApplicantSettingsForm from "@/app/features/applicants/components/applicant-settings-form";
 import { getApplicantProfileData } from "@/app/features/applicants/server/applicant.queries";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
@@ -13,14 +11,6 @@ export default async function SettingsPage() {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 py-8">
-      {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">Profile Settings</h2>
-        <p className="text-muted-foreground">
-          Manage your personal information and professional profile.
-        </p>
-      </div>
-
       <ApplicantSettingsForm initialData={initialData} />
     </div>
   );

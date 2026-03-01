@@ -8,7 +8,6 @@ import {
   Flag,
   Briefcase,
   Globe,
-  UploadCloud,
   Loader,
   Mail,
   Phone,
@@ -50,7 +49,7 @@ interface ApplicantSettingsFormProps {
   initialData: ApplicantProfileType | null;
 }
 
-const ApplicantSettingsForm = ({initialData}: ApplicantSettingsFormProps) => {
+const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
   const {
     register,
     handleSubmit,

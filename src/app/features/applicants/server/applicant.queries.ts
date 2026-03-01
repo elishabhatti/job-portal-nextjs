@@ -1,3 +1,5 @@
+"use server"
+
 import { db } from "@/config/db";
 import { applicants, resumes, users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
