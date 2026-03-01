@@ -31,7 +31,7 @@ export const getApplicantProfileData = async (userId: number) => {
       : "",
     nationality: applicant?.nationality ?? "",
     gender: applicant?.gender ?? undefined,
-    maritalStatus: applicant?.maritalStatus,
+    maritalStatus: applicant?.maritalStatus ?? undefined,
     education: applicant?.education ?? undefined,
     experience: applicant?.experience ?? "",
     websiteUrl: applicant?.websiteUrl ?? "",

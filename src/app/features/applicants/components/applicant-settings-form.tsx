@@ -44,6 +44,7 @@ import { createApplicantProfile } from "../actions/applicant.actions";
 import { cn } from "@/lib/utils";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import ResumeUpload from "./resume-upload";
+import { ApplicantProfileType } from "../server/applicant.queries";
 
 interface ApplicantSettingsFormProps {
   initialData: ApplicantProfileType | null;

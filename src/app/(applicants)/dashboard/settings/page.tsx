@@ -1,14 +1,13 @@
 "use client";
 
 import ApplicantSettingsForm from "@/app/features/applicants/components/applicant-settings-form";
+import { getApplicantProfileData } from "@/app/features/applicants/server/applicant.queries";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
-import {getApplicatProfileData} from "@/feat"
 import { redirect } from "next/navigation";
-
 
 export default async function SettingsPage() {
   const user = await getCurrentUser();
-  if(!user) return redirect("/login")
+  if (!user) return redirect("/login");
 
   const initialData = await getApplicantProfileData(user.id);
 
