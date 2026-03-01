@@ -46,7 +46,11 @@ import { cn } from "@/lib/utils";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import ResumeUpload from "./resume-upload";
 
-const ApplicantSettingsForm = () => {
+interface ApplicantSettingsFormProps {
+  initialData: ApplicantProfileType | null;
+}
+
+const ApplicantSettingsForm = ({initialData}: ApplicantSettingsFormProps) => {
   const {
     register,
     handleSubmit,
@@ -55,10 +59,12 @@ const ApplicantSettingsForm = () => {
     formState: { errors, isDirty, isSubmitting },
   } = useForm<ApplicantSettingsSchema>({
     resolver: zodResolver(applicantSettingsSchema),
-    defaultValues: {
-      email: "vinod@thapa.com",
+    defaultValues: initialData || {
+      email: "",
     },
   });
+
+  const isUpdating = !!initialData?.location;
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
     console.log("Saving Data:", data);
