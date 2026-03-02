@@ -12,7 +12,11 @@ interface ResumeUploadProps {
   className?: string;
 }
 
-const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
+export const ResumeUpload = ({
+  value,
+  onChange,
+  className,
+}: ResumeUploadProps) => {
   const [isUploading, setIsUploading] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
 
@@ -22,11 +26,11 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
 
       if (res && res[0]) {
         const file = res[0];
+        // Pass both URL and Name back to the form
         onChange(file.ufsUrl, file.name, file.size);
         setFileName(file.name);
         toast.success("Resume uploaded successfully!");
       }
-
       setIsUploading(false);
     },
     onUploadError: (error: Error) => {
@@ -41,11 +45,6 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
 
     if (file.type !== "application/pdf") {
       toast.error("Please select a PDF file");
-      return;
-    }
-
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("Image size should be less than 5MB");
       return;
     }
 
@@ -66,31 +65,33 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
     setFileName(null);
   };
 
-  if (value)
+  // If a resume is already uploaded
+  if (value) {
     return (
       <div
         className={cn(
-          "border border-border rounded-lg p-4 flex items-center justify-between bg-blue-50",
+          "border border-border rounded-lg p-4 flex items-center justify-between bg-blue-50/50",
           className,
         )}
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-blue-600 rounded-lg">
+          <div className="p-2 bg-blue-100 text-blue-600 rounded-lg">
             <FileText className="h-6 w-6" />
           </div>
+          <div>
+            <p className="text-sm font-medium text-foreground line-clamp-1">
+              {fileName || "Uploaded Resume.pdf"}
+            </p>
+            <a
+              href={value}
+              target="_blank"
+              rel="noreferrer"
+              className="text-xs text-blue-600 hover:underline"
+            >
+              View Document
+            </a>
+          </div>
         </div>
-        <p className="text-sm font-medium text-foreground line-clamp-1">
-          {fileName || "Uploaded Resume.pdf"}
-        </p>
-        <a
-          href={value}
-          target="_blank"
-          rel="noreferrer"
-          className="text-xs text-blue-600 hover:underline"
-        >
-          View Document
-        </a>
-
         <Button
           type="button"
           variant="ghost"
@@ -98,18 +99,18 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
           className="text-destructive hover:bg-destructive/10"
           onClick={handleRemove}
         >
-          <X className="w-4 h-4" />
-          Remove
+          <X className="h-4 w-4" />
         </Button>
       </div>
     );
+  }
 
   // Upload State UI
   return (
     <div
       {...getRootProps()}
       className={cn(
-        "border-2 border-dashed rounded-lg p-4 flex flex-col items-center justify-center cursor-pointer transition-colors",
+        "border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition cursor-pointer",
         isDragActive
           ? "border-primary bg-primary/5"
           : "border-muted-foreground/25 hover:border-primary/50",
@@ -118,6 +119,7 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
       )}
     >
       <input {...getInputProps()} />
+
       {isUploading ? (
         <div className="flex flex-col items-center gap-2">
           <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
@@ -132,12 +134,10 @@ const ResumeUpload = ({ value, onChange, className }: ResumeUploadProps) => {
             <span className="text-primary">Browse file</span> or drop here
           </h4>
           <p className="text-xs text-muted-foreground mt-1">
-            Ony PDF format available. Max file size 5 MB.
+            Only PDF format available. Max file size 5 MB.
           </p>
         </>
       )}
     </div>
   );
 };
-
-export default ResumeUpload;
