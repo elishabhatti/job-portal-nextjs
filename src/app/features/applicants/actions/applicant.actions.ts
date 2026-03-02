@@ -9,7 +9,7 @@ import { applicants, resumes, users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { getCurrentUser } from "../../auth/server/auth.quires";
 
-export const createApplicantProfile = async (data: ApplicantSettingsSchema) => {
+export const saveApplicantProfile = async (data: ApplicantSettingsSchema) => {
   try {
     console.log("data: ", data);
 

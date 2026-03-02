@@ -39,7 +39,7 @@ import {
 } from "../applicant.schema";
 import Tiptap from "@/components/text-editor";
 import { toast } from "sonner";
-import { createApplicantProfile } from "../actions/applicant.actions";
+import { saveApplicantProfile } from "../actions/applicant.actions";
 import { cn } from "@/lib/utils";
 import { ImageUpload } from "../../employers/components/employer-setting-form";
 import ResumeUpload from "./resume-upload";
@@ -69,7 +69,7 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
     console.log("Saving Data:", data);
 
     try {
-      const res = await createApplicantProfile(data);
+      const res = await saveApplicantProfile(data);
       if (res.status === "SUCCESS") {
         toast.success(res.message);
       } else {
