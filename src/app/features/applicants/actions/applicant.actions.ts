@@ -53,8 +53,14 @@ export const saveApplicantProfile = async (data: ApplicantSettingsSchema) => {
         })
         .where(eq(users.id, user.id));
 
-      await tx.insert(applicants).values({
-        id: user.id, // Foreign key & Primary key
+      // 2. UPSERT APPLICANTS TABLE
+      const existingApplicant = await tx
+        .select()
+        .from(applicants)
+        .where(eq(applicants.id, user.id))
+        .limit(1);
+
+      const applicantData = {
         location,
         dateOfBirth: dateOfBirth ? new Date(dateOfBirth) : null,
         nationality,
@@ -64,8 +70,22 @@ export const saveApplicantProfile = async (data: ApplicantSettingsSchema) => {
         experience,
         websiteUrl,
         biography,
-      });
+      };
 
+      if (existingApplicant.length > 0) {
+        await tx
+          .update(applicants)
+          .set(applicantData)
+          .where(eq(applicants.id, user.id));
+      } else {
+        // No record, INSERT
+        await tx.insert(applicants).values({
+          id: user.id, // Foreign key & Primary key
+          ...applicantData,
+        });
+      }
+
+      // 3. UPSERT RESUMES TABLE
       if (resumeName && resumeUrl) {
         await tx.insert(resumes).values({
           applicantId: user.id,
