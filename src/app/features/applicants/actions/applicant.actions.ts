@@ -87,12 +87,30 @@ export const saveApplicantProfile = async (data: ApplicantSettingsSchema) => {
 
       // 3. UPSERT RESUMES TABLE
       if (resumeName && resumeUrl) {
-        await tx.insert(resumes).values({
-          applicantId: user.id,
+        const existingResume = await tx
+          .select()
+          .from(resumes)
+          .where(eq(resumes.applicantId, user.id))
+          .limit(1);
+
+        const resumeData = {
           fileUrl: resumeUrl,
           fileName: resumeName,
           fileSize: resumeSize,
-        });
+          isPrimary: true,
+        };
+
+        if (existingResume.length > 0) {
+          await tx
+            .update(resumes)
+            .set(resumeData)
+            .where(eq(resumes.id, existingResume[0].id));
+        } else {
+          await tx.insert(resumes).values({
+            applicantId: user.id,
+            ...resumeData,
+          });
+        }
       }
     });
     return { status: "SUCCESS", message: "Profile created successfully!" };
