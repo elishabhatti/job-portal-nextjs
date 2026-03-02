@@ -63,7 +63,7 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
     },
   });
 
-  const isUpdating = !!initialData?.location;
+  const isUpdating = !!initialData?.location; // boolean coercion
 
   const onSubmit = async (data: ApplicantSettingsSchema) => {
     console.log("Saving Data:", data);
@@ -495,9 +495,19 @@ const ApplicantSettingsForm = ({ initialData }: ApplicantSettingsFormProps) => {
 
         {/* Footer Actions */}
         <div className="flex items-center gap-4">
-          <Button type="submit" disabled={isSubmitting} className="min-w-37.5">
+          <Button
+            type="submit"
+            disabled={isSubmitting || !isDirty}
+            className="min-w-37.5"
+          >
             {isSubmitting && <Loader className="w-4 h-4 mr-2 animate-spin" />}
-            {isSubmitting ? "Saving..." : "Save Changes"}
+            {isSubmitting
+              ? isUpdating
+                ? "Updating..."
+                : "Saving..."
+              : isUpdating
+                ? "Update Profile"
+                : "Save Profile"}
           </Button>
 
           {!isDirty && (
