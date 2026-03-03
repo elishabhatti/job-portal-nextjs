@@ -1,28 +1,30 @@
-import JobOverviewSidebar from "@/app/features/applicants/components/overview-item";
-import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { formatDistanceToNow } from "date-fns";
-import { Building2, Clock, MapPin } from "lucide-react";
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import Image from "next/image";
+import { formatDistanceToNow } from "date-fns";
+import { MapPin, Clock, Building2 } from "lucide-react";
+
+import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
+import JobOverviewSidebar from "@/app/features/applicants/components/overview-item";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface EditJobPageProps {
   params: { jobId: string };
 }
 
 const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
+  // 1. Validate & Fetch
   const jobId = parseInt(params.jobId);
   if (isNaN(jobId)) return notFound();
 
   const job = await getJobById(jobId);
-  console.log("job", job);
+  console.log("job: ", job);
 
   if (!job) return notFound();
 
   return (
     <div className="container mx-auto max-w-6xl py-10 px-4 space-y-8">
-      {/* Hero Header */}
+      {/* --- HERO HEADER --- */}
       <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between border-b pb-8">
         <div className="flex gap-5">
           {/* Logo */}
@@ -35,11 +37,12 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
                 className="object-cover"
               />
             ) : (
-              <div className="flex h-full items-center justify-center bg-gray-100 text-lg font-bold text-gray-400">
+              <div className="flex h-full w-full items-center justify-center bg-gray-100 text-lg font-bold text-gray-400">
                 {job.companyName?.slice(0, 2).toUpperCase()}
               </div>
             )}
           </div>
+
           {/* Title & Meta */}
           <div className="space-y-1">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -50,12 +53,12 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
                 <Building2 className="h-4 w-4" />
                 {job.companyName}
               </span>
-              <span className="hidden sm:inline">.</span>
+              <span className="hidden sm:inline">•</span>
               <span className="flex items-center gap-1">
                 <MapPin className="h-4 w-4" />
                 {job.location || "Remote"}
               </span>
-              <span className="hidden sm:inline">.</span>
+              <span className="hidden sm:inline">•</span>
               <span className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
                 Posted{" "}
@@ -75,22 +78,21 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
         </div>
       </div>
 
-      {/* Main Grid Content */}
+      {/* --- MAIN GRID CONTENT --- */}
       <div className="grid gap-8 lg:grid-cols-3">
-        {/* Left Column Description */}
-        <div className="lg:col-span-1 space-y-8">
+        {/* LEFT COLUMN: Description (2/3) */}
+        <div className="lg:col-span-2 space-y-8">
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-4">
               About the Job
             </h2>
-
             <div
               className="prose prose-blue max-w-none text-gray-600 leading-relaxed"
-              dangerouslySetInnerHTML={{
-                __html: job.description || "No Description",
-              }}
+              dangerouslySetInnerHTML={{ __html: job.description }}
             />
+            {/* <p> {job.description} </p> */}
           </section>
+
           {/* Tags */}
           {job.tags && (
             <section className="pt-4">
@@ -108,7 +110,8 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
           )}
         </div>
 
-        {/* Right Column: Sidebar (1/3) */}
+        {/* RIGHT COLUMN: Sidebar (1/3) */}
+
         <JobOverviewSidebar job={job} />
       </div>
     </div>
