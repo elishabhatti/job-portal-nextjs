@@ -138,6 +138,21 @@ export const resumes = mysqlTable("resumes", {
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
+export const jobApplications = mysqlTable("job_applications", {
+  id: int("id").autoincrement().primaryKey(),
+  jobId: int("job_id")
+    .notNull()
+    .references(() => jobs.id, { onDelete: "cascade" }),
+  applicantId: int("applicant_id")
+    .notNull()
+    .references(() => applicants.id, { onDelete: "cascade" }),
+  resumeId: int("resume_id")
+    .notNull()
+    .references(() => resumes.id, { onDelete: "restrict" }), // They can't delete a resume if it's used in an application
+  coverLetter: text("cover_letter"),
+  appliedAt: timestamp("applied_at").defaultNow().notNull(),
+});
+
 // export const tableNameRelations = relations(
 //   // 1. The main table being defined (e.g., users)
 //   table,
