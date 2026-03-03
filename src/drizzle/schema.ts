@@ -150,6 +150,10 @@ export const jobApplications = mysqlTable("job_applications", {
     .notNull()
     .references(() => resumes.id, { onDelete: "restrict" }), // They can't delete a resume if it's used in an application
   coverLetter: text("cover_letter"),
+
+  // status: mysqlEnum("status", ["pending", "reviewed", "rejected"]).default(
+  //   "pending",
+  // ),
   appliedAt: timestamp("applied_at").defaultNow().notNull(),
 });
 
@@ -164,6 +168,24 @@ export const jobApplications = mysqlTable("job_applications", {
 // );
 
 //! Both the one() and many() helper functions take arguments to define the relationship details.
+
+export const jobApplicationRelations = relations(
+  jobApplications,
+  ({ one }) => ({
+    job: one(jobs, {
+      fields: [jobApplications.jobId],
+      references: [jobs.id],
+    }),
+    applicant: one(applicants, {
+      fields: [jobApplications.applicantId],
+      references: [applicants.id],
+    }),
+    resume: one(resumes, {
+      fields: [jobApplications.resumeId],
+      references: [resumes.id],
+    }),
+  }),
+);
 
 export const resumesRelations = relations(resumes, ({ one }) => ({
   applicant: one(applicants, {
