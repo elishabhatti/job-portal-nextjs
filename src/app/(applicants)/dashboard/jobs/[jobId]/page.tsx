@@ -11,6 +11,7 @@ import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
 import { db } from "@/config/db";
 import { jobApplications, resumes } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
+import Link from "next/link";
 
 interface EditJobPageProps {
   params: { jobId: string };
@@ -44,10 +45,7 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
 
     // Fetch their reumes for the dropdown
     userResumes = await db
-      .select({
-        id: resumes.id,
-        fileName: resumes.fileName,
-      })
+      .select({ id: resumes.id, fileName: resumes.fileName })
       .from(resumes)
       .where(eq(resumes.applicantId, user.id));
   }
@@ -104,9 +102,22 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
 
         {/* Action Button */}
         <div className="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
-          <Button size="lg" className="w-full md:w-auto font-semibold">
-            Apply Now
-          </Button>
+          {user ? (
+            <ApplyJobModal
+              jobId={jobId}
+              jobTitle={job.title}
+              hasApplied={hasApplied}
+              resumes={userResumes}
+            />
+          ) : (
+            <Button
+              size="lg"
+              className="w-full md:w-auto font-semibold"
+              asChild
+            >
+              <Link href="/login">Login to Apply</Link>
+            </Button>
+          )}
         </div>
       </div>
 
