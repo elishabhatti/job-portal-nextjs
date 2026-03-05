@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/select";
 import { SelectContent } from "@radix-ui/react-select";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 interface ApplyJobModal {
   jobId: number;
@@ -31,7 +32,7 @@ interface ApplyJobModal {
   resumes: { id: number; fileName: string }[];
 }
 
-const ApplyJobModal = async ({
+const ApplyJobModal = ({
   jobId,
   jobTitle,
   hasApplied,
@@ -54,7 +55,20 @@ const ApplyJobModal = async ({
     },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: applyJobSchema) => {
+    // try {
+    //   const res = await applyForJobAction(data);
+    //   if (res.status === "SUCCESS") {
+    //     toast.success(res.message);
+    //     setIsOpen(false);
+    //     reset();
+    //   } else {
+    //     toast.error(res.message);
+    //   }
+    // } catch (error) {
+    //   toast.error("Something went wrong");
+    // }
+  };
 
   if (hasApplied) {
     return (
@@ -107,6 +121,7 @@ const ApplyJobModal = async ({
                         <SelectItem
                           key={resume.id}
                           value={resume.id.toString()}
+                          className="bg-gray-50 border border-gray-100"
                         >
                           {resume.fileName}
                         </SelectItem>
