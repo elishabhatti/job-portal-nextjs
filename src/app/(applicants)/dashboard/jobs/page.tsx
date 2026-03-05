@@ -1,4 +1,4 @@
-import JobFilters from "@/app/features/applicants/components/job-filters";
+import JobFilters from "@/app/features/applicants/jobs/components/job-filters";
 import JobCard from "@/app/features/employers/jobs/components/jobCard";
 import {
   getAllJobs,
