@@ -100,9 +100,9 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
           </div>
         </div>
 
-        {/* Action Button */}
+        {/* INTERACTION ACTION BUTTON */}
         <div className="flex gap-3 w-full md:w-auto mt-4 md:mt-0">
-          {user ? (
+          {/* {user ? (
             <ApplyJobModal
               jobId={jobId}
               jobTitle={job.title}
@@ -117,7 +117,7 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
             >
               <Link href="/login">Login to Apply</Link>
             </Button>
-          )}
+          )} */}
         </div>
       </div>
 
