@@ -132,7 +132,7 @@ export const employersNavItems: NavItem[] = [
   },
   {
     name: "Settings",
-    href: "/dashboard/settings",
+    href: "/employer-dashboard/settings",
     icon: Settings,
   },
 ];
