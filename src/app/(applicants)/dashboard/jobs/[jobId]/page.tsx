@@ -7,6 +7,10 @@ import { getJobById } from "@/app/features/employers/jobs/server/jobs.queries";
 import JobOverviewSidebar from "@/app/features/applicants/components/overview-item";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
+import { db } from "@/config/db";
+import { jobApplications, resumes } from "@/drizzle/schema";
+import { and, eq } from "drizzle-orm";
 
 interface EditJobPageProps {
   params: { jobId: string };
@@ -19,6 +23,34 @@ const JobsDetailedPage = async ({ params }: EditJobPageProps) => {
 
   const job = await getJobById(jobId);
   console.log("job: ", job);
+
+  const user = await getCurrentUser();
+  let hasApplied = false;
+  let userResumes: { id: number; fileName: string }[] = [];
+
+  if (user) {
+    const existingApplication = await db
+      .select()
+      .from(jobApplications)
+      .where(
+        and(
+          eq(jobApplications.jobId, jobId),
+          eq(jobApplications.applicantId, user.id),
+        ),
+      )
+      .limit(1);
+
+    hasApplied = existingApplication.length > 0;
+
+    // Fetch their reumes for the dropdown
+    userResumes = await db
+      .select({
+        id: resumes.id,
+        fileName: resumes.fileName,
+      })
+      .from(resumes)
+      .where(eq(resumes.applicantId, user.id));
+  }
 
   if (!job) return notFound();
 
