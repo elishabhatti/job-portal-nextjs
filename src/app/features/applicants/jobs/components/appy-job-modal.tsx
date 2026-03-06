@@ -160,7 +160,7 @@ const ApplyJobModal = ({
             </Button>
 
             <Button
-              type="button"
+              type="submit"
               disabled={isSubmitting || resumes.length === 0}
               className="gap-2"
             >
