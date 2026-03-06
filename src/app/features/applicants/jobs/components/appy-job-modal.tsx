@@ -24,6 +24,7 @@ import {
 import { SelectContent } from "@radix-ui/react-select";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { applyForJobAction } from "../../server/apply-job-action";
 
 interface ApplyJobModal {
   jobId: number;
