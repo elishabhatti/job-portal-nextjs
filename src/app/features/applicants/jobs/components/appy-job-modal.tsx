@@ -56,18 +56,18 @@ const ApplyJobModal = ({
   });
 
   const onSubmit = async (data: applyJobSchema) => {
-    // try {
-    //   const res = await applyForJobAction(data);
-    //   if (res.status === "SUCCESS") {
-    //     toast.success(res.message);
-    //     setIsOpen(false);
-    //     reset();
-    //   } else {
-    //     toast.error(res.message);
-    //   }
-    // } catch (error) {
-    //   toast.error("Something went wrong");
-    // }
+    try {
+      const res = await applyForJobAction(data);
+      if (res.status === "SUCCESS") {
+        toast.success(res.message);
+        setIsOpen(false);
+        reset();
+      } else {
+        toast.error(res.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
   };
 
   if (hasApplied) {
