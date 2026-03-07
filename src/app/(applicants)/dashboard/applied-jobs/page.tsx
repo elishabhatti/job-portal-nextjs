@@ -8,6 +8,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/app/features/auth/server/auth.quires";
+import { getAppliedJobsForApplicant } from "@/app/features/applicants/server/applicant.queries";
 
 export default async function AppliedJobsPage() {
   // 1. Auth Check

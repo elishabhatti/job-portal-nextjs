@@ -58,7 +58,7 @@ export type ApplicantProfileType = NonNullable<
 export async function getAppliedJobsForApplicant(userId: number) {
   const applicantions = await db
     .select({
-      applicants: jobApplications,
+      application: jobApplications,
       job: jobs,
       employer: employers,
     })
