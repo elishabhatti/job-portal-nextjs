@@ -19,7 +19,7 @@ export default async function AppliedJobsPage() {
   const applications = await getAppliedJobsForApplicant(user.id);
 
   return (
-    <div className="max-w-6xl mx-auto py-8 space-y-8">
+    <div className="max-w-7xl mx-auto py-8 space-y-8">
       {/* Header */}
       <div>
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -63,7 +63,7 @@ export default async function AppliedJobsPage() {
                 <CardContent className="p-6 grow space-y-4">
                   {/* Employer Header */}
                   <div className="flex justify-between items-start">
-                    <div className="h-12 w-12 relative rounded-md border bg-gray-50 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                    <div className="h-12 w-12 relative rounded-md border bg-gray-50 overflow-hidden shrink-0 flex items-center justify-center">
                       {employer?.bannerImageUrl ? (
                         <Image
                           src={employer.bannerImageUrl}
