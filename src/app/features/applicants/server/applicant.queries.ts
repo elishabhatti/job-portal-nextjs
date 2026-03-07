@@ -1,8 +1,15 @@
-"use server"
+"use server";
 
 import { db } from "@/config/db";
-import { applicants, resumes, users } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import {
+  applicants,
+  employers,
+  jobApplications,
+  jobs,
+  resumes,
+  users,
+} from "@/drizzle/schema";
+import { desc, eq } from "drizzle-orm";
 
 export const getApplicantProfileData = async (userId: number) => {
   const [combinedData] = await db
@@ -47,3 +54,19 @@ export const getApplicantProfileData = async (userId: number) => {
 export type ApplicantProfileType = NonNullable<
   Awaited<ReturnType<typeof getApplicantProfileData>>
 >;
+
+export async function getAppliedJobsForApplicant(userId: number) {
+  const applicantions = await db
+    .select({
+      applicants: jobApplications,
+      job: jobs,
+      employer: employers,
+    })
+    .from(jobApplications)
+    .innerJoin(jobs, eq(jobApplications.jobId, jobs.id))
+    .leftJoin(employers, eq(jobs.employerId, employers.id))
+    .where(eq(jobApplications.applicantId, userId))
+    .orderBy(desc(jobApplications.appliedAt));
+
+  return applicantions;
+}
