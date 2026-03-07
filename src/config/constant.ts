@@ -78,7 +78,7 @@ export const applicantNavItems: NavItem[] = [
   },
   {
     name: "Applied",
-    href: "/dashboard/applied",
+    href: "/dashboard/applied-jobs",
     icon: Briefcase,
   },
   {
