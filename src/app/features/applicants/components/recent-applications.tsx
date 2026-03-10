@@ -1,6 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MoreHorizontal, Eye, CheckCircle2, MapPin, Building2 } from "lucide-react";
+import {
+  MoreHorizontal,
+  Eye,
+  CheckCircle2,
+  MapPin,
+  Building2,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,74 +58,68 @@ export async function RecentApplications() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {recentApplications.map((app) => { 
-              const {applicaion, job, employer } = app;
+            {recentApplications.map((app) => {
+              const { application, job, employer } = app;
               return (
-              <TableRow key={applicaion.id} className="hover:bg-gray-50">
-                {/* Job Info Column */}
-                <TableCell className="pl-6 py-4">
-                  <div className="flex items-start gap-4">
-                    {/* Logo Placeholder */}
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-xs font-bold text-gray-500">
-                      {employer?.bannerImageUrl ? (
-                        <Image
-                        fill
-                        className="object-cover"
-                        src={employer.bannerImageUrl} 
-                        alt={employer.name || "Company"} />
-                      ) : (
+                <TableRow key={application.id} className="hover:bg-gray-50">
+                  {/* Job Info Column */}
+                  <TableCell className="pl-6 py-4">
+                    <div className="flex items-start gap-4">
+                      {/* Logo Placeholder */}
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-xs font-bold text-gray-500">
                         <Building2 className="h-5 w-5 text-gray-400" />
-                      ) }
-                    </div>
-
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-semibold text-gray-900">
-                          {job.title}
-                        </span>
-                        <Badge
-                          className={`rounded-full px-2 py-0.5 text-[10px] font-normal border-0`}
-                        >
-                          {job.jobType}
-                        </Badge>
                       </div>
-                      <div className="flex items-center gap-3 text-xs text-gray-500">
-                        <span className="flex items-center gap-1">
-                          <MapPin className="h-3 w-3" /> {job.location}
-                        </span>
-                        {(job.minSalary || job.maxSalary) && (
 
-                        <span>{job.salaryCurrency} {job.minSalary} - {job.maxSalary} </span>
-                        ) }
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-semibold text-gray-900">
+                            {job.title}
+                          </span>
+                          <Badge
+                            className={`rounded-full px-2 py-0.5 text-[10px] font-normal border-0`}
+                          >
+                            {job.jobType}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3" /> {job.location}
+                          </span>
+                          {(job.minSalary || job.maxSalary) && (
+                            <span>
+                              {job.salaryCurrency} {job.minSalary} -{" "}
+                              {job.maxSalary}{" "}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </TableCell>
+                  </TableCell>
 
-                {/* Date Column */}
-                <TableCell className="text-sm text-gray-500">
-                  {format(new Date(applicaion.appliedAt), "MMMM d, yyyy")}
-                </TableCell>
+                  {/* Date Column */}
+                  <TableCell className="text-sm text-gray-500">
+                    {format(new Date(application.appliedAt), "MMMM d, yyyy")}
+                  </TableCell>
 
-                {/* Status Column */}
-                <TableCell>
-                  <div className="flex items-center gap-1.5 text-green-600 font-medium text-sm">
-                    <CheckCircle2 className="h-4 w-4" />
-                    Applied
-                  </div>
-                </TableCell>
+                  {/* Status Column */}
+                  <TableCell>
+                    <div className="flex items-center gap-1.5 text-green-600 font-medium text-sm">
+                      <CheckCircle2 className="h-4 w-4" />
+                      Applied
+                    </div>
+                  </TableCell>
 
-                {/* Action Column */}
-                <TableCell className="text-right pr-6">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    className="bg-gray-100 hover:bg-gray-200 text-blue-600 font-medium"
-                  >
-                    View Details
-                  </Button>
-                </TableCell>
-              </TableRow>
+                  {/* Action Column */}
+                  <TableCell className="text-right pr-6">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      className="bg-gray-100 hover:bg-gray-200 text-blue-600 font-medium"
+                    >
+                      View Details
+                    </Button>
+                  </TableCell>
+                </TableRow>
               );
             })}
           </TableBody>
