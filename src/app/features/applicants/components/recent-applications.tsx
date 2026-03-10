@@ -14,7 +14,7 @@ import {
 import { ArrowRight } from "lucide-react"; // Forgot to import this in the snippet aboveimport { getCurrentUser } from "../../auth/server/auth.quires";
 import { getCurrentUser } from "../../auth/server/auth.quires";
 import { getAppliedJobsForApplicant } from "../server/applicant.queries";
-
+import { redirect } from "next/navigation";
 
 // Mock Data to match your screenshot
 const RECENT_APPLICATIONS = [
@@ -58,7 +58,7 @@ const RECENT_APPLICATIONS = [
 
 export async function RecentApplications() {
   const user = await getCurrentUser();
-  if(!user) return null;
+  if (!user) return redirect("/login");
 
   const allApplications = await getAppliedJobsForApplicant(user.id);
 
@@ -147,4 +147,3 @@ export async function RecentApplications() {
     </div>
   );
 }
-
