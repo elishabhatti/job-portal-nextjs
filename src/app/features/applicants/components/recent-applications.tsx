@@ -11,6 +11,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ArrowRight } from "lucide-react"; // Forgot to import this in the snippet aboveimport { getCurrentUser } from "../../auth/server/auth.quires";
+import { getCurrentUser } from "../../auth/server/auth.quires";
+import { getAppliedJobsForApplicant } from "../server/applicant.queries";
+
 
 // Mock Data to match your screenshot
 const RECENT_APPLICATIONS = [
@@ -52,7 +56,14 @@ const RECENT_APPLICATIONS = [
   },
 ];
 
-export function RecentApplications() {
+export async function RecentApplications() {
+  const user = await getCurrentUser();
+  if(!user) return null;
+
+  const allApplications = await getAppliedJobsForApplicant(user.id);
+
+  const recentApplications = allApplications.slice(0, 5);
+
   return (
     <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
       <div className="flex items-center justify-between border-b p-6">
@@ -137,4 +148,3 @@ export function RecentApplications() {
   );
 }
 
-import { ArrowRight } from "lucide-react"; // Forgot to import this in the snippet above
