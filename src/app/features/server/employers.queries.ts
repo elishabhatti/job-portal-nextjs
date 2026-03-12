@@ -1,7 +1,14 @@
 import { db } from "@/config/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { getCurrentUser } from "../auth/server/auth.quires";
-import { employers } from "@/drizzle/schema";
+import {
+  applicants,
+  employers,
+  jobApplications,
+  jobs,
+  resumes,
+  users,
+} from "@/drizzle/schema";
 
 export const getCurrentEmployerDetails = async () => {
   const currentUser = await getCurrentUser();

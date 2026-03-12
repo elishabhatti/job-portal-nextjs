@@ -101,8 +101,8 @@ export const employersNavItems: NavItem[] = [
     exact: true,
   },
   {
-    name: "Employers Profile",
-    href: "/employer-dashboard/profile",
+    name: "Applications",
+    href: "/employer-dashboard/applications",
     icon: User,
   },
   {

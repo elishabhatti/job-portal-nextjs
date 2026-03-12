@@ -100,7 +100,7 @@ export async function RecentApplications() {
                   <TableCell className="text-sm text-gray-500">
                     {format(new Date(application.appliedAt), "MMMM d, yyyy")}
                   </TableCell>
-
+                          
                   {/* Status Column */}
                   <TableCell>
                     <div className="flex items-center gap-1.5 text-green-600 font-medium text-sm">
