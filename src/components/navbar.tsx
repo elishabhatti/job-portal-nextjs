@@ -9,7 +9,7 @@ export default async function Navbar() {
   const user = await getCurrentUser();
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
+    <header className="border-b bg-white sticky top-0 z-50 p-3">
       <div className="container mx-auto max-w-7xl px-4 flex items-center justify-between">
         <Link
           href="/"

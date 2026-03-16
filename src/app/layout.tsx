@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Urbanist } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Navbar from "@/components/navbar";
 
 // Font for headings
 const montserrat = Montserrat({
@@ -35,6 +36,7 @@ export default function RootLayout({
         cz-shortcut-listen="true"
         className={`${montserrat.variable} ${urbanist.variable} font-sans antialiased`}
       >
+        <Navbar />
         {children}
         <Toaster position="top-right" richColors />
       </body>
