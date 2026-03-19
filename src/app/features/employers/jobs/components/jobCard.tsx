@@ -1,14 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
-import { JobCardType } from "../server/jobs.queries";
-import { Banknote, Briefcase, Clock, MapPin } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
+import { formatDistanceToNow } from "date-fns"; // npm i date-fns
+import { MapPin, Clock, Briefcase, Banknote } from "lucide-react";
+import { JobCardType } from "../server/jobs.queries"; // Import the inferred type
 
 interface JobCardProps {
   job: JobCardType;
 }
 
 const JobCard = ({ job }: JobCardProps) => {
+  // Helper to format salary safely
   const formatSalary = () => {
     if (!job.minSalary || !job.maxSalary) return "Not Disclosed";
     return `${job.salaryCurrency} ${job.minSalary.toLocaleString()} - ${job.maxSalary.toLocaleString()}`;
@@ -16,13 +17,14 @@ const JobCard = ({ job }: JobCardProps) => {
 
   return (
     <Link
-      href={`/dashboard/jobs/${job.id}`}
-      className="group flex flex-col gap-5 rounded-xl border border-gray-200 p-6"
+      href={`/jobs/${job.id}`}
+      className="group flex flex-col gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:border-blue-500/50 hover:shadow-md"
     >
-      {/* Header Logo & Title */}
-      <div className="flex items-center justify-between gap-4 mb-5">
+      {/* Header: Logo & Title */}
+      <div className="flex items-start justify-between gap-4">
         <div className="flex gap-3">
-          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
+          {/* Company Logo with Fallback */}
+          <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-lg border border-gray-100 bg-gray-50">
             {job.companyLogo ? (
               <Image
                 src={job.companyLogo}
@@ -38,7 +40,7 @@ const JobCard = ({ job }: JobCardProps) => {
           </div>
 
           <div>
-            <h3 className="max-w-45 truncate text-base font-semibold text-gray-900 group-hover:text-blue-600">
+            <h3 className="max-w-[180px] truncate font-semibold text-gray-900 group-hover:text-blue-600">
               {job.title}
             </h3>
             <p className="text-sm text-gray-500">{job.companyName}</p>
@@ -47,22 +49,23 @@ const JobCard = ({ job }: JobCardProps) => {
       </div>
 
       {/* Badges */}
-      <div className="flex flex-wrap gap-2 pt-1 text-xs mb-5">
-        <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-blue-700">
+      <div className="flex flex-wrap gap-2 text-xs text-gray-600">
+        <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
           <MapPin className="h-3 w-3" />
           {job.location || "Remote"}
         </div>
-        <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-gray-700">
+        <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
           <Briefcase className="h-3 w-3" />
-          {job.workType?.replace("-", "").toUpperCase() || "Full Time"}
+          {job.workType?.replace("-", " ").toUpperCase() || "Full Time"}
         </div>
-        <div className="flex items-center gap-1 rounded-md bg-blue-50 px-2.5 py-1 text-gray-500">
-          <Banknote className="h-3 w-3" /> {formatSalary()}
+        <div className="flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
+          <Banknote className="h-3 w-3" />
+          {formatSalary()}
         </div>
       </div>
 
       {/* Footer: Time Ago */}
-      <div className="mt-4 flex items-center justify-between border-t border-dashed border-gray-200 pt-3 text-xs text-gray-500">
+      <div className="mt-auto flex items-center justify-between border-t border-gray-100 pt-4 text-xs text-gray-500">
         <span className="flex items-center gap-1">
           <Clock className="h-3 w-3" />
           Posted{" "}
