@@ -4,6 +4,14 @@ import {
   getAllJobs,
   JobFilterParams,
 } from "@/app/features/employers/jobs/server/jobs.queries";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -101,6 +109,50 @@ export default async function JobsPage({ searchParams }: PageProps) {
           <p className="text-gray-500">
             Check back later for new opportunities.
           </p>
+        </div>
+      )}
+
+      {totalPages > 0 && (
+        <div className="pt-6 border-t mt-8">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href={currentPage > 1 ? createPageUrl(currentPage - 1) : "#"}
+                  className={
+                    currentPage === 1 ? "pointer-events-none opacity-50" : ""
+                  }
+                ></PaginationPrevious>
+              </PaginationItem>
+
+              {visiblePages.map((pageNum) => (
+                <PaginationItem key={pageNum}>
+                  <PaginationLink
+                    href={createPageUrl(pageNum)}
+                    isActive={currentPage === pageNum}
+                  >
+                    {pageNum}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+
+              {/* Next Button */}
+              <PaginationItem>
+                <PaginationNext
+                  href={
+                    currentPage < totalPages
+                      ? createPageUrl(currentPage + 1)
+                      : "#"
+                  }
+                  className={
+                    currentPage === totalPages
+                      ? "pointer-events-none opacity-50"
+                      : ""
+                  }
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       )}
     </div>
