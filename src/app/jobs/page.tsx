@@ -39,7 +39,23 @@ export default async function JobsPage({ searchParams }: PageProps) {
   };
 
   // 1. Fetch data directly on the server
-  const jobs = await getAllJobs(filters);
+  const { jobs, totalCount } = await getAllJobs(filters);
+
+  const totalPages = Math.ceil(totalCount / ITEMS_PER_PAGE);
+
+  let startPage = Math.max(1, currentPage - 1);
+  let endPage = Math.min(totalPages, currentPage + 1);
+
+  if (currentPage === 1) {
+    endPage = Math.min(totalPages, 3);
+  } else if (currentPage === totalPages) {
+    startPage = Math.max(1, totalCount - 2);
+  }
+
+  const visiblePages = [];
+  for (let i = startPage; i <= endPage; i++) {
+    visiblePages.push(i);
+  }
 
   return (
     <div className="space-y-6 p-6">
