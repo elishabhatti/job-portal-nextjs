@@ -1,16 +1,22 @@
 import { db } from "@/config/db";
 import { employers, jobs, users } from "@/drizzle/schema";
-import { and, desc, eq, gte, isNull, like, or, SQL } from "drizzle-orm";
+import { and, desc, eq, gte, isNull, like, or, sql, SQL } from "drizzle-orm";
 
 export interface JobFilterParams {
   search?: string;
   jobType?: string;
   jobLevel?: string;
   workType?: string;
+  page?: number;
+  limit?: number;
 }
 
 export const getAllJobs = async (filters: JobFilterParams) => {
   console.log("filters real:", filters);
+
+  const page = filters.page || 1;
+  const limit = filters.limit || 9;
+  const offset = (page - 1) * limit;
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -76,11 +82,25 @@ export const getAllJobs = async (filters: JobFilterParams) => {
     //   ),
     // )
     .where(and(...conditions))
-    .orderBy(desc(jobs.createdAt));
-  return jobsData;
+    .orderBy(desc(jobs.createdAt))
+    .limit(limit)
+    .offset(offset);
+
+  const countResult = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(jobs)
+    .innerJoin(employers, eq(jobs.employerId, employers.id))
+    .innerJoin(users, eq(employers.id, users.id))
+    .where(and(...conditions));
+
+  const totalCount = Number(countResult[0]?.count || 0);
+
+  return { jobs: jobsData, totalCount };
 };
 
-export type JobCardType = Awaited<ReturnType<typeof getAllJobs>>[number];
+export type JobCardType = Awaited<
+  ReturnType<typeof getAllJobs>
+>["jobs"][number];
 
 export const getJobById = async (jobId: number) => {
   const job = await db

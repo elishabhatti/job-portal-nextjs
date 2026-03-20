@@ -12,6 +12,9 @@ interface PageProps {
 export default async function JobsPage({ searchParams }: PageProps) {
   const resolvedParams = await searchParams;
 
+  const currentPage = Number(resolvedParams.page) || 1;
+  const ITEMS_PER_PAGE = 9;
+
   console.log("resolvedParams: ", resolvedParams);
 
   const filters: JobFilterParams = {
@@ -31,6 +34,8 @@ export default async function JobsPage({ searchParams }: PageProps) {
       typeof resolvedParams.workType === "string"
         ? resolvedParams.workType
         : undefined,
+    page: currentPage,
+    limit: ITEMS_PER_PAGE,
   };
 
   // 1. Fetch data directly on the server
