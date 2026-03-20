@@ -57,6 +57,19 @@ export default async function JobsPage({ searchParams }: PageProps) {
     visiblePages.push(i);
   }
 
+  const createPageUrl = (pageNum: number) => {
+    const params = new URLSearchParams();
+
+    Object.entries(resolvedParams).forEach(([key, value]) => {
+      if (value && key !== "page") {
+        params.set(key, String(value));
+      }
+    });
+
+    params.set("page", pageNum.toString());
+    return `/jobs?${params.toString()}`;
+  };
+
   return (
     <div className="space-y-6 p-6">
       {/* Page Header */}
